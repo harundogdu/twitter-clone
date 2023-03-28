@@ -1,0 +1,113 @@
+import SidebarLogo from "@/components/SidebarLogo";
+import {SidebarItems} from "@/utils/@fake.db";
+import SidebarItem from "@/components/SidebarItem";
+import Button from "@/components/shared/Button";
+import {useCallback} from "react";
+import ColorUtils from "@/base/colors";
+import SpaceUtils from "@/base/spaces";
+import Image from "next/image";
+import {RiMoreFill} from "react-icons/ri";
+import useWindowSize from "@/hooks/useWindowSize";
+
+const Sidebar = () => {
+    const {width} = useWindowSize();
+    const RenderSidebarItems = useCallback(() => {
+        return (
+            <>
+                {
+                    SidebarItems.map((item, index) => (
+                        <SidebarItem
+                            label={item.label}
+                            icon={item.icon}
+                            secondaryIcon={item.secondaryIcon}
+                            href={item.href}
+                            onClick={item.onClick}
+                            key={index}
+                        />
+                    ))
+                }
+            </>
+        );
+    }, []);
+    return (
+        <div className="
+            mt-[0.875rem]
+            px-1
+            h-full
+            col-span-1
+            sm:px-4
+            md:px-6
+            flex
+            items-start
+            justify-center
+        ">
+            <div className="
+            flex
+            flex-col
+            items-center
+            md:items-start
+            h-full
+           "
+            >
+                <div className="
+                flex
+                flex-col
+                h-full
+                justify-between
+             ">
+                    <div className="
+                space-y-2.5
+                lg:w-[230px]
+                self-center
+             ">
+                        <SidebarLogo/>
+                        <RenderSidebarItems/>
+                        <Button label={"Share"} fullWidth size={"lg"} bgColor={ColorUtils.colors.red}
+                                color={ColorUtils.colors.white}
+                                marginVertical={SpaceUtils.spaces.lg}
+                                showShareButton
+                        />
+                    </div>
+                    <div className="
+                    flex
+                    gap-5
+                    items-center
+                    justify-center
+                    rounded-full
+                    cursor-pointer
+                    hover:bg-neutral-800
+                    hover:bg-opacity-70
+                    mb-10
+                    p-2
+                    px-4
+                    transition-colors
+                    ">
+                        <div>
+                            <Image src={"https://avatars.githubusercontent.com/u/43449361?v=4"} alt={"avatar"}
+                                   width={36}
+                                   height={36}
+                            />
+                        </div>
+                        {width! > 1024 && (
+                            <>
+                                <div className="
+                        flex
+                        flex-col
+                        ">
+                                    <div className="text-white font-bold">Harun Doğdu <span>🇹🇷</span></div>
+                                    <div className="text-gray-500">@harunndogdu</div>
+                                </div>
+                                <div>
+                                    <RiMoreFill size={28} color="#fff"/>
+                                </div>
+                            </>
+                        )
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Sidebar;
