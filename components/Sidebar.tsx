@@ -1,16 +1,22 @@
-import SidebarLogo from "@/components/SidebarLogo";
-import {SidebarItems} from "@/utils/@fake.db";
-import SidebarItem from "@/components/SidebarItem";
-import Button from "@/components/shared/Button";
 import {useCallback} from "react";
+import Image from "next/image";
+
+import {RiMoreFill} from "react-icons/ri";
+
 import ColorUtils from "@/base/colors";
 import SpaceUtils from "@/base/spaces";
-import Image from "next/image";
-import {RiMoreFill} from "react-icons/ri";
+
+import useLoginModal from "@/hooks/useLoginModal";
 import useWindowSize from "@/hooks/useWindowSize";
+import {SidebarItems} from "@/utils/@fake.db";
+
+import SidebarLogo from "@/components/SidebarLogo";
+import SidebarItem from "@/components/SidebarItem";
+import Button from "@/components/shared/Button";
 
 const Sidebar = () => {
     const {width} = useWindowSize();
+    const {onOpen} = useLoginModal();
     const RenderSidebarItems = useCallback(() => {
         return (
             <>
@@ -62,10 +68,15 @@ const Sidebar = () => {
              ">
                         <SidebarLogo/>
                         <RenderSidebarItems/>
-                        <Button label={"Share"} fullWidth size={"lg"} bgColor={ColorUtils.colors.red}
-                                color={ColorUtils.colors.white}
-                                marginVertical={SpaceUtils.spaces.lg}
-                                showShareButton
+                        <Button
+                            label={"Share"}
+                            fullWidth
+                            size={"lg"}
+                            bgColor={ColorUtils.colors.purple}
+                            color={ColorUtils.colors.white}
+                            marginVertical={SpaceUtils.spaces.lg}
+                            showShareButton
+                            onClick={onOpen}
                         />
                     </div>
                     <div className="
