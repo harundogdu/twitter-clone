@@ -1,5 +1,6 @@
 import React, {FC} from "react";
 import Sidebar from "@/components/Sidebar";
+import ActionSidebar from "@/components/ActionSidebar";
 
 interface ILayoutProps {
     children: React.ReactNode;
@@ -31,6 +32,7 @@ const Layout: FC<ILayoutProps> = ({children}) => {
                     ">
                         {children}
                     </div>
+                    <ActionSidebar />
                 </div>
             </div>
         </div>
