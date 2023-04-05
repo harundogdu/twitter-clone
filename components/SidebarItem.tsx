@@ -1,6 +1,8 @@
-import { ISidebarType } from "@/types/sidebar.type";
 import { FC, useCallback } from "react";
+import { useRouter } from "next/router";
+
 import useWindowSize from "@/hooks/useWindowSize";
+import { ISidebarType } from "@/types/sidebar.type";
 
 const SidebarItem: FC<ISidebarType> = ({
   href,
@@ -10,6 +12,17 @@ const SidebarItem: FC<ISidebarType> = ({
   secondaryIcon: SecondaryIcon,
 }) => {
   const { width } = useWindowSize();
+  const router = useRouter();
+
+  const handleSidebarItemClick = useCallback(() => {
+    if (onClick) {
+      return onClick();
+    }
+
+    if (href) {
+      router.push(href);
+    }
+  }, [href, onClick, router]);
 
   const RenderIcon = useCallback(() => {
     return width! < 1024 ? (
@@ -24,7 +37,10 @@ const SidebarItem: FC<ISidebarType> = ({
   }, [width, SecondaryIcon, Icon]);
 
   return (
-    <div className="flex items-center flex-row">
+    <div
+      className="flex items-center flex-row"
+      onClick={handleSidebarItemClick}
+    >
       <div className="relative rounded-full h-14 w-14 p-4 flex items-center justify-center cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 transition lg:hidden">
         <RenderIcon />
       </div>
