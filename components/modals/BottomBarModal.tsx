@@ -8,7 +8,7 @@ const BottomBarModal = () => {
       <span className="mr-2">Twitter users will be the first to know..</span>
     </p>
   );
-  return <Bottom title={"Don't miss what's going on"} body={bodycontent} />;
+  return <Bottom title="Don't miss what's going on" body={bodycontent} />;
 };
 
 export default BottomBarModal;
