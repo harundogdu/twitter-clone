@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import useWindowSize from "@/hooks/useWindowSize";
 import { ISidebarType } from "@/types/sidebar.type";
+import useLoginModal from "@/hooks/useLoginModal";
 
 const SidebarItem: FC<ISidebarType> = ({
   href,
@@ -10,19 +11,23 @@ const SidebarItem: FC<ISidebarType> = ({
   label,
   icon: Icon,
   secondaryIcon: SecondaryIcon,
+  public: isPublic,
 }) => {
   const { width } = useWindowSize();
   const router = useRouter();
+  const loginModal = useLoginModal();
 
   const handleSidebarItemClick = useCallback(() => {
     if (onClick) {
       return onClick();
     }
 
-    if (href) {
+    if (isPublic) {
+      return loginModal.onOpen();
+    } else if (href) {
       router.push(href);
     }
-  }, [href, onClick, router]);
+  }, [href, onClick, router, loginModal, isPublic]);
 
   const RenderIcon = useCallback(() => {
     return width! < 1024 ? (
