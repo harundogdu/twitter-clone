@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import ColorUtils from "@/base/colors";
 import useLoginModal from "@/hooks/useLoginModal";
@@ -6,6 +6,8 @@ import useLoginModal from "@/hooks/useLoginModal";
 import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
@@ -18,15 +20,30 @@ const LoginModal = () => {
   const handleSubmit = useCallback(async () => {
     try {
       setLoading(true);
-      // TODO: Login
+
+      await signIn("credentials", {
+        email,
+        password,
+      });
+
+      toast.success("Login successfully!", {
+        position: "bottom-right",
+      });
+
       loginModal.onClose();
-      console.log("Login success");
-    } catch (e) {
-      console.error(e);
+    } catch (error: any) {
+      toast.error("Something went wrong!" + error.message);
     } finally {
       setLoading(false);
     }
-  }, [loginModal]);
+  }, [loginModal, email, password]);
+
+  useEffect(() => {
+    return () => {
+      setEmail("");
+      setPassword("");
+    };
+  }, []);
 
   if (loading) return <div>Loading...</div>; // TODO: Loading component
 
@@ -52,7 +69,7 @@ const LoginModal = () => {
     </div>
   );
   const footerContent = (
-    <p className="text-white space-x-1">
+    <p className="text-white">
       <span className="mr-2">Don&apos;t have an account?</span>
       <button
         className="hover:underline"

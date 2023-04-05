@@ -1,11 +1,16 @@
 import { useCallback, useState } from "react";
 
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
+
 import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/hooks/useLoginModal";
+
+import ColorUtils from "@/base/colors";
 
 import Modal from "@/components/shared/Modal";
-import Input from "../shared/Input";
-import ColorUtils from "@/base/colors";
-import useLoginModal from "@/hooks/useLoginModal";
+import Input from "@/components/shared/Input";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -19,19 +24,50 @@ const RegisterModal = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = useCallback(() => {
+  const clearInputs = () => {
+    setName("");
+    setEmail("");
+    setUserName("");
+    setPassword("");
+    setPasswordConfirmed("");
+  };
+
+  const handleSubmit = useCallback(async () => {
     try {
       setLoading(true);
-      // TODO Register
+
+      if (passwordConfirmed.localeCompare(password) !== 0) {
+        toast.error("Passwords doesn't match!");
+        return false;
+      }
+
+      await axios.post("/api/register", {
+        email,
+        username,
+        name,
+        password,
+      });
+
+      toast.success("Account has been created successfully!", {
+        position: "bottom-right",
+      });
+
+      clearInputs();
+
+      signIn("credentials", {
+        email,
+        password,
+      });
 
       registerModal.onClose();
-      console.log("Register successfully");
     } catch (err: any) {
-      console.log("Err : ", err.message);
+      toast.error(`Something went wrong! ${err.message}`, {
+        duration: 3000,
+      });
     } finally {
       setLoading(false);
     }
-  }, [registerModal]);
+  }, [registerModal, email, username, name, password, passwordConfirmed]);
 
   const handleFooterClick = () => {
     loginModal.onOpen();
@@ -74,7 +110,7 @@ const RegisterModal = () => {
   );
 
   const footerContent = (
-    <p className="text-white space-x-1">
+    <p className="text-white">
       <span className="mr-2">Have you an account?</span>
       <button
         className="hover:underline"
@@ -95,8 +131,8 @@ const RegisterModal = () => {
       isOpen={registerModal.isOpen}
       onClose={registerModal.onClose}
       onSubmit={handleSubmit}
-      actionLabel="Sign up"
-      title="Sign up"
+      actionLabel="Create an account"
+      title="Create an account"
       body={bodyContent}
       footer={footerContent}
     />
