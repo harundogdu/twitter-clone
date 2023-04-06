@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { RiLoader5Line } from "react-icons/ri";
-
 import ColorUtils from "@/base/colors";
 import useLoginModal from "@/hooks/useLoginModal";
 
 import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";
+import Loading from "@/components/shared/Loading";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
@@ -47,34 +46,7 @@ const LoginModal = () => {
     };
   }, []);
 
-  if (loading)
-    return (
-      <div
-        className="
-          flex 
-          items-center 
-          justify-center
-          p-4
-          text-violet-500
-          fixed
-          inset-0
-          z-50
-          outline-none
-          focus:outline-none
-          bg-opacity-70
-          bg-neutral-700
-    "
-      >
-        <RiLoader5Line
-          className="
-          animate-spin
-          text-3xl
-          bg-gray-600
-          rounded-full w-10 h-10
-        "
-        />
-      </div>
-    ); // TODO: Loading component
+  if (loading) return <Loading />; // TODO: Loading component
 
   const handleFooterClick = () => {
     loginModal.onClose();

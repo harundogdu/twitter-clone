@@ -1,7 +1,5 @@
 import { useCallback, useState } from "react";
 
-import { RiLoader5Line } from "react-icons/ri";
-
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
@@ -13,6 +11,7 @@ import ColorUtils from "@/base/colors";
 
 import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";
+import Loading from "@/components/shared/Loading";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -125,33 +124,7 @@ const RegisterModal = () => {
   );
 
   if (loading) {
-    return (
-      <div
-        className="
-          flex 
-          items-center 
-          justify-center
-          p-4
-          text-violet-500
-          fixed
-          inset-0
-          z-50
-          outline-none
-          focus:outline-none
-          bg-opacity-70
-          bg-neutral-700
-    "
-      >
-        <RiLoader5Line
-          className="
-          animate-spin
-          text-3xl
-          bg-gray-600
-          rounded-full w-10 h-10
-        "
-        />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
