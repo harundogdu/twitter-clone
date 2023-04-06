@@ -11,7 +11,7 @@ import Layout from "@/components/Layout";
 
 import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
-import BottomBarModal from "@/components/modals/BottomBarModal";
+import Bottom from "@/components/Bottom";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
@@ -23,12 +23,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <main ref={animationParent}>
         <Toaster toastOptions={{ duration: 2000, position: "bottom-right" }} />
         <RegisterModal />
-        <LoginModal />   
+        <LoginModal />
         <Layout>
           <Component {...pageProps} />
         </Layout>
-        <BottomBarModal/>
-     
+        <Bottom />
       </main>
     </SessionProvider>
   );

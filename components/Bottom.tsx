@@ -8,11 +8,9 @@ import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 
 interface IModalProps {
-  title?: string;
-  body?: React.ReactElement;
   disabled?: boolean;
 }
-const Bottom: FC<IModalProps> = ({ title, body, disabled = false }) => {
+const Bottom: FC<IModalProps> = ({ disabled = false }) => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
 
@@ -23,6 +21,18 @@ const Bottom: FC<IModalProps> = ({ title, body, disabled = false }) => {
   const handleRegisterClick = () => {
     registerModal.onOpen();
   };
+
+  const bodytittle = (
+    <p className="text-white">
+      <span className="mr-2">Dont miss whats going on</span>
+    </p>
+  );
+
+  const bodycontent = (
+    <p className="text-white">
+      <span className="mr-2">Twitter users will be the first to know..</span>
+    </p>
+  );
 
   return (
     <>
@@ -35,8 +45,10 @@ const Bottom: FC<IModalProps> = ({ title, body, disabled = false }) => {
             }}
           >
             <div className=" flex items-center mx-8 p-2 pt-2 grid ">
-              <div className="text-2xl font-semibold text-white">{title}</div>
-              <div className="flex   ">{body}</div>
+              <div className="text-2xl font-semibold text-white">
+                {bodytittle}
+              </div>
+              <div className="flex   ">{bodycontent}</div>
             </div>
 
             <div className="mx-8 flex p-4">
