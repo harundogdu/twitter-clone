@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 
+import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
+
 import ColorUtils from "@/base/colors";
+
 import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
 
 import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";
-import useRegisterModal from "@/hooks/useRegisterModal";
-import { signIn } from "next-auth/react";
-import { toast } from "react-hot-toast";
+import Loading from "@/components/shared/Loading";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
@@ -45,7 +48,7 @@ const LoginModal = () => {
     };
   }, []);
 
-  if (loading) return <div>Loading...</div>; // TODO: Loading component
+  if (loading) return <Loading />; // TODO: Loading component
 
   const handleFooterClick = () => {
     loginModal.onClose();
