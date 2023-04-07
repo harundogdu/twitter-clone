@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 
+import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
+
 import ColorUtils from "@/base/colors";
+
 import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
 
 import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";
 import Loading from "@/components/shared/Loading";
-import useRegisterModal from "@/hooks/useRegisterModal";
-import { signIn } from "next-auth/react";
-import { toast } from "react-hot-toast";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();

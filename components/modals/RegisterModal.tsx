@@ -4,10 +4,10 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 
+import ColorUtils from "@/base/colors";
+
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
-
-import ColorUtils from "@/base/colors";
 
 import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";

@@ -1,5 +1,6 @@
-import ColorUtils from "@/base/colors";
 import { RiLoader5Line } from "react-icons/ri";
+
+import ColorUtils from "@/base/colors";
 
 const Loading = () => {
   return (
@@ -16,16 +17,21 @@ const Loading = () => {
             focus:outline-none
             bg-opacity-70
             bg-neutral-700
+
     "
       style={{
-        backgroundColor: ColorUtils.colors.purple,
+        color: ColorUtils.colors.purple,
       }}
     >
       <RiLoader5Line
         className="
             animate-spin
             text-6xl
+            rounded-full
             "
+        style={{
+          backgroundColor: ColorUtils.colors.darkGray,
+        }}
       />
     </div>
   );
