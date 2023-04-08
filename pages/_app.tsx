@@ -11,6 +11,7 @@ import Layout from "@/components/Layout";
 
 import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
+import Splash from "@/components/Splash";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
@@ -20,6 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Twitter 2.0 - HD</title>
       </Head>
       <main ref={animationParent}>
+        <Splash />
         <Toaster toastOptions={{ duration: 2000, position: "bottom-right" }} />
         <RegisterModal />
         <LoginModal />
