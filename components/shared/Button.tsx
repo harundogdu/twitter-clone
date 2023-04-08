@@ -1,8 +1,8 @@
-import { FC } from "react";
+import React, { FC } from "react";
+
 import { IconType } from "react-icons";
+
 import useWindowSize from "@/hooks/useWindowSize";
-import { instanceOf } from "prop-types";
-import ColorUtils from "@/base/colors";
 
 interface IButtonProps {
   label: string;
@@ -20,6 +20,8 @@ interface IButtonProps {
   large?: boolean;
   border?: string;
   borderColor?: string;
+  paddingHorizontal?: string | number;
+  style?: React.CSSProperties | undefined;
 }
 
 const Button: FC<IButtonProps> = ({
@@ -38,6 +40,7 @@ const Button: FC<IButtonProps> = ({
   large = false,
   border,
   borderColor,
+  style,
 }) => {
   const { width } = useWindowSize();
   return (
@@ -49,7 +52,7 @@ const Button: FC<IButtonProps> = ({
                 rounded-full
                 focus:outline-none
                 focus:ring-2
-                focus:ring-opacity-50
+                focus:ring-purple-600
                 px-2
                 py-2
                 text-${size}
@@ -61,14 +64,16 @@ const Button: FC<IButtonProps> = ({
                 ${secondary && "bg-white !important"}
                 ${secondary && "text-black !important"}
             `}
-      style={{
-        backgroundColor: `${!secondary && bgColor}`,
-        color: `${!secondary && color}`,
-        marginTop: marginVertical,
-        marginBottom: marginVertical,
-        marginLeft: marginHorizontal,
-        marginRight: marginHorizontal,
-      }}
+      style={
+        style || {
+          backgroundColor: `${!secondary && bgColor}`,
+          color: `${!secondary && color}`,
+          marginTop: marginVertical,
+          marginBottom: marginVertical,
+          marginLeft: marginHorizontal,
+          marginRight: marginHorizontal,
+        }
+      }
     >
       {Icon && <Icon className="mr-2" />}
       {width! <= 1024 && showShareButton && (
