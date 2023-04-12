@@ -11,10 +11,13 @@ import Layout from "@/components/Layout";
 
 import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
-import Bottom from "@/components/Bottom";
+import Bottom from "@/components/bottom/Bottom";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
+  const { data: isLoggedIn } = useCurrentUser();
+
   return (
     <SessionProvider session={pageProps.session}>
       <Head>
@@ -27,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
-        <Bottom />
+        {!isLoggedIn && <Bottom />}
       </main>
     </SessionProvider>
   );
