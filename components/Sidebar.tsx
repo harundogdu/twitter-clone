@@ -70,7 +70,7 @@ const Sidebar = () => {
             <div className="flex gap-5 items-center justify-center rounded-full cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 mb-10 transition-colors p-2">
               <div>
                 <Image
-                  src={data?.currentUser?.profileImage || "/default-avatar.jpg"}
+                  src={data?.currentUser?.profileImage || "/default_doge_coin.png"}
                   alt={"avatar"}
                   width={32}
                   height={32}

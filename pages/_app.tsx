@@ -11,6 +11,7 @@ import Layout from "@/components/Layout";
 
 import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
+import Bottom from "@/components/Bottom";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
+        <Bottom />
       </main>
     </SessionProvider>
   );
