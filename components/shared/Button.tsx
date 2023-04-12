@@ -20,7 +20,6 @@ interface IButtonProps {
   large?: boolean;
   border?: string;
   borderColor?: string;
-  paddingHorizontal?: string | number;
   style?: React.CSSProperties | undefined;
 }
 
@@ -47,23 +46,6 @@ const Button: FC<IButtonProps> = ({
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`
-                ${fullWidth ? "w-full" : "w-fit"}
-                rounded-full
-                focus:outline-none
-                focus:ring-2
-                focus:ring-purple-600
-                px-2
-                py-2
-                text-${size}
-                transition-colors
-                cursor-pointer
-                border-${border}
-                border-${borderColor}
-                hover:bg-opacity-80
-                ${secondary && "bg-white !important"}
-                ${secondary && "text-black !important"}
-            `}
       style={
         style || {
           backgroundColor: `${!secondary && bgColor}`,
@@ -74,6 +56,24 @@ const Button: FC<IButtonProps> = ({
           marginRight: marginHorizontal,
         }
       }
+      className={`
+                ${fullWidth ? "w-full" : "w-fit"}
+                rounded-full
+                focus:outline-none
+                focus:ring-2
+                px-2
+                py-2
+                text-${size}
+                transition-colors
+                cursor-pointer
+                border-${border}
+                border-${borderColor}
+                bg-${bgColor}
+                hover:bg-${bgColor}
+                hover:bg-opacity-80
+                ${secondary && "bg-white !important"}
+                ${secondary && "text-black !important"}
+            `}
     >
       {Icon && <Icon className="mr-2" />}
       {width! <= 1024 && showShareButton && (

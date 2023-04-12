@@ -115,7 +115,7 @@ const RegisterModal = () => {
       <span className="mr-2">Have you an account?</span>
       <button
         className="hover:underline"
-        style={{ color: ColorUtils.colors.purple }}
+        style={{ color: ColorUtils.colors.main }}
         onClick={handleFooterClick}
       >
         Login

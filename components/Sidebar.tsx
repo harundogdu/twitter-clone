@@ -59,39 +59,39 @@ const Sidebar = () => {
               label="Share"
               fullWidth
               size="lg"
-              bgColor={ColorUtils.colors.purple}
+              bgColor={ColorUtils.colors.main}
               color={ColorUtils.colors.white}
               marginVertical={SpaceUtils.spaces.lg}
               showShareButton
               onClick={handleShareClick}
             />
           </div>
-          {data?.currenUser && (
+          {data && (
             <div className="flex gap-5 items-center justify-center rounded-full cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 mb-10 transition-colors p-2">
               <div>
                 <Image
-                  src={data?.currentUser?.profileImage || "/default_doge_coin.png"}
+                  src={
+                    data?.currentUser?.profileImage || "/default_doge_coin.png"
+                  }
                   alt={"avatar"}
                   width={32}
                   height={32}
                   className="rounded-full h-8 w-8 object-contain object-center bg-white"
                 />
               </div>
-              {width! > 1024 && data?.currentUser?.email && (
-                <>
-                  <div className="flex flex-col items-start justify-center">
-                    <div className="text-white font-bold text-sm">
-                      {data?.currentUser?.name}
-                    </div>
-                    <div className="text-gray-500 text-sm">
-                      @{data?.currentUser?.username}
-                    </div>
+              <>
+                <div className="flex flex-col items-start justify-center">
+                  <div className="text-white font-bold text-sm text-ellipsis whitespace-nowrap max-w-full w-full overflow-hidden">
+                    {data?.currentUser?.name}
                   </div>
-                  <div>
-                    <RiMoreFill size={24} color="#fff" />
+                  <div className="text-gray-500 text-sm">
+                    @{data?.currentUser?.username}
                   </div>
-                </>
-              )}
+                </div>
+                <div>
+                  <RiMoreFill size={24} color="#fff" />
+                </div>
+              </>
             </div>
           )}
         </div>

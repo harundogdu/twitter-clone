@@ -76,7 +76,7 @@ const LoginModal = () => {
       <span className="mr-2">Don&apos;t have an account?</span>
       <button
         className="hover:underline"
-        style={{ color: ColorUtils.colors.purple }}
+        style={{ color: ColorUtils.colors.main }}
         onClick={handleFooterClick}
       >
         Sign up

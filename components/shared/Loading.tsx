@@ -20,7 +20,7 @@ const Loading = () => {
 
     "
       style={{
-        color: ColorUtils.colors.purple,
+        color: ColorUtils.colors.main,
       }}
     >
       <RiLoader5Line
