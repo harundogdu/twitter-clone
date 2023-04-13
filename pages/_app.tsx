@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Twitter 2.0 - HD</title>
       </Head>
       <main ref={animationParent}>
-        <Toaster toastOptions={{ duration: 2000, position: "bottom-right" }} />
+        <Toaster toastOptions={{ duration: 2000, position: "top-right" }} />
         <RegisterModal />
         <LoginModal />
         <Layout>
