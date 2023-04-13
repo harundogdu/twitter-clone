@@ -2,11 +2,13 @@ import useUsers from "@/hooks/useUsers";
 import { IUser } from "@/types/user.type";
 import Avatar from "./Avatar";
 import Button from "./shared/Button";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 const ActionSidebar = () => {
   const { data: allUsers = [] } = useUsers();
+  const { data: currentUser } = useCurrentUser();
 
-  if (allUsers.length <= 0) {
+  if (allUsers.length <= 0 || !currentUser) {
     return null;
   }
 
