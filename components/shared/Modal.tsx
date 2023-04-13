@@ -43,9 +43,18 @@ const Modal: FC<IModalProps> = ({
     return null;
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.code === "Enter") {
+      onSubmit();
+    }
+  };
+
   return (
     <>
-      <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none transition-all duration-300 bg-neutral-700 bg-opacity-70">
+      <div
+        className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none transition-all duration-300 bg-neutral-700 bg-opacity-70"
+        onKeyDown={handleKeyDown}
+      >
         <div className="relative my-6 h-full w-full lg:w-[500px] lg:h-auto">
           {/*content*/}
           <div className="rounded-lg border-0 bg-black flex flex-col h-full shadow-lg outline-none focus:outline-none relative w-full">
@@ -70,6 +79,7 @@ const Modal: FC<IModalProps> = ({
                 fullWidth
                 large
                 onClick={handleSubmit}
+                color="black"
               />
               {footer}
             </div>
