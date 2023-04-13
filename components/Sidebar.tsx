@@ -17,7 +17,6 @@ import Button from "@/components/shared/Button";
 import { SidebarItems } from "@/utils/@fake.db";
 
 const Sidebar = () => {
-  const { width } = useWindowSize();
   const { onOpen } = useLoginModal();
   const { data } = useCurrentUser();
 

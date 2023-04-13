@@ -29,10 +29,7 @@ const LoginModal = () => {
         password,
       });
 
-      toast.success("Login successfully!", {
-        position: "bottom-right",
-      });
-
+      toast.success("Login successfully!");
       loginModal.onClose();
     } catch (error: any) {
       toast.error("Something went wrong!" + error.message);
@@ -48,7 +45,7 @@ const LoginModal = () => {
     };
   }, []);
 
-  if (loading) return <Loading />; // TODO: Loading component
+  if (loading) return <Loading />;
 
   const handleFooterClick = () => {
     loginModal.onClose();
