@@ -1,6 +1,10 @@
 ## Twitter Clone
 
-This is a Twitter Clone project built with [Next.js](https://nextjs.org/) and [Prisma](https://www.prisma.io/).
+This is a [Twitter](https://twitter.com) Clone project built with [Next.js](https://nextjs.org/), [Prisma](https://www.prisma.io/), [MongoDb](https://www.mongodb.com/), [Tailwind](https://tailwindcss.com/), [Typescript](https://www.typescriptlang.org/) and [NextAuth](https://next-auth.js.org/) libraries. It is a full-stack project that uses [Next.js](https://nextjs.org/) for the frontend and [Prisma](https://www.prisma.io/) for the backend. It is a Twitter clone that allows users to create an account, login, logout, follow other users, like and retweet tweets, and more.
+
+## Demo
+
+You can see the demo of the project [here](https://twitter-clone-hd.vercel.app/).
 
 ## Getting Started
 
@@ -28,12 +32,9 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-<h3>Available Scripts</h3>
+## Available Scripts
+
 <ul>
 <li><code>npm run dev</code> - Runs the app in the development mode.</li>
 <li><code>npm run start</code> - Runs the app in the production mode.</li>
@@ -56,17 +57,27 @@ Prisma Client is an auto-generated and type-safe query builder for Node.js & Typ
 ## Built With
 
 <ul>
-<li><a href="https://www.typescriptlang.org/">Typescript</a></li>
-<li><a href="https://nextjs.org/">Next.js</a></li>
-<li><a href="https://www.prisma.io/">Prisma</a></li>
-<li><a href="https://nodejs.org/api/modules.html">Node.js</a></li>
-<li><a href="https://www.npmjs.com/package/swr">SWR</a></li>
-<li><a href="https://www.npmjs.com/package/react-hot-toast">Hot-Toast</a></li>
-<li><a href="https://www.npmjs.com/package/next-auth">Next-Auth</a></li>
-<li><a href="https://www.npmjs.com/package/axios">Axios</a></li>
-<li><a href="https://www.npmjs.com/package/react-icons">React-Icon</a></li>
-<li><a href="https://www.npmjs.com/package/zustand">Zustand</a></li>
-<li><a href="https://www.npmjs.com/package/bcrypt">Bcrypt</a></li>
+<li>
+<a href="https://www.typescriptlang.org/">Typescript</a><span> (for type safety)<span></li>
+<li><a href="https://nextjs.org/">Next.js</a><span></span> (for server-side rendering)</span></li>
+<li><a href="https://www.prisma.io/">Prisma</a><span> (for database access)</span>
+</li>
+<li><a href="https://nodejs.org/api/modules.html">Node.js</a><span> (for running scripts)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/swr">SWR</a><span> (for data fetching)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/react-hot-toast">Hot-Toast</a><span> (for toast notifications)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/next-auth">Next-Auth</a><span> (for authentication)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/axios">Axios</a><span> (for making HTTP requests)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/react-icons">React-Icons</a><span> (for icons)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/zustand">Zustand</a><span> (for state management)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/bcrypt">Bcrypt</a><span> (for hashing passwords)</span>
+</li>
 </ul>
 
 ## Authors
