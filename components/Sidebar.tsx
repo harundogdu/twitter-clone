@@ -58,7 +58,7 @@ const Sidebar = () => {
             <Button
               label="Share"
               fullWidth
-              size="lg"
+              size="md"
               bgColor={ColorUtils.colors.main}
               color={ColorUtils.colors.white}
               marginVertical={SpaceUtils.spaces.lg}

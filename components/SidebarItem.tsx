@@ -53,7 +53,7 @@ const SidebarItem: FC<ISidebarType> = ({
       </div>
       <div className="relative hidden lg:flex items-center rounded-full cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 gap-4 p-4">
         <Icon size={28} color="#fff" />
-        <span className="text-white text-xl hidden lg:block">{label}</span>
+        <span className="text-white text-lg hidden lg:block">{label}</span>
       </div>
     </div>
   );
