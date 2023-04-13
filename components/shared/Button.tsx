@@ -21,6 +21,7 @@ interface IButtonProps {
   border?: string;
   borderColor?: string;
   style?: React.CSSProperties | undefined;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 const Button: FC<IButtonProps> = ({
@@ -40,12 +41,14 @@ const Button: FC<IButtonProps> = ({
   border,
   borderColor,
   style,
+  type,
 }) => {
   const { width } = useWindowSize();
   return (
     <button
       disabled={disabled}
       onClick={onClick}
+      type={type}
       style={
         style || {
           backgroundColor: `${!secondary && bgColor}`,
