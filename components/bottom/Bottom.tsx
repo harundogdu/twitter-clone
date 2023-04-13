@@ -56,6 +56,7 @@ const Bottom = () => {
                 style={{
                   padding: "0.5rem 1rem",
                   background: ColorUtils.colors.white,
+                  color: ColorUtils.colors.black,
                 }}
               />
             </div>
