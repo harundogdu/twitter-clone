@@ -71,6 +71,7 @@ const Button: FC<IButtonProps> = ({
                 bg-${bgColor}
                 hover:bg-${bgColor}
                 hover:bg-opacity-80
+                text-${color}
                 ${secondary && "bg-white !important"}
                 ${secondary && "text-black !important"}
             `}
