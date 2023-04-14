@@ -20,7 +20,9 @@ const Input: FC<InputProps> = ({
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(false);
 
   const onPasswordChangeVisibility = () => {
-    setIsPasswordHidden((current) => !current);
+    setTimeout(() => {
+      setIsPasswordHidden((current) => !current);
+    }, 200);
   };
 
   const renderType =
@@ -41,7 +43,11 @@ const Input: FC<InputProps> = ({
           onClick={onPasswordChangeVisibility}
           className="text-primary-main absolute top-1/2 right-4 -translate-y-1/2 select-none cursor-pointer "
         >
-          {isPasswordHidden ? <RiEyeOffLine /> : <RiEyeLine />}
+          {isPasswordHidden ? (
+            <RiEyeOffLine className="duration-200 hover:scale-110  " />
+          ) : (
+            <RiEyeLine className="  duration-200 hover:scale-110 " />
+          )}
         </span>
       ) : null}
     </div>
