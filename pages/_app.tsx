@@ -13,6 +13,7 @@ import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
 import Bottom from "@/components/bottom/Bottom";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import EditModal from "@/components/modals/EditModal";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
@@ -25,8 +26,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <main ref={animationParent}>
         <Toaster toastOptions={{ duration: 2000, position: "top-right" }} />
-        <RegisterModal />
+        <EditModal />
         <LoginModal />
+        <RegisterModal />
         <Layout>
           <Component {...pageProps} />
         </Layout>
