@@ -17,19 +17,19 @@ const SidebarItem: FC<ISidebarType> = ({
   const { width } = useWindowSize();
   const router = useRouter();
   const loginModal = useLoginModal();
-  const { data } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
 
   const handleSidebarItemClick = useCallback(() => {
     if (onClick) {
       return onClick();
     }
 
-    if (isPublic && !data?.currentUser?.email) {
+    if (isPublic && !currentUser?.email) {
       return loginModal.onOpen();
     } else if (href) {
       router.push(href);
     }
-  }, [href, onClick, router, loginModal, isPublic, data]);
+  }, [href, onClick, router, loginModal, isPublic, currentUser?.email]);
 
   const RenderIcon = useCallback(() => {
     return width! < 1024 ? (
