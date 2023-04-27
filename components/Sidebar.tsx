@@ -7,7 +7,6 @@ import ColorUtils from "@/base/colors";
 import SpaceUtils from "@/base/spaces";
 
 import useLoginModal from "@/hooks/useLoginModal";
-import useWindowSize from "@/hooks/useWindowSize";
 import useCurrentUser from "@/hooks/useCurrentUser";
 
 import SidebarLogo from "@/components/SidebarLogo";
@@ -15,21 +14,23 @@ import SidebarItem from "@/components/SidebarItem";
 import Button from "@/components/shared/Button";
 
 import { SidebarItems } from "@/utils/@fake.db";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
   const { onOpen } = useLoginModal();
-  const { data } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
+  const router = useRouter();
 
   const handleShareClick = useCallback(() => {
-    if (!data?.currentUser?.email) {
+    if (!currentUser?.email) {
       return onOpen();
     }
 
     // TODO:: Share Popup
-  }, [data, onOpen]);
+  }, [currentUser?.email, onOpen]);
 
   const RenderSidebarItems = useCallback(() => {
-    const sideBarItems = data?.currentUser?.email
+    const sideBarItems = currentUser?.email
       ? [...SidebarItems]
       : [...SidebarItems].filter((item) => item.public);
     return (
@@ -46,7 +47,7 @@ const Sidebar = () => {
         ))}
       </div>
     );
-  }, [data]);
+  }, [currentUser?.email]);
   return (
     <div className="mt-[0.875rem] px-1 h-full col-span-1 sm:px-4 md:px-6 flex items-start justify-center">
       <div className="flex flex-col items-center md:items-start h-full">
@@ -65,13 +66,14 @@ const Sidebar = () => {
               onClick={handleShareClick}
             />
           </div>
-          {data && (
-            <div className="flex gap-5 items-center justify-center rounded-full cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 mb-10 transition-colors p-2">
+          {currentUser && (
+            <div
+              className="flex gap-5 items-center justify-center rounded-full cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 mb-10 transition-colors p-2"
+              onClick={() => router.push("/users/" + currentUser?.id)}
+            >
               <div>
                 <Image
-                  src={
-                    data?.currentUser?.profileImage || "/default_doge_coin.png"
-                  }
+                  src={currentUser?.profileImage || "/default_doge_coin.png"}
                   alt={"avatar"}
                   width={32}
                   height={32}
@@ -81,10 +83,10 @@ const Sidebar = () => {
               <>
                 <div className="flex flex-col items-start justify-center">
                   <div className="text-white font-bold text-sm text-ellipsis whitespace-nowrap max-w-full w-full overflow-hidden">
-                    {data?.currentUser?.name}
+                    {currentUser?.name}
                   </div>
                   <div className="text-gray-500 text-sm">
-                    @{data?.currentUser?.username}
+                    @{currentUser?.username}
                   </div>
                 </div>
                 <div>
