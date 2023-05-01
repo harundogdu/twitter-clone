@@ -25,6 +25,10 @@ git clone https://github.com/yourusername/twitter-clone.git
 npm install
 ```
 
+```bash
+npx prisma generate
+```
+
 Run the development server
 
 ```bash
