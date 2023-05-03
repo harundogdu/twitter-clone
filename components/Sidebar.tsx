@@ -15,6 +15,7 @@ import Button from "@/components/shared/Button";
 
 import { SidebarItems } from "@/utils/@fake.db";
 import { useRouter } from "next/router";
+import Avatar from "./Avatar";
 
 const Sidebar = () => {
   const { onOpen } = useLoginModal();
@@ -72,13 +73,7 @@ const Sidebar = () => {
               onClick={() => router.push("/users/" + currentUser?.id)}
             >
               <div>
-                <Image
-                  src={currentUser?.profileImage || "/default_doge_coin.png"}
-                  alt={"avatar"}
-                  width={32}
-                  height={32}
-                  className="rounded-full h-8 w-8 object-contain object-center bg-white"
-                />
+                <Avatar userId={currentUser?.id} size="small" />
               </div>
               <>
                 <div className="flex flex-col items-start justify-center">
