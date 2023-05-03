@@ -22,7 +22,7 @@ const UserHero: FC<IUserHeroProps> = ({ userId }) => {
           />
         )}
         <div className="absolute -bottom-10 left-6">
-          <Avatar userId={fetchedUser?.id} isLarge hasBorder />
+          <Avatar userId={fetchedUser?.id} size="large" hasBorder />
         </div>
       </div>
     </div>
