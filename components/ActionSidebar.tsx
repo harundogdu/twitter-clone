@@ -25,7 +25,7 @@ const ActionSidebar = () => {
                 key={user.id}
                 className="flex items-center gap-4 justify-between py-2 px-4 hover:bg-neutral-700 hover:bg-opacity-70 cursor-pointer duration-200"
               >
-                <Avatar userId={user.id} />
+                <Avatar userId={user.id} size="small" />
                 <div className="flex flex-col flex-1">
                   <h3
                     className="text-white font-bold text-sm text-ellipsis w-fit max-w-[8rem] whitespace-nowrap overflow-hidden hover:underline text-left"
