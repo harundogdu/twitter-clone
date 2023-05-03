@@ -8,6 +8,7 @@ import Head from "next/head";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from "@vercel/analytics/react";
 
 import Layout from "@/components/Layout";
 import Splash from "@/components/Splash";
@@ -38,30 +39,33 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [name]);
 
   return (
-    <SessionProvider session={pageProps.session}>
-      <Head>
-        <link
-          rel="shortcut icon"
-          href="/twitter-favicon.ico"
-          type="image/x-icon"
-        />
-        <title>{pageTitle ? `${pageTitle} / Twitter ` : "Twitter"}</title>
-        <meta
-          name="description"
-          content="This is a Twitter Clone project built with Next.js, Prisma, MongoDb, Tailwind, Typescript and NextAuth libraries. It is a full-stack project that uses Next.js for the frontend and Prisma for the backend. It is a Twitter clone that allows users to create an account, login, logout, follow other users, like and retweet tweets and more."
-        />
-      </Head>
-      <main ref={animationParent}>
-        <Toaster toastOptions={{ duration: 2000, position: "top-right" }} />
-        <Splash></Splash>
-        <EditModal />
-        <LoginModal />
-        <RegisterModal />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-        {!isLoggedIn && <Bottom />}
-      </main>
-    </SessionProvider>
+    <>
+      <SessionProvider session={pageProps.session}>
+        <Head>
+          <link
+            rel="shortcut icon"
+            href="/twitter-favicon.ico"
+            type="image/x-icon"
+          />
+          <title>{pageTitle ? `${pageTitle} / Twitter ` : "Twitter"}</title>
+          <meta
+            name="description"
+            content="This is a Twitter Clone project built with Next.js, Prisma, MongoDb, Tailwind, Typescript and NextAuth libraries. It is a full-stack project that uses Next.js for the frontend and Prisma for the backend. It is a Twitter clone that allows users to create an account, login, logout, follow other users, like and retweet tweets and more."
+          />
+        </Head>
+        <main ref={animationParent}>
+          <Toaster toastOptions={{ duration: 2000, position: "top-right" }} />
+          <Splash></Splash>
+          <EditModal />
+          <LoginModal />
+          <RegisterModal />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          {!isLoggedIn && <Bottom />}
+        </main>
+      </SessionProvider>
+      <Analytics />
+    </>
   );
 }
