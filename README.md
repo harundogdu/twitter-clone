@@ -25,11 +25,13 @@ git clone https://github.com/yourusername/twitter-clone.git
 npm install
 ```
 
+<p>Generate Prisma Client with the following command</p>
+
 ```bash
 npx prisma generate
 ```
 
-Run the development server
+<p>Run the development server</p>
 
 ```bash
 npm run dev
@@ -87,8 +89,8 @@ Prisma Client is an auto-generated and type-safe query builder for Node.js & Typ
 ## Authors
 
 <ul>
-<li><a href="https://github.com/harundogdu">Harun Doğdu</a></li>
 <li><a href="https://github.com/atahantutar">Atahan Tutar</a></li>
+<li><a href="https://github.com/harundogdu">Harun Doğdu</a></li>
 <li><a href="https://github.com/yusufalperendumlu">Yusuf Alperen Dumlu</a></li>
 </ul>
 
