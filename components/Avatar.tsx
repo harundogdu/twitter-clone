@@ -7,13 +7,13 @@ import useUser from "@/hooks/useUser";
 
 interface AvatarProps {
   userId: string;
-  isLarge?: boolean;
+  size?: "small" | "medium" | "large";
   hasBorder?: boolean;
 }
 
 const Avatar: FC<AvatarProps> = ({
   userId,
-  isLarge = false,
+  size = "medium",
   hasBorder = false,
 }) => {
   const router = useRouter();
@@ -34,8 +34,8 @@ const Avatar: FC<AvatarProps> = ({
       <Image
         alt={`${fetchedUser?.name} profile image`}
         src={fetchedUser?.profileImage || "/default_doge_coin.png"}
-        width={isLarge ? 128 : 44}
-        height={isLarge ? 128 : 44}
+        width={size === "large" ? 128 : size === "medium" ? 64 : 42}
+        height={size === "large" ? 128 : size === "medium" ? 64 : 42}
         className={`
         bg-white
         rounded-full
