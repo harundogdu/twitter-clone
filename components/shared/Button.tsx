@@ -77,6 +77,7 @@ const Button: FC<IButtonProps> = ({
                 text-${color}
                 ${secondary && "bg-white !important"}
                 ${secondary && "text-black !important"}
+                ${disabled && "disabled:cursor-not-allowed opacity-60"}
             `}
     >
       {Icon && <Icon className="mr-2" />}
