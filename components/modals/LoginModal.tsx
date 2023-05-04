@@ -20,6 +20,11 @@ const LoginModal = () => {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
+  const validateEmail = (email: string): boolean => {
+    const emailRegex: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = useCallback(async () => {
     try {
       setLoading(true);
@@ -55,7 +60,7 @@ const LoginModal = () => {
   const bodyContent = (
     <div className="flex flex-col gap-3">
       <Input
-        type={"text"}
+        type={"email"}
         placeholder={"Email"}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -90,6 +95,7 @@ const LoginModal = () => {
       body={bodyContent}
       footer={footerContent}
       actionLabel={"Login"}
+      disabled={!validateEmail(email) || !password}
     />
   );
 };

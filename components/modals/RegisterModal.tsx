@@ -25,12 +25,28 @@ const RegisterModal = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
+  const validateEmail = (email: string): boolean => {
+    const emailRegex: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
+  };
+
   const clearInputs = () => {
     setName("");
     setEmail("");
     setUserName("");
     setPassword("");
     setPasswordConfirmed("");
+  };
+
+  const inputControl = () => {
+    return (
+      !name ||
+      !username ||
+      !email ||
+      !password ||
+      !passwordConfirmed ||
+      !validateEmail(email)
+    );
   };
 
   const handleSubmit = useCallback(async () => {
@@ -136,6 +152,7 @@ const RegisterModal = () => {
       title="Create an account"
       body={bodyContent}
       footer={footerContent}
+      disabled={inputControl()}
     />
   );
 };
