@@ -12,6 +12,8 @@ import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";
 import Loading from "@/components/shared/Loading";
 
+import { validateEmail } from "@/utils/helpers";
+
 const LoginModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
@@ -19,11 +21,6 @@ const LoginModal = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
-  const validateEmail = (email: string): boolean => {
-    const emailRegex: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    return emailRegex.test(email);
-  };
 
   const handleSubmit = useCallback(async () => {
     try {

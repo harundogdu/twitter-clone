@@ -1,8 +1,8 @@
-import Email from "next-auth/providers/email";
 import React, { FC, HTMLInputTypeAttribute, useState } from "react";
 
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
+import { validateEmail } from "@/utils/helpers";
 interface InputProps {
   type: HTMLInputTypeAttribute;
   placeholder?: string;
@@ -24,11 +24,6 @@ const Input: FC<InputProps> = ({
     setTimeout(() => {
       setIsPasswordHidden((current) => !current);
     }, 200);
-  };
-
-  const validateEmail = (email: string): boolean => {
-    const emailRegex: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    return emailRegex.test(email);
   };
 
   const inputControl = (type: string, value: string): string => {
