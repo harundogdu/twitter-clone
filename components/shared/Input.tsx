@@ -2,6 +2,7 @@ import React, { FC, HTMLInputTypeAttribute, useState } from "react";
 
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
+import { validateEmail } from "@/utils/helpers";
 interface InputProps {
   type: HTMLInputTypeAttribute;
   placeholder?: string;
@@ -25,6 +26,18 @@ const Input: FC<InputProps> = ({
     }, 200);
   };
 
+  const inputControl = (type: string, value: string): string => {
+    let borderColor: string = "focus:ring-primary-main ";
+
+    if (type === "email" && value !== "") {
+      if (!validateEmail(value)) {
+        borderColor = "focus:ring-red-600 border-red-600";
+      }
+    }
+
+    return borderColor;
+  };
+
   const renderType =
     type === "password" ? (isPasswordHidden ? "text" : "password") : type;
 
@@ -32,12 +45,18 @@ const Input: FC<InputProps> = ({
     <div className="relative">
       <input
         type={renderType}
-        className={`border border-gray-800 rounded-sm p-4 w-full focus:outline-none focus:ring-1 focus:ring-primary-main focus:border-transparent bg-transparent text-white`}
         placeholder={placeholder}
         disabled={disabled}
         value={value}
         onChange={onChange}
+        className={`border border-gray-800 rounded-sm p-4 w-full focus:outline-none focus:ring-1 ${inputControl(
+          type,
+          value
+        )} focus:border-transparent bg-transparent   text-white`}
       />
+      {!validateEmail(value) && type === "email" && value !== "" ? (
+        <div className="text-red-600">Please enter a valid {type}.</div>
+      ) : null}
       {type === "password" ? (
         <span
           onClick={onPasswordChangeVisibility}

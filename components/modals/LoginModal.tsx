@@ -12,6 +12,8 @@ import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";
 import Loading from "@/components/shared/Loading";
 
+import { validateEmail } from "@/utils/helpers";
+
 const LoginModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
@@ -55,7 +57,7 @@ const LoginModal = () => {
   const bodyContent = (
     <div className="flex flex-col gap-3">
       <Input
-        type={"text"}
+        type={"email"}
         placeholder={"Email"}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -90,6 +92,7 @@ const LoginModal = () => {
       body={bodyContent}
       footer={footerContent}
       actionLabel={"Login"}
+      disabled={!validateEmail(email) || !password}
     />
   );
 };

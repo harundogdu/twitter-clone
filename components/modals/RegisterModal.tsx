@@ -13,6 +13,8 @@ import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";
 import Loading from "@/components/shared/Loading";
 
+import { validateEmail } from "@/utils/helpers";
+
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -31,6 +33,17 @@ const RegisterModal = () => {
     setUserName("");
     setPassword("");
     setPasswordConfirmed("");
+  };
+
+  const inputControl = () => {
+    return (
+      !name ||
+      !username ||
+      !email ||
+      !password ||
+      !passwordConfirmed ||
+      !validateEmail(email)
+    );
   };
 
   const handleSubmit = useCallback(async () => {
@@ -136,6 +149,7 @@ const RegisterModal = () => {
       title="Create an account"
       body={bodyContent}
       footer={footerContent}
+      disabled={inputControl()}
     />
   );
 };
