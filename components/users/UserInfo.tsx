@@ -17,6 +17,24 @@ const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
   const { data: fetchedUser } = useUser(userId);
   const { data: currentUser } = useCurrentUser();
 
+  const controlLink = (text: string): string => {
+    const userRegex = /@(\w+)/g;
+    const urlRegex = /(?<!href=["']|["']>)\b\S+\.com\/\S+\b(?![^<]*?<\/a>)/g;
+    var newText = text;
+
+    if (userRegex.test(text)) {
+      newText = newText.replace(userRegex, '<a href="$1">@$1</a>');
+    }
+
+    if (urlRegex.test(text)) {
+      newText = newText.replace(urlRegex, '<a href="https://$&">$&</a>');
+    }
+
+    return newText;
+  };
+
+  const bioLink = fetchedUser?.bio ? controlLink(fetchedUser.bio) : "";
+
   const editModal = useEditModal();
 
   const createdAt = useMemo(() => {
@@ -60,7 +78,10 @@ const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
         <div className="text-base text-neutral-400">
           @{fetchedUser?.username}
         </div>
-        <p className="text-white mt-4">{fetchedUser?.bio}</p>
+        <p
+          className="text-white mt-4"
+          dangerouslySetInnerHTML={{ __html: bioLink }}
+        ></p>
 
         <div className="text-neutral-500 mt-2 flex items-center gap-2">
           <RiCalendar2Line size={18} />
