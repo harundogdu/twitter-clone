@@ -23,11 +23,17 @@ const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
     var newText = text;
 
     if (userRegex.test(text)) {
-      newText = newText.replace(userRegex, '<a href="$1">@$1</a>');
+      newText = newText.replace(
+        userRegex,
+        ' <a  href="$1" class="text-primary-main">@$1</a>'
+      );
     }
 
     if (urlRegex.test(text)) {
-      newText = newText.replace(urlRegex, '<a href="https://$&">$&</a>');
+      newText = newText.replace(
+        urlRegex,
+        '<a href="https://$&" class="text-primary-main">$&</a>'
+      );
     }
 
     return newText;
