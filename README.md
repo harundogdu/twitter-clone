@@ -84,6 +84,14 @@ Prisma Client is an auto-generated and type-safe query builder for Node.js & Typ
 </li>
 <li><a href="https://www.npmjs.com/package/bcrypt">Bcrypt</a><span> (for hashing passwords)</span>
 </li>
+<li><a href="https://www.npmjs.com/package/@next-auth/prisma-adapter">Prisma-Adapter</a><span> (for next-auth configuration)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/date-fns">Date-fns</a><span> (for manipulating dates)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/dropzone">Dropzone</a><span> (for turns HTML element)</span>
+</li>
+<li><a href="https://www.npmjs.com/package/react-spinners">React-Spinners</a><span> (for a collection of loading)</span>
+</li>
 </ul>
 
 ## Authors
