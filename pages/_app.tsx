@@ -29,14 +29,21 @@ export default function App({ Component, pageProps }: AppProps) {
   const name = user?.name;
 
   useEffect(() => {
-    const firstPath = window.location.pathname.substring(1).split("/")[0];
+    const locationPath = window.location.pathname.substring(1).split("/")[0];
 
-    setPageTitle(firstPath || "Home");
+    let title = firstPath || "Home";
 
     if (firstPath === "users") {
-      setPageTitle(name);
+    let title = locationPath || "Home";
+
+    if (locationPath === "users") {
+      // TODO:: pulled from backend
+      title = "";
     }
-  }, [name]);
+
+    setPageTitle(title);
+  }, []);
+  });
 
   return (
     <>
@@ -55,7 +62,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </Head>
         <main ref={animationParent}>
           <Toaster toastOptions={{ duration: 2000, position: "top-right" }} />
-          <Splash></Splash>
+          <Splash />
           <EditModal />
           <LoginModal />
           <RegisterModal />

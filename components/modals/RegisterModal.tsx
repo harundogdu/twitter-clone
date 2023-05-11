@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -14,6 +14,7 @@ import Input from "@/components/shared/Input";
 import Loading from "@/components/shared/Loading";
 
 import { validateEmail } from "@/utils/helpers";
+import { fetchData } from "next-auth/client/_utils";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -26,6 +27,8 @@ const RegisterModal = () => {
   const [passwordConfirmed, setPasswordConfirmed] = useState<string>("");
 
   const [loading, setLoading] = useState<boolean>(false);
+
+  const [usernameError, setUsernameError] = useState<boolean>(false);
 
   const clearInputs = () => {
     setName("");
@@ -42,7 +45,8 @@ const RegisterModal = () => {
       !email ||
       !password ||
       !passwordConfirmed ||
-      !validateEmail(email)
+      !validateEmail(email) ||
+      !!usernameError
     );
   };
 
@@ -83,9 +87,39 @@ const RegisterModal = () => {
     }
   }, [registerModal, email, username, name, password, passwordConfirmed]);
 
+  useEffect(() => {
+    const fecthData = async () => {
+      try {
+        const { data } = await axios.get(`/api/register/${username}`);
+
+        const isUsernameExist = data.some(
+          (user: any) => user.username === username
+        );
+
+        if (data && username === data) {
+          setUsernameError(true);
+        } else {
+          setUsernameError(false);
+        }
+      } catch (err: any) {
+        console.error("Data fetch error", err);
+      }
+    };
+    fecthData();
+  }, [username]);
+
   const handleFooterClick = () => {
     loginModal.onOpen();
     registerModal.onClose();
+  };
+
+  const checkUsernameAvailability = async () => {
+    const checkUsername = await axios.get(`/api/register/${username}`);
+    const data = checkUsername.data.value;
+
+    if (data) {
+      return true;
+    }
   };
 
   const bodyContent = (
@@ -145,6 +179,7 @@ const RegisterModal = () => {
       isOpen={registerModal.isOpen}
       onClose={registerModal.onClose}
       onSubmit={handleSubmit}
+      onClick={checkUsernameAvailability}
       actionLabel="Create an account"
       title="Create an account"
       body={bodyContent}
