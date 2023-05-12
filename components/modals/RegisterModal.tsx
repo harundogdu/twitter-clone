@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import { fetchData } from "next-auth/client/_utils";
 
 import ColorUtils from "@/base/colors";
 
@@ -14,7 +15,6 @@ import Input from "@/components/shared/Input";
 import Loading from "@/components/shared/Loading";
 
 import { validateEmail } from "@/utils/helpers";
-import { fetchData } from "next-auth/client/_utils";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -93,7 +93,7 @@ const RegisterModal = () => {
         const { data } = await axios.get(`/api/register/${username}`);
 
         const isUsernameExist = data.some(
-          (user: any) => user.username === username
+          (user: { username: string }) => user.username === username
         );
 
         if (data && username === data) {
@@ -142,6 +142,13 @@ const RegisterModal = () => {
         value={username}
         onChange={(e) => setUserName(e.target.value)}
       />
+      {username.length > 0 ? (
+        <p style={{ color: ColorUtils.colors.red }}>
+          Username has to be different
+        </p>
+      ) : (
+        ""
+      )}
       <Input
         type="password"
         placeholder="Enter ur password"
@@ -179,7 +186,6 @@ const RegisterModal = () => {
       isOpen={registerModal.isOpen}
       onClose={registerModal.onClose}
       onSubmit={handleSubmit}
-      onClick={checkUsernameAvailability}
       actionLabel="Create an account"
       title="Create an account"
       body={bodyContent}
