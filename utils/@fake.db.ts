@@ -46,7 +46,7 @@ const SidebarItems: ISidebarType[] = [
   },
   {
     label: "Profile",
-    href: "/profile/hd",
+    href: "/users/",
     icon: RiUserLine,
     public: false,
   },
