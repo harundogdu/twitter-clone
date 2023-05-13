@@ -20,7 +20,7 @@ const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
   const controlLink = (text: string): string => {
     const userRegex = /@(\w+)/g;
     const urlRegex = /(?<!href=["']|["']>)\b\S+\.com\/\S+\b(?![^<]*?<\/a>)/g;
-    var newText = text;
+    let newText = text;
 
     if (userRegex.test(text)) {
       newText = newText.replace(
