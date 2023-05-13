@@ -32,7 +32,7 @@ const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
     if (urlRegex.test(text)) {
       newText = newText.replace(
         urlRegex,
-        '<a href="https://$&" class="text-primary-main">$&</a>'
+        '<a href="https://$&" target="_blank" class="text-primary-main">$&</a>'
       );
     }
 
