@@ -19,6 +19,7 @@ import Bottom from "@/components/bottom/Bottom";
 import EditModal from "@/components/modals/EditModal";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
+import { title } from "process";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
@@ -29,15 +30,18 @@ export default function App({ Component, pageProps }: AppProps) {
   const name = user?.name;
 
   useEffect(() => {
-    const firstPath = window.location.pathname.substring(1).split("/")[0];
+    const locationPath = window.location.pathname.substring(1).split("/")[0];
 
-    setPageTitle(firstPath || "Home");
+    let title =
+      locationPath.charAt(0).toUpperCase() + locationPath.slice(1) || "Home";
 
-    if (firstPath === "users") {
-      setPageTitle(name);
+    if (locationPath === "users") {
+      // TODO: pulled from backend
+      title = "";
     }
-  }, [name]);
 
+    setPageTitle(title);
+  }, [title]);
   return (
     <>
       <SessionProvider session={pageProps.session}>
@@ -55,7 +59,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </Head>
         <main ref={animationParent}>
           <Toaster toastOptions={{ duration: 2000, position: "top-right" }} />
-          <Splash></Splash>
+          <Splash />
           <EditModal />
           <LoginModal />
           <RegisterModal />
