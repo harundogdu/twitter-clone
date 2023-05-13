@@ -14,15 +14,18 @@ export default async function handler(
   try {
     const { currentUser } = await serverAuth(req, res);
 
+    const usersCount = await prisma.user.count();
+    const skip = Math.floor(Math.random() * usersCount);
     const users = await prisma.user.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
       take: 3,
+      skip,
       where: {
         id: {
           not: currentUser.id,
         },
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
 
