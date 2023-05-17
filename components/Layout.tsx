@@ -8,7 +8,7 @@ interface ILayoutProps {
 
 const Layout: FC<ILayoutProps> = ({ children }) => {
   return (
-    <div className="h-screen bg-black">
+    <div className="h-screen bg-black overflow-auto ">
       <div className="h-full mx-auto xl:px-24 max-w-[108rem]">
         <div className="grid grid-cols-4 h-full w-full px-8">
           <Sidebar />

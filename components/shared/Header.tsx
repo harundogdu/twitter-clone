@@ -19,7 +19,7 @@ const Header: FC<IHeaderProps> = ({ label, showBackArrow = false }) => {
   }, [router]);
 
   return (
-    <div className="flex items-center border-b border-b-neutral-800 p-4 space-x-2">
+    <div className="flex items-center z-10 border-b border-b-neutral-800 p-4 space-x-2 sticky top-0 backdrop-blur-xl">
       {showBackArrow ? (
         <RiArrowLeftLine
           className="text-gray-300 hover:text-white cursor-pointer mx-1 hover:bg-neutral-800 hover:bg-opacity-70 rounded-full transition-colors"
