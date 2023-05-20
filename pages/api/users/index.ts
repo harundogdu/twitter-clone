@@ -29,6 +29,22 @@ export default async function handler(
       },
     });
 
+    if (users.length < 3) {
+      const remainingUsers = await prisma.user.findMany({
+        take: 3 - users.length,
+        where: {
+          id: {
+            not: currentUser.id,
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      users.push(...remainingUsers);
+    }
+
     return res.status(200).json(users);
   } catch (error: any) {
     console.log(error);
