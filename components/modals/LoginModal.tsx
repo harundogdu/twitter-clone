@@ -18,7 +18,7 @@ const LoginModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
 
-  const [email, setEmail] = useState<string>("");
+  const [loginInput, setLoginInput] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -27,7 +27,7 @@ const LoginModal = () => {
       setLoading(true);
 
       await signIn("credentials", {
-        email,
+        loginInput,
         password,
       });
 
@@ -38,11 +38,11 @@ const LoginModal = () => {
     } finally {
       setLoading(false);
     }
-  }, [loginModal, email, password]);
+  }, [loginModal, loginInput, password]);
 
   useEffect(() => {
     return () => {
-      setEmail("");
+      setLoginInput("");
       setPassword("");
     };
   }, []);
@@ -57,10 +57,10 @@ const LoginModal = () => {
   const bodyContent = (
     <div className="flex flex-col gap-3">
       <Input
-        type={"email"}
-        placeholder={"Email"}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        type={"text"}
+        placeholder={"Email or Username"}
+        value={loginInput}
+        onChange={(e) => setLoginInput(e.target.value)}
       />
       <Input
         type={"password"}
@@ -92,7 +92,7 @@ const LoginModal = () => {
       body={bodyContent}
       footer={footerContent}
       actionLabel={"Login"}
-      disabled={!validateEmail(email) || !password}
+      disabled={!loginInput || !password}
     />
   );
 };

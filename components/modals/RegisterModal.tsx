@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
-import { fetchData } from "next-auth/client/_utils";
 
 import ColorUtils from "@/base/colors";
 
@@ -88,7 +87,7 @@ const RegisterModal = () => {
   }, [registerModal, email, username, name, password, passwordConfirmed]);
 
   useEffect(() => {
-    const fecthData = async () => {
+    const fetchData = async () => {
       try {
         const { data } = await axios.get(`/api/register/${username}`);
 
@@ -105,21 +104,12 @@ const RegisterModal = () => {
         console.error("Data fetch error", err);
       }
     };
-    fecthData();
+    fetchData();
   }, [username]);
 
   const handleFooterClick = () => {
     loginModal.onOpen();
     registerModal.onClose();
-  };
-
-  const checkUsernameAvailability = async () => {
-    const checkUsername = await axios.get(`/api/register/${username}`);
-    const data = checkUsername.data.value;
-
-    if (data) {
-      return true;
-    }
   };
 
   const bodyContent = (
