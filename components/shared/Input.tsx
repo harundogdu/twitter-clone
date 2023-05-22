@@ -30,7 +30,12 @@ const Input: FC<InputProps> = ({
   const inputControl = (type: string, value: string): string => {
     let borderColor: string = "focus:ring-primary-main ";
 
-    if (type === "text" && value !== "" && value.includes("@")) {
+    if (
+      type === "text" &&
+      value !== "" &&
+      value.includes("@") &&
+      placeholder === "Email or Username"
+    ) {
       // for log in
       if (!validateEmail(value)) {
         borderColor = "focus:ring-red-600 border-red-600";
@@ -66,7 +71,8 @@ const Input: FC<InputProps> = ({
       {!validateEmail(value) &&
       type === "text" &&
       value !== "" &&
-      value.includes("@") ? (
+      value.includes("@") &&
+      placeholder === "Email or Username" ? (
         <div
           style={{
             color: ColorUtils.colors.red,
