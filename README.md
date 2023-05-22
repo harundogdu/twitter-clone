@@ -1,8 +1,21 @@
-## Twitter Clone
+<div align="center">
 
+<img src="https://user-images.githubusercontent.com/99184393/217984715-374189af-0e66-41cd-bca4-445b6045797e.png" alt="logo" width="50" height="auto" />
+  
+# Twitter Clone
 This is a [Twitter](https://twitter.com) Clone project built with [Next.js](https://nextjs.org/), [Prisma](https://www.prisma.io/), [MongoDb](https://www.mongodb.com/), [Tailwind](https://tailwindcss.com/), [Typescript](https://www.typescriptlang.org/) and [NextAuth](https://next-auth.js.org/) libraries. It is a full-stack project that uses [Next.js](https://nextjs.org/) for the frontend and [Prisma](https://www.prisma.io/) for the backend. It is a Twitter clone that allows users to create an account, login, logout, follow other users, like and retweet tweets, and more.
+  
+  
+<!-- Badges -->
 
-## Demo
+<a href="https://twitter-clone-hd.vercel.app/" target="_blank">![](https://img.shields.io/website-up-down-green-red/http/monip.org.svg)</a>
+![](https://img.shields.io/badge/Maintained-Yes-indigo)
+![](https://img.shields.io/github/forks/harundogdu/twitter-clone.svg)
+![](https://img.shields.io/github/stars/harundogdu/twitter-clone.svg)
+![](https://img.shields.io/github/issues/harundogdu/twitter-clone)
+![](https://img.shields.io/github/last-commit/harundogdu/twitter-clone)
+
+</div>
 
 You can see the demo of the project [here](https://twitter-clone-hd.vercel.app/).
 
