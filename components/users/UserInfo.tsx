@@ -10,11 +10,11 @@ import { format } from "date-fns";
 import useEditModal from "@/hooks/useEditModal";
 
 interface IUserInfoProps {
-  userId: string;
+  username: string;
 }
 
-const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
-  const { data: fetchedUser } = useUser(userId);
+const UserInfo: FC<IUserInfoProps> = ({ username }) => {
+  const { data: fetchedUser } = useUser(username);
   const { data: currentUser } = useCurrentUser();
 
   const controlLink = (text: string): string => {
@@ -54,7 +54,7 @@ const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
   return (
     <div className="border-neutral-800 border-b pb-4">
       <div className="p-4 flex justify-end">
-        {currentUser?.id === userId ? (
+        {currentUser?.username === username ? (
           <Button
             label="Edit profile"
             bgColor="white"

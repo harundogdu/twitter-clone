@@ -19,7 +19,6 @@ import Bottom from "@/components/bottom/Bottom";
 import EditModal from "@/components/modals/EditModal";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
-import { title } from "process";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
@@ -31,17 +30,19 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const locationPath = window.location.pathname.substring(1).split("/")[0];
+    const usersPath = window.location.pathname.substring(1).split("/")[1];
 
     let title =
       locationPath.charAt(0).toUpperCase() + locationPath.slice(1) || "Home";
 
     if (locationPath === "users") {
       // TODO: pulled from backend
-      title = "";
+      title = usersPath;
     }
 
     setPageTitle(title);
-  }, [title]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <SessionProvider session={pageProps.session}>

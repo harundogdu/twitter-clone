@@ -5,11 +5,11 @@ import Image from "next/image";
 import Avatar from "../Avatar";
 
 interface IUserHeroProps {
-  userId: string;
+  username: string;
 }
 
-const UserHero: FC<IUserHeroProps> = ({ userId }) => {
-  const { data: fetchedUser } = useUser(userId);
+const UserHero: FC<IUserHeroProps> = ({ username }) => {
+  const { data: fetchedUser } = useUser(username);
   return (
     <div>
       <div className="bg-neutral-700 h-52 relative w-full">
@@ -22,7 +22,7 @@ const UserHero: FC<IUserHeroProps> = ({ userId }) => {
           />
         )}
         <div className="absolute -bottom-10 left-6">
-          <Avatar userId={fetchedUser?.id} size="large" hasBorder />
+          <Avatar username={username} size="large" hasBorder />
         </div>
       </div>
     </div>

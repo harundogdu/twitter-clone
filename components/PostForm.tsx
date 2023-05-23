@@ -16,12 +16,12 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 interface IPostFormProps {
   placeholder: string;
   isComment?: boolean;
-  postId?: string;
+  username?: string;
 }
 
-const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, postId }) => {
+const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
   const { data: currentUser } = useCurrentUser();
-  const { mutate: mutatePost } = usePosts(postId as string);
+  const { mutate: mutatePost } = usePosts(username as string);
 
   const { data: isLoggedIn } = useCurrentUser();
   const loginModal = useLoginModal();
@@ -90,7 +90,7 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, postId }) => {
       ) : (
         <div className="flex items-center p-4 gap-4 border-b border-neutral-800 ">
           <div className="self-start mt-2">
-            <Avatar userId={currentUser?.id} size="medium" />
+            <Avatar username={currentUser?.username} size="medium" />
           </div>
           <div className="w-full space-y-4">
             <textarea
