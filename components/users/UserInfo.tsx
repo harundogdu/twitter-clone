@@ -1,13 +1,17 @@
 import React, { FC, useMemo } from "react";
 
-import { RiCalendar2Line } from "react-icons/ri";
+import { RiCalendar2Line, RiLink, RiMapPinLine } from "react-icons/ri";
+import { BsBalloon } from "react-icons/bs";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useUser from "@/hooks/useUser";
+import useEditModal from "@/hooks/useEditModal";
 
 import Button from "../shared/Button";
+
 import { format } from "date-fns";
-import useEditModal from "@/hooks/useEditModal";
+
+import { controlLink } from "@/utils/helpers";
 
 interface IUserInfoProps {
   userId: string;
@@ -17,29 +21,8 @@ const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
   const { data: fetchedUser } = useUser(userId);
   const { data: currentUser } = useCurrentUser();
 
-  const controlLink = (text: string): string => {
-    const userRegex = /@(\w+)/g;
-    const urlRegex = /(?<!href=["']|["']>)\b\S+\.com\/\S+\b(?![^<]*?<\/a>)/g;
-    var newText = text;
-
-    if (userRegex.test(text)) {
-      newText = newText.replace(
-        userRegex,
-        ' <a  href="$1" class="text-primary-main">@$1</a>'
-      );
-    }
-
-    if (urlRegex.test(text)) {
-      newText = newText.replace(
-        urlRegex,
-        '<a href="https://$&" class="text-primary-main">$&</a>'
-      );
-    }
-
-    return newText;
-  };
-
   const bioLink = fetchedUser?.bio ? controlLink(fetchedUser.bio) : "";
+  const website = fetchedUser?.website ? controlLink(fetchedUser?.website) : "";
 
   const editModal = useEditModal();
 
@@ -50,6 +33,14 @@ const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
 
     return format(new Date(fetchedUser?.createdAt), "MMMM yyyy");
   }, [fetchedUser?.createdAt]);
+
+  const birthday = useMemo(() => {
+    if (!fetchedUser?.birthday) {
+      return null;
+    }
+
+    return format(new Date(fetchedUser?.birthday), "dd MMMM yyyy");
+  }, [fetchedUser?.birthday]);
 
   return (
     <div className="border-neutral-800 border-b pb-4">
@@ -89,9 +80,31 @@ const UserInfo: FC<IUserInfoProps> = ({ userId }) => {
           dangerouslySetInnerHTML={{ __html: bioLink }}
         ></p>
 
-        <div className="text-neutral-500 mt-2 flex items-center gap-2">
-          <RiCalendar2Line size={18} />
-          <p>Joined {createdAt}</p>
+        <div className="items-center flex ">
+          <div className="text-neutral-500 mt-2 flex items-center gap-2 mr-2">
+            <RiCalendar2Line size={18} />
+            <p>Joined {createdAt}</p>
+          </div>
+          {fetchedUser?.location ? (
+            <div className="text-neutral-500 mt-2 flex items-center gap-2 mr-2">
+              <RiMapPinLine size={18} />
+              <p>{fetchedUser?.location}</p>
+            </div>
+          ) : null}
+
+          {fetchedUser?.website ? (
+            <div className="text-neutral-500 mt-2 flex items-center gap-2 mr-2">
+              <RiLink size={18} />
+              <p dangerouslySetInnerHTML={{ __html: website }}></p>
+            </div>
+          ) : null}
+
+          {fetchedUser?.birthday ? (
+            <div className="text-neutral-500 mt-2 flex items-center gap-2 mr-2">
+              <BsBalloon size={18} />
+              <p> {birthday}</p>
+            </div>
+          ) : null}
         </div>
 
         <div className="text-white flex gap-4 mt-6">
