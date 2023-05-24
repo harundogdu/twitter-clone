@@ -22,7 +22,6 @@ const UserHero: FC<IUserHeroProps> = ({ userId }) => {
     type === "cover" ? setCover(true) : setCover(false);
     setModal(true);
   };
-  //abcderf
 
   return (
     <div>

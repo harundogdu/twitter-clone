@@ -9,17 +9,19 @@ interface AvatarProps {
   userId: string;
   size?: "small" | "medium" | "large";
   hasBorder?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void;
 }
 
 const Avatar: FC<AvatarProps> = ({
   userId,
   size = "medium",
   hasBorder = false,
+  onClick,
 }) => {
   const router = useRouter();
   const { data: fetchedUser } = useUser(userId);
 
-  const onClick = useCallback(
+  const handleClick = useCallback(
     (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
       event.stopPropagation();
 
@@ -30,7 +32,7 @@ const Avatar: FC<AvatarProps> = ({
   );
 
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick ? onClick : handleClick}>
       <Image
         alt={`${fetchedUser?.name} profile image`}
         src={fetchedUser?.profileImage || "/default_doge_coin.png"}
