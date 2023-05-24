@@ -36,13 +36,16 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
                 ?.classList.remove("overflow-hidden");
             }}
           />
-          <div className="bg-opacity-90 bg-black w-full h-full flex absolute justify-center items-center inset-x-0 inset-y-0 z-30 ">
+          <div
+            className="bg-opacity-90 bg-black w-full h-full flex absolute justify-center items-center inset-x-0 inset-y-0 z-30 "
+            onClick={() => setModal(false)}
+          >
             <img
               src={cover ? fetchedUser?.coverImage : fetchedUser?.profileImage}
               alt="Cover image"
               className={
                 cover
-                  ? " h-3/4 w-full  opacity-100  object-cover z-50 "
+                  ? " h-3/4 w-full  opacity-100  object-cover z-50  "
                   : " h-96 w-96  opacity-100  object-cover z-50 rounded-full overflow-hidden"
               }
             />
@@ -50,7 +53,7 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
         </Portal>
       )}
 
-      <div className="bg-neutral-700 h-52 relative w-full ">
+      <div className="bg-neutral-700 h-52 relative w-full cursor-pointer">
         {fetchedUser?.coverImage && (
           <Image
             src={fetchedUser?.coverImage}
@@ -60,11 +63,12 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
             onClick={() => viewImage("cover")}
           />
         )}
-        <div className="absolute -bottom-10 left-6">
+        <div className="absolute -bottom-10 left-6 cursor-pointer  ">
           <Avatar
             username={username}
             size="large"
-            hasBorder //@ts-ignore
+            hasBorder
+            //@ts-ignore
             onClick={viewImage}
           />
         </div>
