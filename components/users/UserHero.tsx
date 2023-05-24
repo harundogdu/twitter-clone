@@ -20,6 +20,7 @@ const UserHero: FC<IUserHeroProps> = ({ userId }) => {
 
   const viewImage = (type: string) => {
     type === "cover" ? setCover(true) : setCover(false);
+    document.getElementById("layout")?.classList.add("overflow-hidden");
     setModal(true);
   };
 
@@ -30,9 +31,14 @@ const UserHero: FC<IUserHeroProps> = ({ userId }) => {
           <RiCloseFill
             style={{ color: ColorUtils.colors.white }}
             className="w-6 h-6 fixed top-5 left-5 cursor-pointer z-50"
-            onClick={() => setModal(false)}
+            onClick={() => {
+              setModal(false);
+              document
+                .getElementById("layout")
+                ?.classList.remove("overflow-hidden");
+            }}
           />
-          <div className="bg-opacity-50 bg-black w-full h-full flex absolute justify-center items-center inset-x-0 inset-y-0 z-10 ">
+          <div className="bg-opacity-80 bg-black w-full h-full flex absolute justify-center items-center inset-x-0 inset-y-0 z-10 ">
             <img
               src={cover ? fetchedUser?.coverImage : fetchedUser?.profileImage}
               alt="Cover image"
