@@ -17,7 +17,7 @@ const SidebarItems: ISidebarType[] = [
     label: "Home",
     href: "/",
     icon: RiHome7Fill,
-    public: false,
+    public: true,
   },
   {
     label: "Explore",
