@@ -9,17 +9,19 @@ interface AvatarProps {
   username: string;
   size?: "small" | "medium" | "large";
   hasBorder?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void;
 }
 
 const Avatar: FC<AvatarProps> = ({
   username,
   size = "medium",
   hasBorder = false,
+  onClick,
 }) => {
   const router = useRouter();
   const { data: fetchedUser } = useUser(username);
 
-  const onClick = useCallback(
+  const handleClick = useCallback(
     async (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
       const response = await fetch(`/api/users/${username}`);
       const data = await response.json();
@@ -33,7 +35,7 @@ const Avatar: FC<AvatarProps> = ({
   );
 
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick ? onClick : handleClick}>
       <Image
         alt={`${fetchedUser?.name} profile image`}
         src={fetchedUser?.profileImage || "/default_doge_coin.png"}

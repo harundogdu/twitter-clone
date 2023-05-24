@@ -59,6 +59,7 @@ export default function App({ Component, pageProps }: AppProps) {
           />
         </Head>
         <main ref={animationParent}>
+          <div id="portal" />
           <Toaster toastOptions={{ duration: 2000, position: "top-right" }} />
           <Splash />
           <EditModal />
