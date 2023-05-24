@@ -6,29 +6,32 @@ import { useRouter } from "next/router";
 import useUser from "@/hooks/useUser";
 
 interface AvatarProps {
-  userId: string;
+  username: string;
   size?: "small" | "medium" | "large";
   hasBorder?: boolean;
   onClick?: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void;
 }
 
 const Avatar: FC<AvatarProps> = ({
-  userId,
+  username,
   size = "medium",
   hasBorder = false,
   onClick,
 }) => {
   const router = useRouter();
-  const { data: fetchedUser } = useUser(userId);
+  const { data: fetchedUser } = useUser(username);
 
   const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-      event.stopPropagation();
+    async (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+      const response = await fetch(`/api/users/${username}`);
+      const data = await response.json();
 
-      const url = `/users/${userId}`;
+      const _username: string = data.username;
+
+      const url = `/users/${_username}`;
       router.push(url);
     },
-    [router, userId]
+    [router, username]
   );
 
   return (

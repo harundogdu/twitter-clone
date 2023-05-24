@@ -9,12 +9,11 @@ import { RiCloseFill } from "react-icons/ri";
 import ColorUtils from "@/base/colors";
 
 interface IUserHeroProps {
-  userId: string;
+  username: string;
 }
 
-const UserHero: FC<IUserHeroProps> = ({ userId }) => {
-  const { data: fetchedUser } = useUser(userId);
-
+const UserHero: FC<IUserHeroProps> = ({ username }) => {
+  const { data: fetchedUser } = useUser(username);
   const [modal, setModal] = useState(false);
   const [cover, setCover] = useState(false);
 
@@ -23,7 +22,6 @@ const UserHero: FC<IUserHeroProps> = ({ userId }) => {
     document.getElementById("layout")?.classList.add("overflow-hidden");
     setModal(true);
   };
-
   return (
     <div>
       {modal && (
@@ -64,10 +62,9 @@ const UserHero: FC<IUserHeroProps> = ({ userId }) => {
         )}
         <div className="absolute -bottom-10 left-6">
           <Avatar
-            userId={fetchedUser?.id}
+            username={username}
             size="large"
-            hasBorder
-            //@ts-ignore
+            hasBorder //@ts-ignore
             onClick={viewImage}
           />
         </div>

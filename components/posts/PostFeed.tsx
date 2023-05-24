@@ -2,18 +2,18 @@ import React, { FC, useCallback, useMemo } from "react";
 import Avatar from "../Avatar";
 
 import { formatDistanceToNowStrict } from "date-fns";
-import useLoginModal from "@/hooks/useLoginModal";
 import { useRouter } from "next/router";
 
 import { RiChat3Line, RiHeart3Line } from "react-icons/ri";
-import useCurrentUser from "@/hooks/useCurrentUser";
 
+import useCurrentUser from "@/hooks/useCurrentUser";
+import useLoginModal from "@/hooks/useLoginModal";
 interface IPostFeedProps {
-  userId: string;
+  username: string;
   data: Record<string, any>;
 }
 
-const PostFeed: FC<IPostFeedProps> = ({ data, userId }) => {
+const PostFeed: FC<IPostFeedProps> = ({ data }) => {
   const loginModal = useLoginModal();
 
   const router = useRouter();
@@ -23,9 +23,9 @@ const PostFeed: FC<IPostFeedProps> = ({ data, userId }) => {
     (event: React.MouseEvent<HTMLHeadingElement>) => {
       event.stopPropagation();
 
-      router.push(`/users/${data?.user?.id}`);
+      router.push(`/users/${data?.user?.username}`);
     },
-    [router, data?.user?.id]
+    [router, data?.user?.username]
   );
 
   const goToPost = useCallback(
@@ -71,7 +71,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data, userId }) => {
       onClick={goToPost}
     >
       <div className="flex items-start gap-4">
-        <Avatar userId={userId} size="small" />
+        <Avatar username={data.user.username} size="small" />
         <div className="flex flex-col">
           <div className="flex gap-2">
             <h5
