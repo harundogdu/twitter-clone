@@ -19,7 +19,7 @@ const Avatar: FC<AvatarProps> = ({
   const router = useRouter();
   const { data: fetchedUser } = useUser(username);
 
-  const onClick = useCallback(
+  const handleClick = useCallback(
     async (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
       const response = await fetch(`/api/users/${username}`);
       const data = await response.json();
@@ -33,7 +33,7 @@ const Avatar: FC<AvatarProps> = ({
   );
 
   return (
-    <div onClick={onClick}>
+    <div onClick={handleClick}>
       <Image
         alt={`${fetchedUser?.name} profile image`}
         src={fetchedUser?.profileImage || "/default_doge_coin.png"}
