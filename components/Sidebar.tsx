@@ -70,10 +70,10 @@ const Sidebar = () => {
           {currentUser && (
             <div
               className="bottom-0 flex gap-5 items-center justify-center rounded-full cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 mb-5 transition-colors p-2"
-              onClick={() => router.push("/users/" + currentUser?.id)}
+              onClick={() => router.push("/users/" + currentUser?.username)}
             >
               <div>
-                <Avatar userId={currentUser?.id} size="small" />
+                <Avatar username={currentUser?.username} size="small" />
               </div>
               <>
                 <div className="flex flex-col items-start justify-center">
