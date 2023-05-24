@@ -4,6 +4,8 @@ import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
 import { validateEmail } from "@/utils/helpers";
 import ColorUtils from "@/base/colors";
+
+import { isNullOrUndefined, isNullOrEmpty } from "../../utils";
 interface InputProps {
   type: HTMLInputTypeAttribute;
   placeholder?: string;
@@ -27,14 +29,21 @@ const Input: FC<InputProps> = ({
     }, 200);
   };
 
+  const placeholderText = "Email or Username";
+
   const inputControl = (type: string, value: string): string => {
     let borderColor: string = "focus:ring-primary-main ";
-
+    
+    if (isNullOrUndefined(value) || isNullOrEmpty(value)) {
+      borderColor = "focus:ring-red-600 border-grey-600";
+      return borderColor;
+    }
+    
     if (
       type === "text" &&
       value !== "" &&
       value.includes("@") &&
-      placeholder === "Email or Username"
+      placeholder === placeholderText
     ) {
       // for log in
       if (!validateEmail(value)) {
@@ -72,7 +81,7 @@ const Input: FC<InputProps> = ({
       type === "text" &&
       value !== "" &&
       value.includes("@") &&
-      placeholder === "Email or Username" ? (
+      placeholder === placeholderText ? (
         <div
           style={{
             color: ColorUtils.colors.red,
