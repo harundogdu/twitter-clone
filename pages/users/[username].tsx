@@ -24,8 +24,6 @@ const UserView = () => {
     );
   }
 
-  console.log(fetchedUser.id + " .. ");
-
   return (
     <div>
       <Header label={fetchedUser?.name} showBackArrow />
