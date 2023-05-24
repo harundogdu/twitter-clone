@@ -110,6 +110,7 @@ Prisma Client is an auto-generated and type-safe query builder for Node.js & Typ
 ## Authors
 
 <ul>
+<li><a href="https://github.com/ahmetenesbahar">Ahmet Enes Bahar</a></li>
 <li><a href="https://github.com/atahantutar">Atahan Tutar</a></li>
 <li><a href="https://github.com/harundogdu">Harun Doğdu</a></li>
 <li><a href="https://github.com/yusufalperendumlu">Yusuf Alperen Dumlu</a></li>
