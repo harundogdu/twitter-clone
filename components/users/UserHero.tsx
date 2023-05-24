@@ -38,7 +38,7 @@ const UserHero: FC<IUserHeroProps> = ({ userId }) => {
                 ?.classList.remove("overflow-hidden");
             }}
           />
-          <div className="bg-opacity-80 bg-black w-full h-full flex absolute justify-center items-center inset-x-0 inset-y-0 z-30 ">
+          <div className="bg-opacity-90 bg-black w-full h-full flex absolute justify-center items-center inset-x-0 inset-y-0 z-30 ">
             <img
               src={cover ? fetchedUser?.coverImage : fetchedUser?.profileImage}
               alt="Cover image"
