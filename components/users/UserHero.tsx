@@ -63,7 +63,8 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
             onClick={() => viewImage("cover")}
           />
         )}
-        <div className="absolute -bottom-10 left-6 cursor-pointer  ">
+        <div className="absolute -bottom-10 left-6 cursor-pointer ">
+          <div className="absolute w-32 h-32  rounded-full hover:bg-black hover:opacity-10" />
           <Avatar
             username={username}
             size="large"
