@@ -38,7 +38,12 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
           />
           <div
             className="bg-opacity-90 bg-black w-full h-full flex absolute justify-center items-center inset-x-0 inset-y-0 z-30 "
-            onClick={() => setModal(false)}
+            onClick={() => {
+              setModal(false);
+              document
+                .getElementById("layout")
+                ?.classList.remove("overflow-hidden");
+            }}
           >
             <img
               src={cover ? fetchedUser?.coverImage : fetchedUser?.profileImage}
