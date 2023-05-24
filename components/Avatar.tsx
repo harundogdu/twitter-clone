@@ -28,11 +28,6 @@ const Avatar: FC<AvatarProps> = ({
 
       const url = `/users/${_username}`;
       router.push(url);
-
-      // event.stopPropagation();
-
-      // const url = `/users/${userId}`;
-      // router.push(url);
     },
     [router, username]
   );
