@@ -22,6 +22,16 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
     document.getElementById("layout")?.classList.add("overflow-hidden");
     setModal(true);
   };
+
+  const closeModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = e.target as HTMLElement;
+    const attributeValue = target.getAttribute("image-data");
+    console.log(attributeValue);
+    if (attributeValue === "image") return;
+    setModal(false);
+    document.getElementById("layout")?.classList.remove("overflow-hidden");
+  };
+
   return (
     <div>
       {modal && (
@@ -38,12 +48,7 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
           />
           <div
             className="bg-opacity-90 bg-black w-full h-full flex absolute justify-center items-center inset-x-0 inset-y-0 z-30 "
-            onClick={() => {
-              setModal(false);
-              document
-                .getElementById("layout")
-                ?.classList.remove("overflow-hidden");
-            }}
+            onClick={(e) => closeModal(e)}
           >
             <img
               src={cover ? fetchedUser?.coverImage : fetchedUser?.profileImage}
@@ -53,6 +58,7 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
                   ? " h-3/4 w-full  opacity-100  object-cover z-50  "
                   : " h-96 w-96  opacity-100  object-cover z-50 rounded-full overflow-hidden"
               }
+              image-data="image"
             />
           </div>
         </Portal>
