@@ -21,6 +21,7 @@ export interface IUser {
 
 export interface IPost {
   id: string;
+  username: string;
   body: string;
   createdAt: Date;
   updatedAt: Date;
@@ -31,6 +32,7 @@ export interface IPost {
 
 export interface IComment {
   id: string;
+  username: string;
   body: string;
   createdAt: Date;
   updatedAt: Date;
@@ -40,6 +42,7 @@ export interface IComment {
 
 export interface INotification {
   id: string;
+  username: string;
   notificationBody: string;
   createdAt: Date;
   userId: string;

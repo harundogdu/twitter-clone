@@ -15,7 +15,7 @@ const EditModal = () => {
   const editModal = useEditModal();
 
   const { data: currentUser } = useCurrentUser();
-  const { mutate: mutateUser } = useUser(currentUser?.id);
+  const { mutate: mutateUser } = useUser(currentUser?.username);
 
   const [userInfo, setUserInfo] = useState({
     name: "",

@@ -33,12 +33,12 @@ const Input: FC<InputProps> = ({
 
   const inputControl = (type: string, value: string): string => {
     let borderColor: string = "focus:ring-primary-main ";
-
+    
     if (isNullOrUndefined(value) || isNullOrEmpty(value)) {
-      borderColor = "focus:ring-red-600 border-violet-600";
+      borderColor = "focus:ring-red-600 border-grey-600";
       return borderColor;
     }
-
+    
     if (
       type === "text" &&
       value !== "" &&

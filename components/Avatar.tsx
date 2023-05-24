@@ -6,31 +6,34 @@ import { useRouter } from "next/router";
 import useUser from "@/hooks/useUser";
 
 interface AvatarProps {
-  userId: string;
+  username: string;
   size?: "small" | "medium" | "large";
   hasBorder?: boolean;
 }
 
 const Avatar: FC<AvatarProps> = ({
-  userId,
+  username,
   size = "medium",
   hasBorder = false,
 }) => {
   const router = useRouter();
-  const { data: fetchedUser } = useUser(userId);
+  const { data: fetchedUser } = useUser(username);
 
-  const onClick = useCallback(
-    (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-      event.stopPropagation();
+  const handleClick = useCallback(
+    async (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+      const response = await fetch(`/api/users/${username}`);
+      const data = await response.json();
 
-      const url = `/users/${userId}`;
+      const _username: string = data.username;
+
+      const url = `/users/${_username}`;
       router.push(url);
     },
-    [router, userId]
+    [router, username]
   );
 
   return (
-    <div onClick={onClick}>
+    <div onClick={handleClick}>
       <Image
         alt={`${fetchedUser?.name} profile image`}
         src={fetchedUser?.profileImage || "/default_doge_coin.png"}
