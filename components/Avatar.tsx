@@ -33,7 +33,7 @@ const Avatar: FC<AvatarProps> = ({
   );
 
   return (
-    <div onClick={handleClick}>
+    <div onClick={handleClick} className="shrink-0">
       <Image
         alt={`${fetchedUser?.name} profile image`}
         src={fetchedUser?.profileImage || "/default_doge_coin.png"}
@@ -42,6 +42,7 @@ const Avatar: FC<AvatarProps> = ({
         className={`
         bg-white
         rounded-full
+       
         ${hasBorder ? "border-neutral-900 border-4 rounded-full" : ""}
         `}
       />
