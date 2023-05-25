@@ -14,7 +14,7 @@ const ActionSidebar = () => {
 
   return (
     <div className="p-2">
-      <div className="mt-4 ml-8 bg-neutral-800 rounded-lg text-white w-1/5 fixed overflow-y-auto ">
+      <div className="mt-4 ml-8 bg-neutral-800 rounded-lg text-white w-full sticky top-10">
         <h2 className="text-lg text-white font-bold py-2 px-4">
           Who to follow
         </h2>
