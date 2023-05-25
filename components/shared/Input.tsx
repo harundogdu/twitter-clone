@@ -2,10 +2,13 @@ import React, { FC, HTMLInputTypeAttribute, useState } from "react";
 
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
-import { validateEmail } from "@/utils/helpers";
+import {
+  validateEmail,
+  isNullOrEmpty,
+  isNullOrUndefined,
+} from "@/utils/helpers";
 import ColorUtils from "@/base/colors";
 
-import { isNullOrUndefined, isNullOrEmpty } from "../../utils";
 interface InputProps {
   type: HTMLInputTypeAttribute;
   placeholder?: string;
@@ -33,6 +36,11 @@ const Input: FC<InputProps> = ({
 
   const inputControl = (type: string, value: string): string => {
     let borderColor: string = "focus:ring-primary-main ";
+
+    if (isNullOrUndefined(value) || isNullOrEmpty(value)) {
+      borderColor = "focus:ring-red-600 border-grey-600";
+      return borderColor;
+    }
 
     if (
       type === "text" &&
