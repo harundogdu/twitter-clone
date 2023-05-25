@@ -8,19 +8,20 @@ export const validateEmail = (email: string): boolean => {
 export const controlLink = (text: string): string => {
   const userRegex = /@(\w+)/g;
   const urlRegex = /(?<!href=["']|["']>)\b\S+\.com\/\S+\b(?![^<]*?<\/a>)/g;
+  const urlHttpsRegex = /https?:\/\/\S+/g;
   let newText = text;
 
   if (userRegex.test(text)) {
     newText = newText.replace(
       userRegex,
-      `<div  style="color:#1D9BF0;display:inline-block; "  class="user-link hover:underline " data-username="$1">@$1</div>`
+      `<div style="color:#1D9BF0" class="user-link" data-username="$1">@$1</div>`
     );
   }
 
   if (urlRegex.test(text)) {
     newText = newText.replace(urlRegex, (match: string, domain: string) => {
       const modifiedLink = match.replace(/https?:\/\/(?:www\.)?/i, "");
-      return `<a href="${match}" target="_blank" style="color:#1D9BF0" class="hover:underline">${modifiedLink}</a>`;
+      return `<a href="${match}" target="_blank" style="color:#1D9BF0">${modifiedLink}</a>`;
     });
   }
 
