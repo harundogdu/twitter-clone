@@ -3,20 +3,9 @@ const validateEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-//utils.js
-/**
- *@param {*} value
- *@return {boolean}
- */
-
  const isNullOrUndefined = (value: any) => {
   return value === null || value === undefined;
 };
-
-/**
- * @param {*} value
- * @return {boolean}
- */
 
 const isNullOrEmpty = (value: any) => {
   return value === null || value === "" || value === undefined;
