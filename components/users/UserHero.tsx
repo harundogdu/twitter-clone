@@ -26,7 +26,6 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
   const closeModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLElement;
     const attributeValue = target.getAttribute("image-data");
-
     if (attributeValue === "image") return;
     setModal(false);
     document.getElementById("layout")?.classList.remove("overflow-hidden");
