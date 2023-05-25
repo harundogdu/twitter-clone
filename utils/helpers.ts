@@ -8,6 +8,7 @@ export const validateEmail = (email: string): boolean => {
 export const controlLink = (text: string): string => {
   const userRegex = /@(\w+)/g;
   const urlRegex = /(?<!href=["']|["']>)\b\S+\.com\/\S+\b(?![^<]*?<\/a>)/g;
+  const urlHttpsRegex = /https?:\/\/\S+/g;
   let newText = text;
 
   if (userRegex.test(text)) {
