@@ -1,13 +1,14 @@
 import React, { FC, useState } from "react";
-
-import Portal from "@/components/shared/Portal";
-import useUser from "@/hooks/useUser";
 import Image from "next/image";
-import Avatar from "../Avatar";
-import { set } from "date-fns";
+
 import { RiCloseFill } from "react-icons/ri";
+
 import ColorUtils from "@/base/colors";
 
+import useUser from "@/hooks/useUser";
+
+import Avatar from "../Avatar";
+import Portal from "@/components/shared/Portal";
 interface IUserHeroProps {
   username: string;
 }
