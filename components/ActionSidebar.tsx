@@ -1,4 +1,5 @@
 import { IUser } from "@/types/user.type";
+import { useRouter } from "next/router";
 import Avatar from "./Avatar";
 
 import ColorUtils from "@/base/colors";
@@ -22,7 +23,7 @@ const ActionSidebar = () => {
         <h2 className="text-xl text-white font-black pt-4 pb-1 px-4">
           Who to follow
         </h2>
-        <div className="my-2 py-3 space-y-2">
+        <div className="my-2 pb-4 pt-1 space-y-2">
           {allUsers.map((user: IUser) => {
             return (
               <div
