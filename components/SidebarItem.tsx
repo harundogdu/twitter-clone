@@ -29,7 +29,7 @@ const SidebarItem: FC<ISidebarType> = ({
     } else if (href) {
       let redirectUrl = href;
       if (label.localeCompare("Profile") == 0) {
-        redirectUrl = href + currentUser?.id;
+        redirectUrl = href + currentUser?.username;
       }
       router.push(redirectUrl);
     }
@@ -41,7 +41,7 @@ const SidebarItem: FC<ISidebarType> = ({
     isPublic,
     currentUser?.email,
     label,
-    currentUser?.id,
+    currentUser?.username,
   ]);
 
   const RenderIcon = useCallback(() => {
