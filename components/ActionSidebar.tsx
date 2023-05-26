@@ -1,12 +1,18 @@
-import useUsers from "@/hooks/useUsers";
 import { IUser } from "@/types/user.type";
+import { useRouter } from "next/router";
 import Avatar from "./Avatar";
+
+import ColorUtils from "@/base/colors";
+
 import Button from "./shared/Button";
+
 import useCurrentUser from "@/hooks/useCurrentUser";
+import useUsers from "@/hooks/useUsers";
 
 const ActionSidebar = () => {
   const { data: allUsers = [] } = useUsers();
   const { data: currentUser } = useCurrentUser();
+  const router = useRouter();
 
   if (allUsers.length <= 0 || !currentUser) {
     return null;
@@ -14,11 +20,11 @@ const ActionSidebar = () => {
 
   return (
     <div className="p-2">
-      <div className="mt-4 ml-8 bg-neutral-800 rounded-lg text-white w-full">
-        <h2 className="text-lg text-white font-bold py-2 px-4">
+      <div className="mt-4 ml-8 bg-neutral-800 rounded-lg text-white w-[21rem] sticky top-10">
+        <h2 className="text-xl text-white font-black py-4 px-4">
           Who to follow
         </h2>
-        <div className="my-2 pb-2 space-y-2">
+        <div className="my-2 pt-2 space-y-3">
           {allUsers.map((user: IUser) => {
             return (
               <div
@@ -37,19 +43,33 @@ const ActionSidebar = () => {
                     @{user.username}
                   </h5>
                 </div>
-                <Button
-                  label="Follow"
-                  bgColor="white"
-                  color="black"
-                  style={{
-                    padding: "0.25rem 2rem",
-                    fontSize: ".825rem",
-                    fontWeight: "semibold",
-                  }}
-                />
+                <div className=" font-medium flex items-end justify-items-end right-0">
+                  <Button
+                    label="Follow"
+                    bgColor="white"
+                    color="black"
+                    style={{
+                      padding: "0.35rem 1.25rem",
+                      fontSize: ".875rem",
+                      fontWeight: "semibold",
+                    }}
+                  />
+                </div>
               </div>
             );
           })}
+          <div className="rounded-b-lg py-4 px-4 hover:bg-neutral-700 hover:bg-opacity-70 cursor-pointer duration-200">
+            <p>
+              <a
+                onClick={() => router.push("/users?/connect")}
+                style={{
+                  color: ColorUtils.colors.blue,
+                }}
+              >
+                Show more
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
