@@ -9,6 +9,8 @@ import useUser from "@/hooks/useUser";
 
 import Avatar from "../Avatar";
 import Portal from "@/components/shared/Portal";
+import image from "../../public/default_doge_coin.png";
+
 interface IUserHeroProps {
   username: string;
 }
@@ -51,7 +53,10 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
             onClick={(e) => closeModal(e)}
           >
             <img
-              src={cover ? fetchedUser?.coverImage : fetchedUser?.profileImage}
+              src={
+                (cover ? fetchedUser?.coverImage : fetchedUser?.profileImage) ??
+                "/default_doge_coin.png"
+              }
               alt="Cover image"
               className={
                 cover
