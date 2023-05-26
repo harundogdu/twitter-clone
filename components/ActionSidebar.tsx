@@ -1,5 +1,4 @@
 import { IUser } from "@/types/user.type";
-import { useRouter } from "next/router";
 import Avatar from "./Avatar";
 
 import ColorUtils from "@/base/colors";
@@ -12,7 +11,6 @@ import useUsers from "@/hooks/useUsers";
 const ActionSidebar = () => {
   const { data: allUsers = [] } = useUsers();
   const { data: currentUser } = useCurrentUser();
-  const router = useRouter();
 
   if (allUsers.length <= 0 || !currentUser) {
     return null;
@@ -21,10 +19,10 @@ const ActionSidebar = () => {
   return (
     <div className="p-2">
       <div className="mt-4 ml-8 bg-neutral-800 rounded-lg text-white w-[21rem] sticky top-10">
-        <h2 className="text-xl text-white font-black py-4 px-4">
+        <h2 className="text-xl text-white font-black pt-4 pb-1 px-4">
           Who to follow
         </h2>
-        <div className="my-2 pt-2 space-y-3">
+        <div className="my-2 py-3 space-y-2">
           {allUsers.map((user: IUser) => {
             return (
               <div
@@ -58,18 +56,6 @@ const ActionSidebar = () => {
               </div>
             );
           })}
-          <div className="rounded-b-lg py-4 px-4 hover:bg-neutral-700 hover:bg-opacity-70 cursor-pointer duration-200">
-            <p>
-              <a
-                onClick={() => router.push("/users?/connect")}
-                style={{
-                  color: ColorUtils.colors.blue,
-                }}
-              >
-                Show more
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </div>
