@@ -54,11 +54,8 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
           >
             <img
               src={
-                cover
-                  ? fetchedUser?.coverImage
-                  : fetchedUser?.profileImage === null
-                  ? "/default_doge_coin.png"
-                  : fetchedUser?.profileImage
+                (cover ? fetchedUser?.coverImage : fetchedUser?.profileImage) ??
+                "/default_doge_coin.png"
               }
               alt="Cover image"
               className={
