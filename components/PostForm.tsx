@@ -1,7 +1,9 @@
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useState, useEffect } from "react";
 
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 import ColorUtils from "@/base/colors";
 
@@ -26,6 +28,8 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
   const { data: isLoggedIn } = useCurrentUser();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+
+  const [percentage, setPercentage] = useState(0);
 
   const handleLoginClick = useCallback(() => {
     loginModal.onOpen();
@@ -55,6 +59,50 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
       setLoading(false);
     }
   }, [body, mutatePost]);
+
+  useEffect(() => {
+    const calculatePercentage = () => {
+      const currentLenght = body.length;
+      const maxLength = 100;
+      const calculatedPercentage = (currentLenght / maxLength) * 100;
+
+      setPercentage(calculatedPercentage);
+    };
+
+    calculatePercentage();
+  }, [body]);
+
+  const getProgressbarStyle = () => {
+    if (body.length > 0 && body.length < 80) {
+      return buildStyles({
+        rotation: 0,
+        strokeLinecap: "butt",
+        pathTransitionDuration: 0,
+        trailColor: "#2F3336",
+        pathColor: "#1D9BF0",
+      });
+    }
+    if (body.length >= 80 && body.length < 100) {
+      return buildStyles({
+        rotation: 0,
+        strokeLinecap: "butt",
+        pathTransitionDuration: 0,
+        textSize: "20px",
+        trailColor: "#2F3336",
+        pathColor: "#FFD400",
+      });
+    }
+    if (body.length >= 100) {
+      return buildStyles({
+        rotation: 0,
+        strokeLinecap: "butt",
+        pathTransitionDuration: 0,
+        trailColor: "#2F3336",
+        pathColor: "#F4212E",
+      });
+    }
+  };
+
   return (
     <>
       {!isLoggedIn ? (
@@ -98,9 +146,19 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
               placeholder={placeholder}
               value={body}
               onChange={(event) => setBody(event.target.value)}
+              maxLength={100}
             ></textarea>
             <hr className="opacity-0 peer-focus:opacity-100 h-[1px] transition-opacity border-neutral-800 w-full" />
             <div className="w-full flex justify-end">
+              <div className="flex items-center px-5 cursor-pointer">
+                {body.length > 0 ? (
+                  <CircularProgressbar
+                    className="w-5 h-5"
+                    value={percentage}
+                    styles={getProgressbarStyle()}
+                  />
+                ) : null}
+              </div>
               <Button
                 disabled={loading || !body}
                 label="Tweet"
