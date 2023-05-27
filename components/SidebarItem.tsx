@@ -27,9 +27,22 @@ const SidebarItem: FC<ISidebarType> = ({
     if (isPublic && !currentUser?.email) {
       return loginModal.onOpen();
     } else if (href) {
-      router.push(href);
+      let redirectUrl = href;
+      if (label.localeCompare("Profile") == 0) {
+        redirectUrl = href + currentUser?.username;
+      }
+      router.push(redirectUrl);
     }
-  }, [href, onClick, router, loginModal, isPublic, currentUser?.email]);
+  }, [
+    href,
+    onClick,
+    router,
+    loginModal,
+    isPublic,
+    currentUser?.email,
+    label,
+    currentUser?.username,
+  ]);
 
   const RenderIcon = useCallback(() => {
     return width! < 1024 ? (

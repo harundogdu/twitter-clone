@@ -2,7 +2,13 @@ import React, { FC, HTMLInputTypeAttribute, useState } from "react";
 
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
-import { validateEmail } from "@/utils/helpers";
+import {
+  validateEmail,
+  isNullOrEmpty,
+  isNullOrUndefined,
+} from "@/utils/helpers";
+import ColorUtils from "@/base/colors";
+
 interface InputProps {
   type: HTMLInputTypeAttribute;
   placeholder?: string;
@@ -26,10 +32,30 @@ const Input: FC<InputProps> = ({
     }, 200);
   };
 
+  const placeholderText = "Email or Username";
+
   const inputControl = (type: string, value: string): string => {
     let borderColor: string = "focus:ring-primary-main ";
 
+    if (isNullOrEmpty(value) && isNullOrUndefined(value)) {
+      borderColor = "focus:ring-red-600 border-gray-800";
+      return borderColor;
+    }
+
+    if (
+      type === "text" &&
+      value !== "" &&
+      value.includes("@") &&
+      placeholder === placeholderText
+    ) {
+      // for log in
+      if (!validateEmail(value)) {
+        borderColor = "focus:ring-red-600 border-red-600";
+      }
+    }
+
     if (type === "email" && value !== "") {
+      // for register
       if (!validateEmail(value)) {
         borderColor = "focus:ring-red-600 border-red-600";
       }
@@ -52,10 +78,29 @@ const Input: FC<InputProps> = ({
         className={`border border-gray-800 rounded-sm p-4 w-full focus:outline-none focus:ring-1 ${inputControl(
           type,
           value
-        )} focus:border-transparent bg-transparent   text-white`}
+        )} focus:border-transparent bg-transparent text-white`}
       />
+      {!validateEmail(value) &&
+      type === "text" &&
+      value !== "" &&
+      value.includes("@") &&
+      placeholder === placeholderText ? (
+        <div
+          style={{
+            color: ColorUtils.colors.red,
+          }}
+        >
+          Please enter a valid email.
+        </div>
+      ) : null}
       {!validateEmail(value) && type === "email" && value !== "" ? (
-        <div className="text-red-600">Please enter a valid {type}.</div>
+        <div
+          style={{
+            color: ColorUtils.colors.red,
+          }}
+        >
+          Please enter a valid email.
+        </div>
       ) : null}
       {type === "password" ? (
         <span

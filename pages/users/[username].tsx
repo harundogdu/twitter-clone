@@ -13,8 +13,8 @@ import PostFeeds from "@/components/posts/PostFeeds";
 
 const UserView = () => {
   const router = useRouter();
-  const { userId } = router.query;
-  const { data: fetchedUser, isLoading } = useUser(userId as string);
+  const { username } = router.query;
+  const { data: fetchedUser, isLoading } = useUser(username as string);
 
   if (isLoading || !fetchedUser) {
     return (
@@ -27,9 +27,9 @@ const UserView = () => {
   return (
     <div>
       <Header label={fetchedUser?.name} showBackArrow />
-      <UserHero userId={userId as string} />
-      <UserInfo userId={userId as string} />
-      <PostFeeds userId={userId as string} />
+      <UserHero username={username as string} />
+      <UserInfo username={username as string} />
+      <PostFeeds username={username as string} userId={fetchedUser.id} />
     </div>
   );
 };

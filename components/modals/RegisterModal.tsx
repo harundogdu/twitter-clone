@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -27,6 +27,8 @@ const RegisterModal = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [usernameError, setUsernameError] = useState<boolean>(false);
+
   const clearInputs = () => {
     setName("");
     setEmail("");
@@ -42,7 +44,8 @@ const RegisterModal = () => {
       !email ||
       !password ||
       !passwordConfirmed ||
-      !validateEmail(email)
+      !validateEmail(email) ||
+      !!usernameError
     );
   };
 
@@ -83,6 +86,27 @@ const RegisterModal = () => {
     }
   }, [registerModal, email, username, name, password, passwordConfirmed]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(`/api/register/${username}`);
+
+        const isUsernameExist = data.some(
+          (user: { username: string }) => user.username === username
+        );
+
+        if (data && username === data) {
+          setUsernameError(true);
+        } else {
+          setUsernameError(false);
+        }
+      } catch (err: any) {
+        console.error("Data fetch error", err);
+      }
+    };
+    fetchData();
+  }, [username]);
+
   const handleFooterClick = () => {
     loginModal.onOpen();
     registerModal.onClose();
@@ -108,6 +132,13 @@ const RegisterModal = () => {
         value={username}
         onChange={(e) => setUserName(e.target.value)}
       />
+      {username.length > 0 ? (
+        <p style={{ color: ColorUtils.colors.red }}>
+          Username has to be different
+        </p>
+      ) : (
+        ""
+      )}
       <Input
         type="password"
         placeholder="Enter ur password"

@@ -29,15 +29,20 @@ export default function App({ Component, pageProps }: AppProps) {
   const name = user?.name;
 
   useEffect(() => {
-    const firstPath = window.location.pathname.substring(1).split("/")[0];
+    const locationPath = window.location.pathname.substring(1).split("/")[0];
+    const usersPath = window.location.pathname.substring(1).split("/")[1];
 
-    setPageTitle(firstPath || "Home");
+    let title =
+      locationPath.charAt(0).toUpperCase() + locationPath.slice(1) || "Home";
 
-    if (firstPath === "users") {
-      setPageTitle(name);
+    if (locationPath === "users") {
+      // TODO: pulled from backend
+      title = usersPath;
     }
-  }, [name]);
 
+    setPageTitle(title);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <SessionProvider session={pageProps.session}>
@@ -54,8 +59,9 @@ export default function App({ Component, pageProps }: AppProps) {
           />
         </Head>
         <main ref={animationParent}>
+          <div id="portal" />
           <Toaster toastOptions={{ duration: 2000, position: "top-right" }} />
-          <Splash></Splash>
+          <Splash />
           <EditModal />
           <LoginModal />
           <RegisterModal />

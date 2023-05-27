@@ -24,7 +24,13 @@ module.exports = {
         darkGray: "#333333",
         lightGray: "#999999",
       },
+      spacing: {
+        small: 42,
+        medium: 64,
+        large: 128,
+      },
     },
   },
+
   plugins: [],
 };

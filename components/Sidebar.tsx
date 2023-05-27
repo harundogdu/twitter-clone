@@ -51,7 +51,7 @@ const Sidebar = () => {
   }, [currentUser?.email]);
   return (
     <div className="mt-[0.875rem] px-1 h-full col-span-1 sm:px-4 md:px-6 flex items-start justify-center">
-      <div className="flex flex-col items-center md:items-start h-full">
+      <div className="absolute flex flex-col items-center md:items-start h-full">
         <div className="flex flex-col h-full justify-between">
           <div className="space-y-2.5 lg:w-[230px] self-center">
             <SidebarLogo />
@@ -69,11 +69,11 @@ const Sidebar = () => {
           </div>
           {currentUser && (
             <div
-              className="flex gap-5 items-center justify-center rounded-full cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 mb-10 transition-colors p-2"
-              onClick={() => router.push("/users/" + currentUser?.id)}
+              className="bottom-0 flex gap-5 items-center justify-center rounded-full cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 mb-5 transition-colors p-2"
+              onClick={() => router.push("/users/" + currentUser?.username)}
             >
               <div>
-                <Avatar userId={currentUser?.id} size="small" />
+                <Avatar username={currentUser?.username} size="small" />
               </div>
               <>
                 <div className="flex flex-col items-start justify-center">
