@@ -10,7 +10,6 @@ import useEditModal from "@/hooks/useEditModal";
 import Button from "../shared/Button";
 
 import { format } from "date-fns";
-import Linkify from "../Linkify";
 
 import { controlLink } from "@/utils/helpers";
 

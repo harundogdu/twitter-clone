@@ -1,11 +1,11 @@
 import router from "next/router";
 
 const validateEmail = (email: string): boolean => {
- const emailRegex: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const emailRegex: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
   return emailRegex.test(email);
 };
 
-export const controlLink = (text: string): string => {
+const controlLink = (text: string): string => {
   const userRegex = /@(\w+)/g;
   const urlRegex = /(?<!href=["']|["']>)\b\S+\.com\/\S+\b(?![^<]*?<\/a>)/g;
 
@@ -43,7 +43,7 @@ export const controlLink = (text: string): string => {
   return newText;
 };
 
- const isNullOrUndefined = (value: any) => {
+const isNullOrUndefined = (value: any) => {
   return value === null || value === undefined;
 };
 
@@ -51,5 +51,4 @@ const isNullOrEmpty = (value: any) => {
   return value === null || value === "" || value === undefined;
 };
 
-export { isNullOrUndefined, isNullOrEmpty, validateEmail};
-
+export { isNullOrUndefined, isNullOrEmpty, validateEmail, controlLink };
