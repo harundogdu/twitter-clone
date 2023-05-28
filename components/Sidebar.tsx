@@ -57,7 +57,7 @@ const Sidebar = () => {
             <SidebarLogo />
             <RenderSidebarItems />
             <Button
-              label="Share"
+              label="Tweet"
               fullWidth
               size="md"
               bgColor={ColorUtils.colors.main}
