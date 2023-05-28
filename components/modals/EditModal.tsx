@@ -1,7 +1,13 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import axios from "axios";
 import { toast } from "react-hot-toast";
+/* import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"; */
+/* import DatePicker from "react-date-picker";
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css"; */
+import { format } from "date-fns";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useEditModal from "@/hooks/useEditModal";
@@ -10,6 +16,8 @@ import useUser from "@/hooks/useUser";
 import ImageUpload from "../ImageUpload";
 import Input from "../shared/Input";
 import Modal from "../shared/Modal";
+import BasicDatePicker from "../shared/BasicDatePicker";
+import dayjs, { Dayjs } from "dayjs";
 
 const EditModal = () => {
   const editModal = useEditModal();
@@ -23,6 +31,9 @@ const EditModal = () => {
     bio: "",
     profileImage: "",
     coverImage: "",
+    location: "",
+    website: "",
+    birthday: "",
   });
 
   useEffect(() => {
@@ -32,6 +43,9 @@ const EditModal = () => {
       name: currentUser?.name,
       profileImage: currentUser?.profileImage,
       username: currentUser?.username,
+      location: currentUser?.location,
+      website: currentUser?.website,
+      birthday: currentUser?.birthday,
     });
   }, [
     currentUser?.bio,
@@ -39,20 +53,31 @@ const EditModal = () => {
     currentUser?.name,
     currentUser?.profileImage,
     currentUser?.username,
+    currentUser?.location,
+    currentUser?.website,
+    currentUser?.birthday,
   ]);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [formattedBirthday, setFormattedBirthday] = useState(
+    format(new Date(), "dd MMMM yyyy")
+  );
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
 
   const handleSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-
+      console.log(userInfo.birthday);
+      debugger;
       await axios.patch("/api/edit", {
         name: userInfo.name,
         bio: userInfo.bio,
         username: userInfo.username,
         profileImage: userInfo.profileImage,
         coverImage: userInfo.coverImage,
+        location: userInfo.location,
+        website: userInfo.website,
+        birthday: userInfo.birthday,
       });
 
       mutateUser();
@@ -71,6 +96,9 @@ const EditModal = () => {
     userInfo.name,
     userInfo.profileImage,
     userInfo.username,
+    userInfo.location,
+    userInfo.website,
+    userInfo.birthday,
   ]);
 
   const bodyContent = useMemo(
@@ -113,6 +141,38 @@ const EditModal = () => {
           type="text"
           placeholder="Bio"
         />
+
+        <Input
+          value={userInfo.location}
+          onChange={(event) =>
+            setUserInfo({ ...userInfo, location: event.target.value })
+          }
+          type="text"
+          placeholder="location"
+        />
+        <Input
+          value={userInfo.website}
+          onChange={(event) =>
+            setUserInfo({ ...userInfo, website: event.target.value })
+          }
+          type="text"
+          placeholder="website"
+        />
+        {/*   <Input
+          value={formattedBirthday}
+          onChange={(event) => {
+            setUserInfo({ ...userInfo, birthday: event.target.value });
+            setFormattedBirthday(
+              format(new Date(event.target.value), "dd MMMM yyyy")
+            );
+          }}
+          type="text"
+          placeholder="birthday"
+        /> */}
+        {/*   <BasicDatePicker
+          label={"Birthday"}
+          defaultValue={format(new Date(), "dd MMMM yyyy")}
+        /> */}
       </div>
     ),
     [userInfo]

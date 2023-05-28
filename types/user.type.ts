@@ -13,6 +13,10 @@ export interface IUser {
   updatedAt: Date;
   followingIds: string[];
   hasNotification: boolean;
+  location: String;
+  website: String;
+  birthday: Date;
+
   posts: IPost[];
 
   comments: IComment[];
