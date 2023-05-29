@@ -2,15 +2,13 @@ import React, { FC, useMemo } from "react";
 
 import { RiCalendar2Line, RiLink, RiMapPinLine } from "react-icons/ri";
 import { BsBalloon } from "react-icons/bs";
+import { format } from "date-fns";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useUser from "@/hooks/useUser";
 import useEditModal from "@/hooks/useEditModal";
 
 import Button from "../shared/Button";
-
-import { format } from "date-fns";
-
 import { controlLink } from "@/utils/helpers";
 
 interface IUserInfoProps {
@@ -22,7 +20,27 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
   const { data: currentUser } = useCurrentUser();
 
   const bioLink = fetchedUser?.bio ? controlLink(fetchedUser.bio) : "";
-  const website = fetchedUser?.website ? controlLink(fetchedUser?.website) : "";
+  const websiteLink = useMemo(() => {
+    if (!fetchedUser?.website) {
+      return null;
+    }
+
+    return fetchedUser?.website.includes("http") ||
+      fetchedUser?.website.includes("https")
+      ? fetchedUser?.website
+      : `https://${fetchedUser?.website}`;
+  }, [fetchedUser?.website]);
+
+  const websiteText = useMemo(() => {
+    if (!fetchedUser?.website) {
+      return null;
+    }
+
+    return fetchedUser?.website.includes("http") ||
+      fetchedUser?.website.includes("https")
+      ? fetchedUser?.website.split("//")[1]
+      : fetchedUser?.website;
+  }, [fetchedUser?.website]);
 
   const editModal = useEditModal();
 
@@ -92,10 +110,17 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
             </div>
           ) : null}
 
-          {fetchedUser?.website ? (
+          {websiteLink ? (
             <div className="text-neutral-500 mt-2 flex items-center gap-2 mr-2">
               <RiLink size={18} />
-              <p dangerouslySetInnerHTML={{ __html: website }}></p>
+              <a
+                href={websiteLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-main"
+              >
+                {websiteText}
+              </a>
             </div>
           ) : null}
 
