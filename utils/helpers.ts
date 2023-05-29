@@ -51,4 +51,20 @@ const isNullOrEmpty = (value: any) => {
   return value === null || value === "" || value === undefined;
 };
 
-export { isNullOrUndefined, isNullOrEmpty, validateEmail, controlLink };
+function exclude<User, Key extends keyof User>(
+  user: User,
+  keys: Key[]
+): Omit<User, Key> {
+  for (let key of keys) {
+    delete user[key];
+  }
+  return user;
+}
+
+export {
+  isNullOrUndefined,
+  isNullOrEmpty,
+  validateEmail,
+  controlLink,
+  exclude,
+};
