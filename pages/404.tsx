@@ -1,10 +1,5 @@
 import Link from "next/link";
 
-import ColorUtils from "@/base/colors";
-import SpaceUtils from "@/base/spaces";
-
-import Button from "@/components/shared/Button";
-
 const Custom404 = () => {
   return (
     <div className="flex justify-center items-center flex-col mt-24">
