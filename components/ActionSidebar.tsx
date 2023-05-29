@@ -1,7 +1,6 @@
-import React, { useCallback } from "react";
+import { useRouter } from "next/router";
 
 import { IUser } from "@/types/user.type";
-import { useRouter } from "next/router";
 import Avatar from "./Avatar";
 
 import ColorUtils from "@/base/colors";

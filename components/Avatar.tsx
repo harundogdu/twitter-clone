@@ -23,6 +23,7 @@ const Avatar: FC<AvatarProps> = ({
 
   const handleClick = useCallback(
     async (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+      event.stopPropagation();
       const response = await fetch(`/api/users/${username}`);
       const data = await response.json();
 
