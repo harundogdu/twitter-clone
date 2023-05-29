@@ -149,9 +149,9 @@ const EditModal = () => {
           placeholder="location"
         />
         <Input
-          value={userInfo.website}
+          value={userInfo?.website?.trim()}
           onChange={(event) =>
-            setUserInfo({ ...userInfo, website: event.target.value })
+            setUserInfo({ ...userInfo, website: event?.target?.value?.trim() })
           }
           type="text"
           placeholder="website"
