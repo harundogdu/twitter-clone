@@ -21,7 +21,7 @@ export default async function handler(
       skip,
       where: {
         id: {
-          not: currentUser.id,
+          not: currentUser!.id,
         },
       },
       orderBy: {
@@ -34,7 +34,7 @@ export default async function handler(
         take: 3 - users.length,
         where: {
           id: {
-            not: currentUser.id,
+            not: currentUser!.id,
           },
         },
         orderBy: {
@@ -47,7 +47,6 @@ export default async function handler(
 
     return res.status(200).json(users);
   } catch (error: any) {
-    console.log(error);
     return res.status(401).end();
   }
 }

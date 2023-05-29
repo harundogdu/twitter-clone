@@ -67,8 +67,6 @@ const EditModal = () => {
   const handleSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-      console.log(userInfo.birthday);
-      debugger;
       await axios.patch("/api/edit", {
         name: userInfo.name,
         bio: userInfo.bio,
