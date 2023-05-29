@@ -80,7 +80,8 @@ const Input: FC<InputProps> = ({
           value
         )} focus:border-transparent bg-transparent text-white`}
       />
-      {!validateEmail(value) &&
+      {value &&
+      !validateEmail(value) &&
       type === "text" &&
       value !== "" &&
       value.includes("@") &&
