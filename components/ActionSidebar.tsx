@@ -1,3 +1,5 @@
+import React, { useCallback } from "react";
+
 import { IUser } from "@/types/user.type";
 import { useRouter } from "next/router";
 import Avatar from "./Avatar";
@@ -12,6 +14,7 @@ import useUsers from "@/hooks/useUsers";
 const ActionSidebar = () => {
   const { data: allUsers = [] } = useUsers();
   const { data: currentUser } = useCurrentUser();
+  const router = useRouter();
 
   if (allUsers.length <= 0 || !currentUser) {
     return null;
@@ -35,6 +38,9 @@ const ActionSidebar = () => {
                   <h3
                     className="text-white font-bold text-sm text-ellipsis w-fit max-w-[8rem] whitespace-nowrap overflow-hidden hover:underline text-left"
                     title={user.name}
+                    onClick={() => {
+                      router.push(`/users/${user.username}`);
+                    }}
                   >
                     {user.name}
                   </h3>
