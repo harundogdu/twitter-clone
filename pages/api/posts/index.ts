@@ -37,7 +37,14 @@ export default async function handler(
               userId,
             },
             include: {
-              user: true,
+              user: {
+                select: {
+                  name: true,
+                  username: true,
+                  hashedPassword: false,
+                  profileImage: true,
+                },
+              },
               Comment: true,
             },
             orderBy: {
@@ -47,7 +54,14 @@ export default async function handler(
         } else {
           posts = await prisma.post.findMany({
             include: {
-              user: true,
+              user: {
+                select: {
+                  name: true,
+                  username: true,
+                  hashedPassword: false,
+                  profileImage: true,
+                },
+              },
               Comment: true,
             },
             orderBy: {
@@ -59,7 +73,6 @@ export default async function handler(
         return res.status(200).json(posts);
     }
   } catch (error: any) {
-    console.log(error);
     return res.status(500).end();
   }
 }
