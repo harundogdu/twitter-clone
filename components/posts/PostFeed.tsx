@@ -1,9 +1,7 @@
 import React, { FC, useCallback, useMemo } from "react";
-
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
-
 import { RiChat3Line, RiHeart3Line } from "react-icons/ri";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
@@ -35,7 +33,9 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
 
   const goToPost = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
-      if (isLoggedIn) {
+      event.stopPropagation();
+      /* @ts-ignore */
+      if (isLoggedIn && event?.target?.id !== "external-url") {
         router.push(`/posts/${data?.id}`);
       }
     },
