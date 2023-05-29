@@ -36,7 +36,6 @@ export default async function handler(
       userFollowCount,
     });
   } catch (error: any) {
-    console.log(error);
     return res.status(401).end();
   }
 }
