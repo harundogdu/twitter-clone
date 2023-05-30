@@ -1,23 +1,30 @@
+import ColorUtils from "@/base/colors";
+import SpaceUtils from "@/base/spaces";
+import Button from "@/components/shared/Button";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
 
 const Custom404 = () => {
+  const router = useRouter();
+
+  const onClick = useCallback(() => {
+    router.push("/");
+  }, [router]);
+
   return (
     <div className="flex justify-center items-center flex-col mt-24">
-      <p style={{ color: "#71767B" }}>
-        Hmm...this page doesn't exist. Try searching for something else.
+      <p className="text-gray-main">
+        Hmm...this page doesn&apos;t exist. Try searching for something else.
       </p>
-      <button
-        style={{
-          background: "#1f9bf0",
-          color: "#fff",
-          padding: "0.3rem 1rem",
-          marginTop: "1.5rem",
-          fontWeight: 700,
-          borderRadius: "16px",
-        }}
-      >
-        <Link href="/">Search</Link>
-      </button>
+      <Button
+        label="Search"
+        size="sm"
+        bgColor={ColorUtils.colors.main}
+        color={ColorUtils.colors.white}
+        marginVertical={SpaceUtils.spaces.lg}
+        onClick={onClick}
+      />
     </div>
   );
 };
