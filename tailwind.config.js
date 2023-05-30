@@ -23,6 +23,9 @@ module.exports = {
         grayMain: "#f2f2f2",
         darkGray: "#333333",
         lightGray: "#999999",
+        gray: {
+          main: "#71767B",
+        },
       },
       spacing: {
         small: 42,
