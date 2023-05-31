@@ -44,6 +44,10 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
 
   const handleSubmit = useCallback(async () => {
     try {
+      if (!body.trim()) {
+        return toast.error("Post body cannot be empty!");
+      }
+
       setLoading(true);
 
       await axios.post("/api/posts", { body });
