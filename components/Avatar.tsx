@@ -43,7 +43,7 @@ const Avatar: FC<AvatarProps> = ({
     <div onClick={handleClick} className="shrink-0 ">
       <Image
         alt={`${fetchedUser?.name} profile image`}
-        src={fetchedUser?.profileImage || "/default_doge_coin.png"}
+        src={fetchedUser?.profileImage || "/twitter-user-avatar.jpg"}
         width={
           size === "large"
             ? AvatarSize.large
