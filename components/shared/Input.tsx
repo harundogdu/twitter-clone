@@ -1,4 +1,10 @@
-import React, { FC, HTMLInputTypeAttribute, useState } from "react";
+import React, {
+  FC,
+  HTMLInputTypeAttribute,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
@@ -14,7 +20,11 @@ interface InputProps {
   placeholder?: string;
   disabled?: boolean;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  multiline?: boolean;
+  rows?: number;
 }
 
 const Input: FC<InputProps> = ({
@@ -23,6 +33,8 @@ const Input: FC<InputProps> = ({
   disabled = false,
   value = "",
   onChange = () => {},
+  multiline = false,
+  rows = 3,
 }) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(false);
 
@@ -34,58 +46,103 @@ const Input: FC<InputProps> = ({
 
   const placeholderText = "Email or Username";
 
-  const inputControl = (type: string, value: string): string => {
-    let borderColor: string = "focus:ring-primary-main ";
+  const inputControl = useCallback(
+    (type: string, value: string): string => {
+      let borderColor: string = "focus:ring-transparent "; //!
 
-    if (isNullOrEmpty(value) && isNullOrUndefined(value)) {
-      borderColor = "focus:ring-red-600 border-gray-800";
+      if (isNullOrEmpty(value) && isNullOrUndefined(value)) {
+        borderColor = "focus:ring-red-600 border-gray-800";
+        return borderColor;
+      }
+
+      if (
+        type === "text" &&
+        value !== "" &&
+        value.includes("@") &&
+        placeholder === placeholderText
+      ) {
+        // for log in
+        if (!validateEmail(value)) {
+          borderColor = "focus:ring-red-600 border-red-600";
+        }
+      }
+
+      if (type === "email" && value !== "") {
+        // for register
+        if (!validateEmail(value)) {
+          borderColor = "focus:ring-red-600 border-red-600";
+        }
+      }
+
       return borderColor;
-    }
-
-    if (
-      type === "text" &&
-      value !== "" &&
-      value.includes("@") &&
-      placeholder === placeholderText
-    ) {
-      // for log in
-      if (!validateEmail(value)) {
-        borderColor = "focus:ring-red-600 border-red-600";
-      }
-    }
-
-    if (type === "email" && value !== "") {
-      // for register
-      if (!validateEmail(value)) {
-        borderColor = "focus:ring-red-600 border-red-600";
-      }
-    }
-
-    return borderColor;
-  };
+    },
+    [placeholder]
+  );
 
   const renderType =
     type === "password" ? (isPasswordHidden ? "text" : "password") : type;
 
-  return (
-    <div className="relative">
-      <input
-        type={renderType}
-        placeholder={placeholder}
-        disabled={disabled}
-        value={value}
-        onChange={onChange}
-        className={`border border-gray-800 rounded-sm p-4 w-full focus:outline-none focus:ring-1 ${inputControl(
-          type,
-          value
-        )} focus:border-transparent bg-transparent text-white`}
-      />
-      {value &&
+  const errorControl = useMemo(() => {
+    return (
+      value &&
       !validateEmail(value) &&
       type === "text" &&
       value !== "" &&
       value.includes("@") &&
-      placeholder === placeholderText ? (
+      placeholder === placeholderText
+    );
+  }, [value, type, placeholder]);
+
+  return (
+    <div>
+      {!multiline ? (
+        <div className="relative">
+          <input
+            id="floating_filled"
+            className={`block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-transparent  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-main focus:outline-none focus:ring-0 focus:border-primary-main peer rounded-lg 
+          ${errorControl ? "border-red-600" : ""}
+          ${inputControl(type, value)}
+          ${
+            disabled
+              ? "bg-gray-100 dark:bg-gray-800 cursor-not-allowed text-gray-500 dark:text-gray-400"
+              : ""
+          }
+          `}
+            placeholder=" "
+            type={renderType}
+            disabled={disabled}
+            value={value}
+            onChange={onChange}
+          />
+          <label
+            htmlFor="floating_filled"
+            className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+          >
+            {placeholder}
+          </label>
+        </div>
+      ) : (
+        <div className="relative">
+          <textarea
+            rows={rows}
+            className={`block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-transparent  border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary-main focus:outline-none focus:ring-0 focus:border-primary-main peer
+          ${errorControl ? "border-red-600" : ""}
+          ${disabled ? "bg-gray-100 dark:bg-gray-800 cursor-not-allowed" : ""}
+          `}
+            placeholder=" "
+            disabled={disabled}
+            onChange={onChange}
+            defaultValue={value}
+          />
+          <label
+            htmlFor="floating_filled"
+            className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4"
+          >
+            {placeholder}
+          </label>
+        </div>
+      )}
+      {errorControl ? (
         <div
           style={{
             color: ColorUtils.colors.red,
@@ -119,4 +176,4 @@ const Input: FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default React.memo(Input);
