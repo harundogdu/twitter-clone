@@ -101,7 +101,7 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
   return (
     <>
       <div className="flex justify-center items-start  overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none transition-all duration-300 bg-neutral-700 bg-opacity-70">
-        <div className="relative my-10  h-full w-full lg:w-[600px] lg:h-80">
+        <div className="relative my-20  h-full w-full lg:w-[600px] lg:h-72">
           {/*content*/}
           <div className="rounded-lg border-0 bg-black flex flex-col h-full shadow-lg outline-none focus:outline-none relative w-full">
             <div className="flex justify-end items-center p-4 rounded-t">
@@ -114,8 +114,8 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
               </button>
             </div>
 
-            <div className="flex px-4 justify-center items-start space-x-4">
-              <div className="mr-4 mt-2">
+            <div className="flex justify-center items-start space-x-4">
+              <div>
                 <Avatar
                   username={currentUser?.username}
                   size="small"
@@ -142,7 +142,7 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
 
             <div className="flex-col gap-2 p-4 items-center justify-center inset-x-0 absolute bottom-0 ">
               <hr className="opacity-100 h-[1px] transition-opacity border-neutral-800 w-full " />
-              <div className="w-full flex justify-end mt-2 ">
+              <div className="w-full flex justify-end mt-3 ">
                 <div className="flex items-center px-5 cursor-pointer ">
                   {body.length > 0 ? (
                     <CircularProgressbar
