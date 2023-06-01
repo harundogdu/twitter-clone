@@ -19,6 +19,7 @@ import Bottom from "@/components/bottom/Bottom";
 import EditModal from "@/components/modals/EditModal";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
+import TweetModal from "@/components/modals/TweetModal";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
@@ -65,6 +66,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <EditModal />
           <LoginModal />
           <RegisterModal />
+          <TweetModal />
           <Layout>
             <Component {...pageProps} />
           </Layout>
