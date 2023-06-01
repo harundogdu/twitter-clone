@@ -104,7 +104,6 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
         <div className="relative my-10  h-full w-full lg:w-[600px] lg:h-80">
           {/*content*/}
           <div className="rounded-lg border-0 bg-black flex flex-col h-full shadow-lg outline-none focus:outline-none relative w-full">
-            {/*header*/}
             <div className="flex justify-end items-center p-4 rounded-t">
               <h5 className="text-3xl font-semibold text-white">{}</h5>
               <button
@@ -114,33 +113,37 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
                 <RiCloseFill size={28} color={"#fff"} />
               </button>
             </div>
-            {/*body*/}
-            <div className="relative px-4 flex-auto">
-              <div className="flex items-center gap-4 border-neutral-800 ">
-                <div className="self-start mt-2 mr-4">
-                  <Avatar
-                    username={currentUser?.username}
-                    size="medium"
-                    clickable={false}
-                  />
-                </div>
-                <div className=" w-full space-y-4">
-                  <textarea
-                    autoFocus={tweetModal.isOpen ? false : true}
-                    className="w-full resize-none outline-none bg-black mt-4 text-xl text-white placeholder-neutral-500 peer"
-                    placeholder="What's happening?"
-                    value={body}
-                    onChange={(event) => setBody(event.target.value)}
-                    maxLength={100}
-                  ></textarea>
-                </div>
+
+            <div className="flex px-4 justify-center items-start space-x-4">
+              <div className="mr-4 mt-2">
+                <Avatar
+                  username={currentUser?.username}
+                  size="small"
+                  clickable={false}
+                />
+              </div>
+
+              <div className="w-3/4 ">
+                <textarea
+                  autoFocus={tweetModal.isOpen ? false : true}
+                  className="w-full resize-none outline-none bg-black text-xl text-white placeholder-neutral-500 peer overflow-hidden h-auto min-h-2000"
+                  placeholder="What's happening?"
+                  value={body}
+                  onChange={(event) => {
+                    setBody(event.target.value);
+                    event.target.style.height = "auto";
+                    event.target.style.height =
+                      event.target.scrollHeight + "px";
+                  }}
+                  maxLength={100}
+                ></textarea>
               </div>
             </div>
-            {/*footer*/}
-            <div className="flex flex-col gap-2 p-4 items-center justify-center ">
-              <hr className="opacity-100 h-[1px] transition-opacity border-neutral-800 w-full" />
-              <div className="w-full flex justify-end">
-                <div className="flex items-center px-5 cursor-pointer">
+
+            <div className="flex-col gap-2 p-4 items-center justify-center inset-x-0 absolute bottom-0 ">
+              <hr className="opacity-100 h-[1px] transition-opacity border-neutral-800 w-full " />
+              <div className="w-full flex justify-end mt-2 ">
+                <div className="flex items-center px-5 cursor-pointer ">
                   {body.length > 0 ? (
                     <CircularProgressbar
                       className="w-5 h-5"
