@@ -21,7 +21,6 @@ import TweetModal from "@/components/modals/TweetModal";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 
-
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
   const { data: isLoggedIn } = useCurrentUser();
