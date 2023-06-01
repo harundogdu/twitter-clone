@@ -19,10 +19,13 @@ const Custom404 = () => {
       </p>
       <Button
         label="Search"
-        size="sm"
+        size="md"
         bgColor={ColorUtils.colors.main}
         color={ColorUtils.colors.white}
         marginVertical={SpaceUtils.spaces.lg}
+        paddingHorizontal={SpaceUtils.spaces.md}
+        paddingVertical={"0.4rem"}
+        fontWeight={700}
         onClick={onClick}
       />
     </div>
