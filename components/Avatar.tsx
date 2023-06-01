@@ -11,12 +11,14 @@ interface AvatarProps {
   username: string;
   size?: "small" | "medium" | "large";
   hasBorder?: boolean;
+  clickable?: boolean;
 }
 
 const Avatar: FC<AvatarProps> = ({
   username,
   size = "medium",
   hasBorder = false,
+  clickable = true,
 }) => {
   const router = useRouter();
   const { data: fetchedUser } = useUser(username);
@@ -29,10 +31,12 @@ const Avatar: FC<AvatarProps> = ({
 
       const _username: string = data.username;
 
-      const url = `/users/${_username}`;
-      router.push(url);
+      if (clickable) {
+        const url = `/users/${_username}`;
+        router.push(url);
+      }
     },
-    [router, username]
+    [router, username, clickable]
   );
 
   return (

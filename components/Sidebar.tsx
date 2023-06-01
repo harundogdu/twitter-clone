@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import Image from "next/image";
 
 import { RiMoreFill } from "react-icons/ri";
 
@@ -8,6 +7,7 @@ import SpaceUtils from "@/base/spaces";
 
 import useLoginModal from "@/hooks/useLoginModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import useTweetActionModal from "@/hooks/useTweetActionModal";
 
 import SidebarLogo from "@/components/SidebarLogo";
 import SidebarItem from "@/components/SidebarItem";
@@ -15,20 +15,23 @@ import Button from "@/components/shared/Button";
 
 import { SidebarItems } from "@/utils/@fake.db";
 import { useRouter } from "next/router";
+
 import Avatar from "./Avatar";
 
 const Sidebar = () => {
   const { onOpen } = useLoginModal();
+  const { onOpen: tweetModal } = useTweetActionModal();
   const { data: currentUser } = useCurrentUser();
   const router = useRouter();
 
   const handleShareClick = useCallback(() => {
     if (!currentUser?.email) {
       return onOpen();
+    } else {
+      return tweetModal();
     }
 
-    // TODO:: Share Popup
-  }, [currentUser?.email, onOpen]);
+  }, [currentUser?.email, onOpen, tweetModal]);
 
   const RenderSidebarItems = useCallback(() => {
     const sideBarItems = currentUser?.email
