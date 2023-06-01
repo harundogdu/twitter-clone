@@ -55,7 +55,7 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
             <img
               src={
                 (cover ? fetchedUser?.coverImage : fetchedUser?.profileImage) ??
-                "/default_doge_coin.png"
+                "/twitter-user-avatar.jpg"
               }
               alt="Cover image"
               className={
