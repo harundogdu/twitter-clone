@@ -31,7 +31,6 @@ const Sidebar = () => {
       return tweetModal();
     }
 
-    // TODO:: Share Popup
   }, [currentUser?.email, onOpen, tweetModal]);
 
   const RenderSidebarItems = useCallback(() => {
