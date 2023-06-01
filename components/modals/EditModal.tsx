@@ -146,7 +146,7 @@ const EditModal = () => {
             setUserInfo({ ...userInfo, location: event.target.value })
           }
           type="text"
-          placeholder="location"
+          placeholder="Location"
         />
         <Input
           value={userInfo?.website?.trim()}
@@ -154,7 +154,7 @@ const EditModal = () => {
             setUserInfo({ ...userInfo, website: event?.target?.value?.trim() })
           }
           type="text"
-          placeholder="website"
+          placeholder="Website"
         />
         {/*   <Input
           value={formattedBirthday}
