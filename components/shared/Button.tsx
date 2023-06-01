@@ -22,6 +22,9 @@ interface IButtonProps {
   borderColor?: string;
   style?: React.CSSProperties | undefined;
   type?: "button" | "submit" | "reset" | undefined;
+  paddingVertical?: string | number;
+  paddingHorizontal?: string | number;
+  fontWeight?: string | number;
 }
 
 const Button: FC<IButtonProps> = ({
@@ -42,6 +45,9 @@ const Button: FC<IButtonProps> = ({
   borderColor,
   style,
   type,
+  paddingVertical = 0,
+  paddingHorizontal = 0,
+  fontWeight,
 }) => {
   const { width } = useWindowSize();
   return (
@@ -57,6 +63,11 @@ const Button: FC<IButtonProps> = ({
           marginBottom: marginVertical,
           marginLeft: marginHorizontal,
           marginRight: marginHorizontal,
+          paddingTop: paddingVertical,
+          paddingBottom: paddingVertical,
+          paddingLeft: paddingHorizontal,
+          paddingRight: paddingHorizontal,
+          fontWeight: fontWeight,
         }
       }
       className={`

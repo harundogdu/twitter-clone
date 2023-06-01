@@ -63,6 +63,8 @@ const Sidebar = () => {
               bgColor={ColorUtils.colors.main}
               color={ColorUtils.colors.white}
               marginVertical={SpaceUtils.spaces.lg}
+              paddingHorizontal={SpaceUtils.spaces.md}
+              paddingVertical={SpaceUtils.spaces.sm}
               showShareButton
               onClick={handleShareClick}
             />
