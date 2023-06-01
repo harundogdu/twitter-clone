@@ -14,7 +14,7 @@ const Custom404 = () => {
 
   return (
     <div className="flex justify-center items-center flex-col mt-24">
-      <p className="text-gray-main">
+      <p className="text-custom-gray-main">
         Hmm...this page doesn&apos;t exist. Try searching for something else.
       </p>
       <Button
