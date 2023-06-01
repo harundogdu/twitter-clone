@@ -2,21 +2,20 @@ import { FC, useCallback, useState, useEffect } from "react";
 
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 
 import ColorUtils from "@/base/colors";
 
+import { RiCloseFill } from "react-icons/ri";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+
+import "react-circular-progressbar/dist/styles.css";
+
+import usePosts from "@/hooks/usePosts";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import useTweetActionModal from "@/hooks/useTweetActionModal";
+
 import Avatar from "@/components/Avatar";
 import Button from "@/components/shared/Button";
-("");
-
-import useCurrentUser from "@/hooks/useCurrentUser";
-import useLoginModal from "@/hooks/useLoginModal";
-import usePosts from "@/hooks/usePosts";
-import useRegisterModal from "@/hooks/useRegisterModal";
-import useTweetActionModal from "@/hooks/useTweetActionModal";
-import { RiCloseFill } from "react-icons/ri";
 
 interface IPostFormProps {
   username?: string;
