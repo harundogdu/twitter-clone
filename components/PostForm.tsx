@@ -44,10 +44,6 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
 
   const handleSubmit = useCallback(async () => {
     try {
-      if (!body.trim()) {
-        return toast.error("Post body cannot be empty!");
-      }
-
       setLoading(true);
 
       await axios.post("/api/posts", { body });
@@ -155,7 +151,7 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
             <hr className="opacity-0 peer-focus:opacity-100 h-[1px] transition-opacity border-neutral-800 w-full" />
             <div className="w-full flex justify-end">
               <div className="flex items-center px-5 cursor-pointer">
-                {body.length > 0 ? (
+                {body.length > 0 && body.trim() ? (
                   <CircularProgressbar
                     className="w-5 h-5"
                     value={percentage}
@@ -164,7 +160,7 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
                 ) : null}
               </div>
               <Button
-                disabled={loading || !body}
+                disabled={loading || !body.trim()}
                 label="Tweet"
                 style={{
                   padding: ".5rem 1rem",
