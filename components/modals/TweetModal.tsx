@@ -76,7 +76,8 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
-        textSize: "20px",
+        textSize: "50px",
+        textColor: "#71767b",
         trailColor: "#2F3336",
         pathColor: "#FFD400",
       });
@@ -86,6 +87,8 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
+        textSize: "50px",
+        textColor: "#F4212E",
         trailColor: "#2F3336",
         pathColor: "#F4212E",
       });
@@ -135,7 +138,6 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
                     event.target.style.height =
                       event.target.scrollHeight + "px";
                   }}
-                  maxLength={100}
                 ></textarea>
               </div>
             </div>
@@ -143,18 +145,29 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
             <div className="flex-col gap-2 p-4 items-center justify-center inset-x-0 absolute bottom-0 ">
               <hr className="opacity-100 h-[1px] transition-opacity border-neutral-800 w-full " />
               <div className="w-full flex justify-end mt-3 ">
-                <div className="flex items-center px-5 cursor-pointer ">
-                  {body.length > 0 ? (
+                <div className="flex items-center px-5 cursor-pointer">
+                  {body.length > 0 && body.length < 80 && body.trim() ? (
                     <CircularProgressbar
-                      className="w-5 h-5"
+                      className="w-5 h-5 ease-in duration-300"
                       value={percentage}
                       styles={getProgressbarStyle()}
                     />
+                  ) : body.length >= 80 && body.length < 110 && body.trim() ? (
+                    <CircularProgressbar
+                      className="w-7 h-7 ease-out duration-300"
+                      value={percentage}
+                      styles={getProgressbarStyle()}
+                      text={`${100 - body.length}`}
+                    />
+                  ) : null || (body.length > 0 && body.trim()) ? (
+                    <span className="text-md text-custom-externalRed duration-400">{`${
+                      100 - body.length
+                    }`}</span>
                   ) : null}
                 </div>
 
                 <Button
-                  disabled={loading || !body}
+                  disabled={loading || !body || body.length > 100}
                   label="Tweet"
                   style={{
                     padding: ".5rem 1rem",
