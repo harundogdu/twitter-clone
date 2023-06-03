@@ -87,7 +87,8 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
-        textSize: "20px",
+        textSize: "50px",
+        textColor: "#71767b",
         trailColor: "#2F3336",
         pathColor: "#FFD400",
       });
@@ -97,6 +98,8 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
+        textSize: "50px",
+        textColor: "#F4212E",
         trailColor: "#2F3336",
         pathColor: "#F4212E",
       });
@@ -146,21 +149,31 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
               placeholder={placeholder}
               value={body}
               onChange={(event) => setBody(event.target.value)}
-              maxLength={100}
             ></textarea>
             <hr className="opacity-0 peer-focus:opacity-100 h-[1px] transition-opacity border-neutral-800 w-full" />
             <div className="w-full flex justify-end">
               <div className="flex items-center px-5 cursor-pointer">
-                {body.length > 0 && body.trim() ? (
+                {body.length > 0 && body.length < 80 && body.trim() ? (
                   <CircularProgressbar
-                    className="w-5 h-5"
+                    className="w-5 h-5 ease-in duration-300"
                     value={percentage}
                     styles={getProgressbarStyle()}
                   />
+                ) : body.length >= 80 && body.length < 110 && body.trim() ? (
+                  <CircularProgressbar
+                    className="w-7 h-7 ease-out duration-300"
+                    value={percentage}
+                    styles={getProgressbarStyle()}
+                    text={`${100 - body.length}`}
+                  />
+                ) : null || (body.length > 0 && body.trim()) ? (
+                  <span className="text-md text-custom-externalRed duration-400">{`${
+                    100 - body.length
+                  }`}</span>
                 ) : null}
               </div>
               <Button
-                disabled={loading || !body.trim()}
+                disabled={loading || !body.trim() || body.length > 100}
                 label="Tweet"
                 style={{
                   padding: ".5rem 1rem",
