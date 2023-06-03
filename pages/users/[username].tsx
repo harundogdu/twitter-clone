@@ -26,7 +26,12 @@ const UserView = () => {
 
   return (
     <div>
-      <Header label={fetchedUser?.name} showBackArrow />
+      <Header
+        label={fetchedUser?.name}
+        showBackArrow
+        isProfilePage
+        userName={fetchedUser?.username}
+      />
       <UserHero username={username as string} />
       <UserInfo username={username as string} />
       <PostFeeds username={username as string} userId={fetchedUser.id} />
