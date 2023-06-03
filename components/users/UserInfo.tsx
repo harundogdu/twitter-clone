@@ -1,15 +1,18 @@
-import React, { FC, useMemo } from "react";
+import { FC, useMemo } from "react";
 
-import { RiCalendar2Line, RiLink, RiMapPinLine } from "react-icons/ri";
-import { BsBalloon } from "react-icons/bs";
 import { format } from "date-fns";
+import { BsBalloon } from "react-icons/bs";
+import { RiCalendar2Line, RiLink, RiMapPinLine } from "react-icons/ri";
+
+import ColorUtils from "@/base/colors";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
-import useUser from "@/hooks/useUser";
 import useEditModal from "@/hooks/useEditModal";
+import useFollow from "@/hooks/useFollow";
+import useUser from "@/hooks/useUser";
 
-import Button from "../shared/Button";
 import { controlLink } from "@/utils/helpers";
+import Button from "../shared/Button";
 
 interface IUserInfoProps {
   username: string;
@@ -18,6 +21,7 @@ interface IUserInfoProps {
 const UserInfo: FC<IUserInfoProps> = ({ username }) => {
   const { data: fetchedUser } = useUser(username);
   const { data: currentUser } = useCurrentUser();
+  const { isFollowing, toggleFollow } = useFollow(username);
 
   const bioLink = fetchedUser?.bio ? controlLink(fetchedUser.bio) : "";
   const websiteLink = useMemo(() => {
@@ -71,18 +75,30 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
             style={{
               padding: "0.5rem 1.5rem",
               fontWeight: "semibold",
+              outline: "none",
+              width: "130px",
             }}
             onClick={() => editModal.onOpen()}
+            size="sm"
           />
         ) : (
           <Button
-            label="Follow"
-            bgColor="white"
-            color="black"
+            label={isFollowing ? "Following" : "Follow"}
+            labelSize={"0.875rem"}
+            color={isFollowing ? "white" : "black"}
+            bgColor={isFollowing ? "blue" : "white"}
             style={{
               padding: ".5rem 2rem",
               fontWeight: "semibold",
+              border: `1px solid ${
+                isFollowing ? ColorUtils.colors.lightGray : "transparent"
+              }`,
+              width: "130px",
             }}
+            hoverEnabled={isFollowing}
+            hoverText={isFollowing ? "Unfollow" : ""}
+            onClick={toggleFollow}
+            size="sm"
           />
         )}
       </div>
