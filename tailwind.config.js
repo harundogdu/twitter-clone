@@ -34,8 +34,9 @@ module.exports = {
         medium: 64,
         large: 128,
       },
+      scrollbar: ["rounded-md"],
     },
   },
 
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };
