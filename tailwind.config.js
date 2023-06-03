@@ -19,6 +19,8 @@ module.exports = {
           purple: "#7956ff",
           orange: "#ff7a00",
           externalRed: "#ff0000",
+          red: "#ff0000",
+          redHover: "rgba(255, 0, 0, 0.2)",
           white: "#ffffff",
           black: "#000000",
           grayMain: "#f2f2f2",

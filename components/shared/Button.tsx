@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 import { IconType } from "react-icons";
 
@@ -25,6 +25,9 @@ interface IButtonProps {
   paddingVertical?: string | number;
   paddingHorizontal?: string | number;
   fontWeight?: string | number;
+  hoverEnabled?: boolean;
+  labelSize?: string | number;
+  hoverText?: string;
 }
 
 const Button: FC<IButtonProps> = ({
@@ -48,12 +51,19 @@ const Button: FC<IButtonProps> = ({
   paddingVertical = 0,
   paddingHorizontal = 0,
   fontWeight,
+  hoverEnabled,
+  labelSize,
+  hoverText,
 }) => {
   const { width } = useWindowSize();
+  const [hover, setHover] = useState(false);
+
   return (
     <button
       disabled={disabled}
       onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       type={type}
       style={
         style || {
@@ -68,20 +78,18 @@ const Button: FC<IButtonProps> = ({
           paddingLeft: paddingHorizontal,
           paddingRight: paddingHorizontal,
           fontWeight: fontWeight,
+          border: border,
+          borderColor: borderColor,
         }
       }
       className={`
                 ${fullWidth ? "w-full" : "w-fit"}
-                rounded-full
-                focus:outline-none
-                focus:ring-2
+                rounded-3xl
                 px-2
                 py-2
                 text-${size}
                 transition-colors
                 cursor-pointer
-                border-${border}
-                border-${borderColor}
                 bg-${bgColor}
                 hover:bg-${bgColor}
                 hover:bg-opacity-80
@@ -89,6 +97,14 @@ const Button: FC<IButtonProps> = ({
                 ${secondary && "bg-white !important"}
                 ${secondary && "text-black !important"}
                 ${disabled && "disabled:cursor-not-allowed opacity-60"}
+                ${disabled && "disabled:bg-gray-300"}
+                ${disabled && "disabled:text-gray-500"}
+                outline-none
+                active:outline-none
+                ${
+                  hoverEnabled &&
+                  "hover:bg-custom-redHover hover:!border-custom-redHover hover:text-custom-red"
+                }
             `}
     >
       {Icon && <Icon className="mr-2" />}
@@ -107,9 +123,9 @@ const Button: FC<IButtonProps> = ({
         <span
           className={`${
             large && "text-lg transition duration-300 ease-in-out font-medium"
-          }`}
+          } ${labelSize && `text-${labelSize}`}`}
         >
-          {label}
+          {hover && hoverEnabled ? hoverText : label}
         </span>
       )}
     </button>
