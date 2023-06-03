@@ -15,7 +15,7 @@ const PostFeeds: FC<IPostFeedsProps> = ({ userId, username }) => {
 
   return (
     <>
-      {Array.isArray(posts) && posts.length > 1000 ? (
+      {Array.isArray(posts) && posts.length > 0 ? (
         posts.map((post: Record<string, any>) => (
           <PostFeed key={post.id} username={username!} data={post} />
         ))
