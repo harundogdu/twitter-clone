@@ -76,7 +76,7 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
-        textSize: "50px",
+        textSize: "40px",
         textColor: "#71767b",
         trailColor: "#2F3336",
         pathColor: "#FFD400",
@@ -87,7 +87,7 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
-        textSize: "50px",
+        textSize: "40px",
         textColor: "#F4212E",
         trailColor: "#2F3336",
         pathColor: "#F4212E",
@@ -126,18 +126,18 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
                 />
               </div>
 
-              <div className="w-3/4 ">
+              <div className="w-3/4">
                 <textarea
                   autoFocus={tweetModal.isOpen ? false : true}
-                  className="w-full resize-none outline-none bg-black text-xl text-white placeholder-neutral-500 peer overflow-hidden h-auto min-h-2000"
+                  className="w-full resize-none outline-none bg-black mt-4 text-xl text-white placeholder-neutral-500 peer"
                   placeholder="What's happening?"
                   value={body}
                   onChange={(event) => {
                     setBody(event.target.value);
-                    event.target.style.height = "auto";
-                    event.target.style.height =
-                      event.target.scrollHeight + "px";
+                    event.target.style.height = "84px";
+                    event.target.style.height = event.target.scrollHeight + "0";
                   }}
+                  maxLength={150}
                 ></textarea>
               </div>
             </div>
@@ -152,17 +152,13 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
                       value={percentage}
                       styles={getProgressbarStyle()}
                     />
-                  ) : body.length >= 80 && body.length < 110 && body.trim() ? (
+                  ) : body.length >= 80 && body.trim() ? (
                     <CircularProgressbar
                       className="w-7 h-7 ease-out duration-300"
                       value={percentage}
                       styles={getProgressbarStyle()}
                       text={`${100 - body.length}`}
                     />
-                  ) : null || (body.length > 0 && body.trim()) ? (
-                    <span className="text-md text-custom-externalRed duration-400">{`${
-                      100 - body.length
-                    }`}</span>
                   ) : null}
                 </div>
 
