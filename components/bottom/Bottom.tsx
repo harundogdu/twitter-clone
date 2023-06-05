@@ -41,23 +41,22 @@ const Bottom = () => {
             <div className="py-2">
               <Button
                 label="Log in"
+                size="xs"
                 onClick={handleLoginClick}
-                style={{
-                  padding: "0.5rem 1rem",
-                  border: "1px solid rgba(255, 255, 255, 0.35)",
-                  color: ColorUtils.colors.white,
-                }}
+                border="sm"
+                borderColor="white"
+                labelWeight="semibold"
+                labelSize="base"
               />
             </div>
             <div className="py-2">
               <Button
                 label="Sign up"
+                size="xs"
                 onClick={handleRegisterClick}
-                style={{
-                  padding: "0.5rem 1rem",
-                  background: ColorUtils.colors.white,
-                  color: ColorUtils.colors.black,
-                }}
+                secondary
+                labelSize="base"
+                labelWeight="semibold"
               />
             </div>
           </div>

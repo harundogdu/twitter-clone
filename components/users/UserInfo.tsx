@@ -70,35 +70,27 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
         {currentUser?.username === username ? (
           <Button
             label="Edit profile"
-            bgColor="white"
-            color="black"
-            style={{
-              padding: "0.5rem 1.5rem",
-              fontWeight: "semibold",
-              outline: "none",
-              width: "130px",
-            }}
             onClick={() => editModal.onOpen()}
-            size="sm"
+            size="md"
+            labelSize="sm"
+            btnBlack
+            labelWeight="semibold"
+            hoverBgColor="bg-custom-white"
           />
         ) : (
           <Button
             label={isFollowing ? "Following" : "Follow"}
-            labelSize={"0.875rem"}
-            color={isFollowing ? "white" : "black"}
-            bgColor={isFollowing ? "blue" : "white"}
-            style={{
-              padding: ".5rem 2rem",
-              fontWeight: "semibold",
-              border: `1px solid ${
-                isFollowing ? ColorUtils.colors.lightGray : "transparent"
-              }`,
-              width: "130px",
-            }}
+            btnBlack={isFollowing}
+            labelSize="sm"
+            labelWeight="semibold"
             hoverEnabled={isFollowing}
             hoverText={isFollowing ? "Unfollow" : ""}
+            hoverBgColor={"bg-custom-redHover"}
+            hoverBorderColor="border-custom-redHover "
+            hoverColor="text-custom-red"
             onClick={toggleFollow}
-            size="sm"
+            size="md"
+            secondary
           />
         )}
       </div>
