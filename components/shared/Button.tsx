@@ -17,7 +17,18 @@ interface IButtonProps {
   paddingHorizontal?: string;
   hoverBgColor?: string;
   hoverBorderColor?: string;
-  hoverColor?: string;
+  hoverTextColor?: string;
+  hoverOpacity?:
+    | "10"
+    | "20"
+    | "30"
+    | "40"
+    | "50"
+    | "60"
+    | "70"
+    | "80"
+    | "90"
+    | "100";
   bgColor?: string;
   color?: string;
   icon?: IconType;
@@ -66,7 +77,8 @@ const Button: FC<IButtonProps> = ({
   paddingVertical = null,
   hoverBgColor = null,
   hoverBorderColor = null,
-  hoverColor = null,
+  hoverTextColor = null,
+  hoverOpacity = null,
 }) => {
   const { width } = useWindowSize();
   const [hover, setHover] = useState(false);
@@ -84,15 +96,11 @@ const Button: FC<IButtonProps> = ({
                 ${
                   secondary
                     ? "bg-custom-white text-custom-black"
+                    : btnBlack
+                    ? ` bg-custom-black text-custom-white !border-sm border-custom-white hover:!bg-opacity-${hoverOpacity}`
                     : "bg-primary-main text-custom-white"
                 }
-
-                ${
-                  btnBlack &&
-                  "bg-custom-black text-custom-white !border-sm  hover:!bg-opacity-10"
-                }
-                
-                
+             
                 ${
                   (size === "custom" && "px-4 py-2 text-xs") ||
                   (size === "sm" && "px-5 py-1.5 text-sm") ||
@@ -113,9 +121,9 @@ const Button: FC<IButtonProps> = ({
                 !border-${border}
                 !border-${borderColor}
 
-                hover:!${hoverBgColor} 
-                hover:!${hoverBorderColor} 
-                hover:!${hoverColor}
+                hover:bg-${hoverBgColor} 
+                hover:text-${hoverTextColor}
+                hover:border-${hoverBorderColor}
                 hover:bg-opacity-80
 
                 !py-${paddingVertical}
@@ -137,7 +145,9 @@ const Button: FC<IButtonProps> = ({
               
                 ${
                   hoverEnabled &&
-                  `hover:!${hoverBgColor} hover:!${hoverBorderColor} hover:!${hoverColor}`
+                  `hover:!bg-${hoverBgColor} 
+                   hover:!text-${hoverTextColor}
+                   hover:!border-${hoverBorderColor}`
                 }
             `}
     >
