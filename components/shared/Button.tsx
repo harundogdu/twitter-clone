@@ -18,17 +18,7 @@ interface IButtonProps {
   hoverBgColor?: string;
   hoverBorderColor?: string;
   hoverTextColor?: string;
-  hoverOpacity?:
-    | "10"
-    | "20"
-    | "30"
-    | "40"
-    | "50"
-    | "60"
-    | "70"
-    | "80"
-    | "90"
-    | "100";
+  hoverOpacity?: string;
   bgColor?: string;
   color?: string;
   icon?: IconType;
@@ -71,8 +61,8 @@ const Button: FC<IButtonProps> = ({
   hoverEnabled,
   labelSize,
   hoverText,
-  marginHorizontal = 0,
-  marginVertical = 0,
+  marginHorizontal = null,
+  marginVertical = null,
   paddingHorizontal = null,
   paddingVertical = null,
   hoverBgColor = null,
@@ -83,55 +73,45 @@ const Button: FC<IButtonProps> = ({
   const { width } = useWindowSize();
   const [hover, setHover] = useState(false);
 
-  return (
-    <button
-      disabled={disabled}
-      onClick={onClick}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      type={type}
-      className={`
+  const styles = [
+    `
                 ${fullWidth ? "w-full" : "w-fit"}
                 rounded-3xl
                 ${
                   secondary
-                    ? "bg-custom-white text-custom-black"
+                    ? ButtonUtils.styles.secondary
                     : btnBlack
-                    ? ` bg-custom-black text-custom-white !border-sm border-custom-white hover:!bg-opacity-${hoverOpacity}`
-                    : "bg-primary-main text-custom-white"
+                    ? `${ButtonUtils.styles.blackBtn} ${hoverOpacity}`
+                    : ButtonUtils.styles.primary
                 }
              
                 ${
-                  (size === "custom" && "px-4 py-2 text-xs") ||
-                  (size === "sm" && "px-5 py-1.5 text-sm") ||
-                  (size === "md" && "px-8 py-2 text-base") ||
-                  (size === "lg" && "px-8 py-3 text-lg")
+                  (size === "custom" &&
+                    ButtonUtils.buttonSizes.customButtonStyle) ||
+                  (size === "sm" && ButtonUtils.buttonSizes.smStyle) ||
+                  (size === "md" && ButtonUtils.buttonSizes.mdStyle) ||
+                  (size === "lg" && ButtonUtils.buttonSizes.lgStyle)
                 }
 
 
-                !bg-${bgColor}
+                ${bgColor}
 
                 font-${labelWeight}
-                text-${labelWeight}
-                !text-${color}
+                ${color}
 
                 transition-colors
                 cursor-pointer
 
-                !border-${border}
-                !border-${borderColor}
+                ${border}
+                ${borderColor}
 
-                hover:!bg-${hoverBgColor} 
-                hover:!text-${hoverTextColor}
-                hover:!border-${hoverBorderColor}
-                hover:!bg-opacity-${hoverOpacity}
                 hover:bg-opacity-80
 
-                !py-${paddingVertical}
-                !px-${paddingHorizontal}
+                ${paddingVertical}
+                ${paddingHorizontal}
 
-                !my-${marginVertical}
-                !mx-${marginHorizontal}
+                ${marginVertical}
+                ${marginHorizontal}
 
                 outline-none
                 active:outline-none
@@ -146,11 +126,23 @@ const Button: FC<IButtonProps> = ({
               
                 ${
                   hoverEnabled &&
-                  `hover:!bg-${hoverBgColor} 
-                   hover:!text-${hoverTextColor}
-                   hover:!border-${hoverBorderColor}`
+                  `
+                  ${hoverBgColor} 
+                  ${hoverTextColor}
+                  ${hoverBorderColor}
+                  ${hoverOpacity}`
                 }
-            `}
+            `,
+  ].join(" ");
+
+  return (
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      type={type}
+      className={styles}
     >
       {Icon && <Icon className="mr-2" />}
       {width! <= 1024 && showShareButton && (

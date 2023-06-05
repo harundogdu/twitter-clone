@@ -63,6 +63,7 @@ const Sidebar = () => {
               fullWidth
               size="md"
               showShareButton
+              marginVertical="!my-5"
               onClick={handleShareClick}
             />
           </div>

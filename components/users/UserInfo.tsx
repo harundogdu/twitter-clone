@@ -74,9 +74,12 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
             size="md"
             labelSize="sm"
             btnBlack
-            hoverBgColor="custom-white"
+            hoverEnabled
+            hoverText="Edit profile"
+            hoverBgColor="hover:bg-custom-white"
+            hoverOpacity="hover:!bg-opacity-10"
+            color="black"
             labelWeight="semibold"
-            hoverOpacity="10"
           />
         ) : (
           <Button
@@ -87,7 +90,9 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
             labelWeight="semibold"
             hoverEnabled={isFollowing}
             hoverText={isFollowing ? "Unfollow" : ""}
-            hoverBgColor="custom-redHover"
+            hoverBgColor="hover:!bg-custom-redHover"
+            hoverTextColor="hover:!text-custom-red"
+            hoverBorderColor="hover:!border-custom-redHover"
             onClick={toggleFollow}
             size="md"
           />
