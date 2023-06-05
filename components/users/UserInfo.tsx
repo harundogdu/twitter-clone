@@ -74,23 +74,22 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
             size="md"
             labelSize="sm"
             btnBlack
+            hoverBgColor="custom-white"
             labelWeight="semibold"
-            hoverBgColor="bg-custom-white"
+            hoverOpacity="10"
           />
         ) : (
           <Button
             label={isFollowing ? "Following" : "Follow"}
             btnBlack={isFollowing}
+            secondary={!isFollowing}
             labelSize="sm"
             labelWeight="semibold"
             hoverEnabled={isFollowing}
             hoverText={isFollowing ? "Unfollow" : ""}
-            hoverBgColor={"bg-custom-redHover"}
-            hoverBorderColor="border-custom-redHover "
-            hoverColor="text-custom-red"
+            hoverBgColor="custom-redHover"
             onClick={toggleFollow}
             size="md"
-            secondary
           />
         )}
       </div>
