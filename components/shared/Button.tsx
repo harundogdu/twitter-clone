@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 
 import { IconType } from "react-icons";
 
+import ButtonUtils from "@/base/button";
 import useWindowSize from "@/hooks/useWindowSize";
 
 interface IButtonProps {
@@ -9,51 +10,75 @@ interface IButtonProps {
   secondary?: boolean;
   onClick?: () => void;
   fullWidth?: boolean;
-  size?: "sm" | "md" | "lg";
+  size?: "custom" | "sm" | "md" | "lg";
+  marginHorizontal?: string;
+  marginVertical?: string;
+  paddingVertical?: string;
+  paddingHorizontal?: string;
+  hoverBgColor?: string;
+  hoverBorderColor?: string;
+  hoverTextColor?: string;
+  hoverOpacity?:
+    | "10"
+    | "20"
+    | "30"
+    | "40"
+    | "50"
+    | "60"
+    | "70"
+    | "80"
+    | "90"
+    | "100";
   bgColor?: string;
   color?: string;
-  marginVertical?: string | number;
-  marginHorizontal?: string | number;
   icon?: IconType;
   showShareButton?: boolean;
   disabled?: boolean;
-  large?: boolean;
   border?: string;
   borderColor?: string;
   style?: React.CSSProperties | undefined;
   type?: "button" | "submit" | "reset" | undefined;
-  paddingVertical?: string | number;
-  paddingHorizontal?: string | number;
-  fontWeight?: string | number;
+  labelWeight?:
+    | "light"
+    | "normal"
+    | "medium"
+    | "semibold"
+    | "bold"
+    | "extrabold";
   hoverEnabled?: boolean;
-  labelSize?: string | number;
+  labelSize?: "xs" | "sm" | "base" | "lg";
   hoverText?: string;
+  large?: boolean;
+  btnBlack?: boolean;
 }
 
 const Button: FC<IButtonProps> = ({
   label,
   secondary = false,
+  btnBlack = false,
   onClick,
   fullWidth = false,
   size = "md",
-  bgColor = "blue",
-  color = "white",
-  marginVertical = 0,
-  marginHorizontal = 0,
+  bgColor = null,
+  color = null,
   icon: Icon,
   showShareButton = false,
   disabled,
-  large = false,
-  border,
-  borderColor,
-  style,
+  border = null,
+  borderColor = null,
   type,
-  paddingVertical = 0,
-  paddingHorizontal = 0,
-  fontWeight,
+  labelWeight = null,
   hoverEnabled,
   labelSize,
   hoverText,
+  marginHorizontal = 0,
+  marginVertical = 0,
+  paddingHorizontal = null,
+  paddingVertical = null,
+  hoverBgColor = null,
+  hoverBorderColor = null,
+  hoverTextColor = null,
+  hoverOpacity = null,
 }) => {
   const { width } = useWindowSize();
   const [hover, setHover] = useState(false);
@@ -65,45 +90,65 @@ const Button: FC<IButtonProps> = ({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       type={type}
-      style={
-        style || {
-          backgroundColor: `${!secondary && bgColor}`,
-          color: `${!secondary && color}`,
-          marginTop: marginVertical,
-          marginBottom: marginVertical,
-          marginLeft: marginHorizontal,
-          marginRight: marginHorizontal,
-          paddingTop: paddingVertical,
-          paddingBottom: paddingVertical,
-          paddingLeft: paddingHorizontal,
-          paddingRight: paddingHorizontal,
-          fontWeight: fontWeight,
-          border: border,
-          borderColor: borderColor,
-        }
-      }
       className={`
                 ${fullWidth ? "w-full" : "w-fit"}
                 rounded-3xl
-                px-2
-                py-2
-                text-${size}
+                ${
+                  secondary
+                    ? "bg-custom-white text-custom-black"
+                    : btnBlack
+                    ? ` bg-custom-black text-custom-white !border-sm border-custom-white hover:!bg-opacity-${hoverOpacity}`
+                    : "bg-primary-main text-custom-white"
+                }
+             
+                ${
+                  (size === "custom" && "px-4 py-2 text-xs") ||
+                  (size === "sm" && "px-5 py-1.5 text-sm") ||
+                  (size === "md" && "px-8 py-2 text-base") ||
+                  (size === "lg" && "px-8 py-3 text-lg")
+                }
+
+
+                !bg-${bgColor}
+
+                font-${labelWeight}
+                text-${labelWeight}
+                !text-${color}
+
                 transition-colors
                 cursor-pointer
-                bg-${bgColor}
-                hover:bg-${bgColor}
+
+                !border-${border}
+                !border-${borderColor}
+
+                hover:!bg-${hoverBgColor} 
+                hover:!text-${hoverTextColor}
+                hover:!border-${hoverBorderColor}
+                hover:!bg-opacity-${hoverOpacity}
                 hover:bg-opacity-80
-                text-${color}
-                ${secondary && "bg-white !important"}
-                ${secondary && "text-black !important"}
-                ${disabled && "disabled:cursor-not-allowed opacity-60"}
-                ${disabled && "disabled:bg-gray-300"}
-                ${disabled && "disabled:text-gray-500"}
+
+                !py-${paddingVertical}
+                !px-${paddingHorizontal}
+
+                !my-${marginVertical}
+                !mx-${marginHorizontal}
+
                 outline-none
                 active:outline-none
+                
+                ${disabled && "disabled:cursor-not-allowed opacity-60"}
+                ${
+                  disabled &&
+                  secondary &&
+                  "disabled:bg-gray-300 disabled:text-gray-500"
+                }
+                
+              
                 ${
                   hoverEnabled &&
-                  "hover:bg-custom-redHover hover:!border-custom-redHover hover:text-custom-red"
+                  `hover:!bg-${hoverBgColor} 
+                   hover:!text-${hoverTextColor}
+                   hover:!border-${hoverBorderColor}`
                 }
             `}
     >
@@ -122,7 +167,8 @@ const Button: FC<IButtonProps> = ({
       {width! > 1024 && (
         <span
           className={`${
-            large && "text-lg transition duration-300 ease-in-out font-medium"
+            size === "lg" &&
+            "text-lg transition duration-300 ease-in-out font-medium"
           } ${labelSize && `text-${labelSize}`}`}
         >
           {hover && hoverEnabled ? hoverText : label}

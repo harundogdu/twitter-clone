@@ -154,11 +154,8 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
                 <Button
                   disabled={loading || !body}
                   label="Tweet"
-                  style={{
-                    padding: ".5rem 1rem",
-                    background: ColorUtils.colors.main,
-                    color: ColorUtils.colors.white,
-                  }}
+                  size="custom"
+                  labelSize="base"
                   onClick={handleSubmit}
                 />
               </div>

@@ -157,13 +157,13 @@ const RegisterModal = () => {
   const footerContent = (
     <p className="text-white">
       <span className="mr-2">Have you an account?</span>
-      <button
-        className="hover:underline"
+      <a
+        className="hover:underline cursor-pointer"
         style={{ color: ColorUtils.colors.main }}
         onClick={handleFooterClick}
       >
         Login
-      </button>
+      </a>
     </p>
   );
 

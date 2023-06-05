@@ -30,7 +30,6 @@ const Sidebar = () => {
     } else {
       return tweetModal();
     }
-
   }, [currentUser?.email, onOpen, tweetModal]);
 
   const RenderSidebarItems = useCallback(() => {
@@ -63,11 +62,6 @@ const Sidebar = () => {
               label="Tweet"
               fullWidth
               size="md"
-              bgColor={ColorUtils.colors.main}
-              color={ColorUtils.colors.white}
-              marginVertical={SpaceUtils.spaces.lg}
-              paddingHorizontal={SpaceUtils.spaces.md}
-              paddingVertical={SpaceUtils.spaces.sm}
               showShareButton
               onClick={handleShareClick}
             />

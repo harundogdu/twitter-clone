@@ -51,12 +51,9 @@ const ActionSidebar = () => {
                   <Button
                     label="Follow"
                     bgColor="white"
-                    color="black"
-                    style={{
-                      padding: "0.35rem 1.25rem",
-                      fontSize: ".875rem",
-                      fontWeight: "semibold",
-                    }}
+                    secondary
+                    size="sm"
+                    labelSize="sm"
                   />
                 </div>
               </div>

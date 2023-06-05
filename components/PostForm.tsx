@@ -115,22 +115,19 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
               <Button
                 label="Log in"
                 onClick={handleLoginClick}
-                style={{
-                  padding: ".5rem 1rem",
-                  background: ColorUtils.colors.main,
-                  color: ColorUtils.colors.white,
-                }}
+                size="custom"
+                labelSize="base"
+                labelWeight="semibold"
               />
             </div>
             <div className="py-2">
               <Button
                 label="Sign up"
                 onClick={handleRegisterClick}
-                style={{
-                  padding: "0.5rem 1rem",
-                  background: ColorUtils.colors.white,
-                  color: ColorUtils.colors.black,
-                }}
+                size="custom"
+                labelSize="base"
+                secondary
+                labelWeight="semibold"
               />
             </div>
           </div>
@@ -162,12 +159,10 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
               <Button
                 disabled={loading || !body.trim()}
                 label="Tweet"
-                style={{
-                  padding: ".5rem 1rem",
-                  background: ColorUtils.colors.main,
-                  color: ColorUtils.colors.white,
-                }}
                 onClick={handleSubmit}
+                size="custom"
+                labelSize="base"
+                labelWeight="semibold"
               />
             </div>
           </div>

@@ -74,11 +74,9 @@ const Modal: FC<IModalProps> = ({
                 disabled={disabled}
                 secondary
                 fullWidth
-                paddingHorizontal={8}
-                paddingVertical={8}
-                large
+                labelSize="lg"
+                labelWeight="semibold"
                 onClick={handleSubmit}
-                color="black"
               />
               {footer}
             </div>
