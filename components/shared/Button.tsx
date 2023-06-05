@@ -94,16 +94,15 @@ const Button: FC<IButtonProps> = ({
                 }
 
 
-                bg-${bgColor}
+                ${bgColor}
 
                 font-${labelWeight}
-                text-${labelWeight}
                 ${color}
 
                 transition-colors
                 cursor-pointer
 
-                !border-${border}
+                ${border}
                 ${borderColor}
 
                 hover:bg-opacity-80
