@@ -41,7 +41,7 @@ const Bottom = () => {
             <div className="py-2">
               <Button
                 label="Log in"
-                size="xs"
+                size="custom"
                 onClick={handleLoginClick}
                 border="sm"
                 borderColor="white"
@@ -52,7 +52,7 @@ const Bottom = () => {
             <div className="py-2">
               <Button
                 label="Sign up"
-                size="xs"
+                size="custom"
                 onClick={handleRegisterClick}
                 secondary
                 labelSize="base"

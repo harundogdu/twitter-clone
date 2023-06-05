@@ -115,7 +115,7 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
               <Button
                 label="Log in"
                 onClick={handleLoginClick}
-                size="xs"
+                size="custom"
                 labelSize="base"
                 labelWeight="semibold"
               />
@@ -124,7 +124,7 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
               <Button
                 label="Sign up"
                 onClick={handleRegisterClick}
-                size="xs"
+                size="custom"
                 labelSize="base"
                 secondary
                 labelWeight="semibold"
@@ -160,7 +160,7 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
                 disabled={loading || !body.trim()}
                 label="Tweet"
                 onClick={handleSubmit}
-                size="xs"
+                size="custom"
                 labelSize="base"
                 labelWeight="semibold"
               />

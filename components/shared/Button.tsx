@@ -10,7 +10,7 @@ interface IButtonProps {
   secondary?: boolean;
   onClick?: () => void;
   fullWidth?: boolean;
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: "custom" | "sm" | "md" | "lg";
   marginHorizontal?: string;
   marginVertical?: string;
   paddingVertical?: string;
@@ -94,7 +94,7 @@ const Button: FC<IButtonProps> = ({
                 
                 
                 ${
-                  (size === "xs" && "px-4 py-2 text-xs") ||
+                  (size === "custom" && "px-4 py-2 text-xs") ||
                   (size === "sm" && "px-5 py-1.5 text-sm") ||
                   (size === "md" && "px-8 py-2 text-base") ||
                   (size === "lg" && "px-8 py-3 text-lg")

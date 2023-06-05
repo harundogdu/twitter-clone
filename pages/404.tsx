@@ -19,7 +19,7 @@ const Custom404 = () => {
       </p>
       <Button
         label="Search"
-        size="xs"
+        size="custom"
         labelWeight="bold"
         labelSize="base"
         onClick={onClick}
