@@ -145,7 +145,7 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
           </div>
           <div className="w-full space-y-10">
             <textarea
-              className="w-full resize-none outline-none bg-black mt-4 text-xl text-white placeholder-neutral-500 peer"
+              className="w-full resize-none outline-none bg-black mt-4 text-xl text-white placeholder-neutral-500 peer scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm"
               placeholder={placeholder}
               value={body}
               onChange={(event) => setBody(event.target.value)}
