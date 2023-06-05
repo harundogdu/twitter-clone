@@ -37,6 +37,9 @@ module.exports = {
         large: 128,
       },
       scrollbar: ["rounded-md"],
+      borderWidth: {
+        sm: "1px",
+      },
     },
   },
 
