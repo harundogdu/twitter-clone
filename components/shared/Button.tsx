@@ -121,9 +121,10 @@ const Button: FC<IButtonProps> = ({
                 !border-${border}
                 !border-${borderColor}
 
-                hover:bg-${hoverBgColor} 
-                hover:text-${hoverTextColor}
-                hover:border-${hoverBorderColor}
+                hover:!bg-${hoverBgColor} 
+                hover:!text-${hoverTextColor}
+                hover:!border-${hoverBorderColor}
+                hover:!bg-opacity-${hoverOpacity}
                 hover:bg-opacity-80
 
                 !py-${paddingVertical}
