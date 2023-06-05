@@ -23,11 +23,9 @@ export default async function handler(
       },
     });
 
-    const userFollowCount = await prisma.user.count({
+    const userFollowCount = await prisma.post.count({
       where: {
-        followingIds: {
-          has: user?.id,
-        },
+        userId: user?.id,
       },
     });
 

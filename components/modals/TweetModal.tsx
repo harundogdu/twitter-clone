@@ -1,17 +1,15 @@
-import { FC, useCallback, useState, useEffect } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 
 import axios from "axios";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { toast } from "react-hot-toast";
+import { RiCloseFill } from "react-icons/ri";
 
 import ColorUtils from "@/base/colors";
 
-import { RiCloseFill } from "react-icons/ri";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-
-import "react-circular-progressbar/dist/styles.css";
-
-import usePosts from "@/hooks/usePosts";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import usePosts from "@/hooks/usePosts";
 import useTweetActionModal from "@/hooks/useTweetActionModal";
 
 import Avatar from "@/components/Avatar";
@@ -22,12 +20,10 @@ interface IPostFormProps {
 }
 const TweetModal: FC<IPostFormProps> = ({ username }) => {
   const tweetModal = useTweetActionModal();
-
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser, mutate: mutateUser } = useCurrentUser();
   const { mutate: mutatePost } = usePosts(username as string);
 
   const [percentage, setPercentage] = useState(0);
-
   const [body, setBody] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -41,19 +37,21 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
 
       setBody("");
       mutatePost();
+      mutateUser();
+      tweetModal.onClose();
     } catch (error: any) {
       console.log(error);
       toast.error("Something went wrong!");
     } finally {
       setLoading(false);
     }
-  }, [body, mutatePost]);
+  }, [body, mutatePost, tweetModal, mutateUser]);
 
   useEffect(() => {
     const calculatePercentage = () => {
-      const currentLenght = body.length;
+      const currentLength = body.length;
       const maxLength = 100;
-      const calculatedPercentage = (currentLenght / maxLength) * 100;
+      const calculatedPercentage = (currentLength / maxLength) * 100;
 
       setPercentage(calculatedPercentage);
     };

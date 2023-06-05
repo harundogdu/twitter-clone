@@ -16,6 +16,11 @@ const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
     where: {
       email: session.user.email,
     },
+    include: {
+      posts: true,
+      comments: true,
+      notifications: true,
+    },
   });
 
   if (!currentUser) {
