@@ -73,13 +73,13 @@ const LoginModal = () => {
   const footerContent = (
     <p className="text-white">
       <span className="mr-2">Don&apos;t have an account?</span>
-      <button
-        className="hover:underline"
+      <a
+        className="hover:underline cursor-pointer"
         style={{ color: ColorUtils.colors.main }}
         onClick={handleFooterClick}
       >
         Sign up
-      </button>
+      </a>
     </p>
   );
 
