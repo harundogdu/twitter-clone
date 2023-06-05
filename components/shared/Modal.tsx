@@ -74,6 +74,8 @@ const Modal: FC<IModalProps> = ({
                 disabled={disabled}
                 secondary
                 fullWidth
+                labelSize="lg"
+                labelWeight="semibold"
                 onClick={handleSubmit}
               />
               {footer}
