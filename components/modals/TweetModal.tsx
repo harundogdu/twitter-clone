@@ -129,7 +129,7 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
               <div className="w-3/4">
                 <textarea
                   autoFocus={tweetModal.isOpen ? false : true}
-                  className="w-full resize-none outline-none bg-black mt-4 text-xl text-white placeholder-neutral-500 peer"
+                  className="w-full resize-none outline-none bg-black mt-4 text-xl text-white placeholder-neutral-500 peer scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm"
                   placeholder="What's happening?"
                   value={body}
                   onChange={(event) => {
