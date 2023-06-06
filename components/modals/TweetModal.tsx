@@ -74,7 +74,8 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
-        textSize: "20px",
+        textSize: "40px",
+        textColor: "#71767b",
         trailColor: "#2F3336",
         pathColor: "#FFD400",
       });
@@ -84,6 +85,8 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
+        textSize: "40px",
+        textColor: "#F4212E",
         trailColor: "#2F3336",
         pathColor: "#F4212E",
       });
@@ -121,19 +124,18 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
                 />
               </div>
 
-              <div className="w-3/4 ">
+              <div className="w-3/4">
                 <textarea
                   autoFocus={tweetModal.isOpen ? false : true}
-                  className="w-full resize-none outline-none bg-black text-xl text-white placeholder-neutral-500 peer overflow-hidden h-auto min-h-2000"
+                  className="w-full resize-none outline-none bg-black mt-4 text-xl text-white placeholder-neutral-500 peer scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm"
                   placeholder="What's happening?"
                   value={body}
                   onChange={(event) => {
                     setBody(event.target.value);
-                    event.target.style.height = "auto";
-                    event.target.style.height =
-                      event.target.scrollHeight + "px";
+                    event.target.style.height = "84px";
+                    event.target.style.height = event.target.scrollHeight + "0";
                   }}
-                  maxLength={100}
+                  maxLength={150}
                 ></textarea>
               </div>
             </div>
@@ -141,18 +143,25 @@ const TweetModal: FC<IPostFormProps> = ({ username }) => {
             <div className="flex-col gap-2 p-4 items-center justify-center inset-x-0 absolute bottom-0 ">
               <hr className="opacity-100 h-[1px] transition-opacity border-neutral-800 w-full " />
               <div className="w-full flex justify-end mt-3 ">
-                <div className="flex items-center px-5 cursor-pointer ">
-                  {body.length > 0 ? (
+                <div className="flex items-center px-5 cursor-pointer">
+                  {body.length > 0 && body.length < 80 && body.trim() ? (
                     <CircularProgressbar
-                      className="w-5 h-5"
+                      className="w-5 h-5 ease-in duration-300"
                       value={percentage}
                       styles={getProgressbarStyle()}
+                    />
+                  ) : body.length >= 80 && body.trim() ? (
+                    <CircularProgressbar
+                      className="w-7 h-7 ease-out duration-300"
+                      value={percentage}
+                      styles={getProgressbarStyle()}
+                      text={`${100 - body.length}`}
                     />
                   ) : null}
                 </div>
 
                 <Button
-                  disabled={loading || !body}
+                  disabled={loading || !body || body.length > 100}
                   label="Tweet"
                   size="custom"
                   labelSize="base"

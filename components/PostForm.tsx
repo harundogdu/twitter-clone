@@ -87,7 +87,8 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
-        textSize: "20px",
+        textSize: "40px",
+        textColor: "#71767b",
         trailColor: "#2F3336",
         pathColor: "#FFD400",
       });
@@ -97,6 +98,8 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
         rotation: 0,
         strokeLinecap: "butt",
         pathTransitionDuration: 0,
+        textSize: "40px",
+        textColor: "#F4212E",
         trailColor: "#2F3336",
         pathColor: "#F4212E",
       });
@@ -137,27 +140,34 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
           <div className="self-start mt-2">
             <Avatar username={currentUser?.username} size="medium" />
           </div>
-          <div className="w-full space-y-4">
+          <div className="w-full space-y-10">
             <textarea
-              className="w-full resize-none outline-none bg-black mt-4 text-xl text-white placeholder-neutral-500 peer"
+              className="w-full resize-none outline-none bg-black mt-4 text-xl text-white placeholder-neutral-500 peer scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm"
               placeholder={placeholder}
               value={body}
               onChange={(event) => setBody(event.target.value)}
-              maxLength={100}
+              maxLength={150}
             ></textarea>
             <hr className="opacity-0 peer-focus:opacity-100 h-[1px] transition-opacity border-neutral-800 w-full" />
             <div className="w-full flex justify-end">
               <div className="flex items-center px-5 cursor-pointer">
-                {body.length > 0 && body.trim() ? (
+                {body.length > 0 && body.length < 80 && body.trim() ? (
                   <CircularProgressbar
-                    className="w-5 h-5"
+                    className="w-5 h-5 ease-in duration-300"
                     value={percentage}
                     styles={getProgressbarStyle()}
+                  />
+                ) : body.length >= 80 && body.trim() ? (
+                  <CircularProgressbar
+                    className="w-7 h-7 ease-out duration-300"
+                    value={percentage}
+                    styles={getProgressbarStyle()}
+                    text={`${100 - body.length}`}
                   />
                 ) : null}
               </div>
               <Button
-                disabled={loading || !body.trim()}
+                disabled={loading || !body.trim() || body.length > 100}
                 label="Tweet"
                 onClick={handleSubmit}
                 size="custom"
