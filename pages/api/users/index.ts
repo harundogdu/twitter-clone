@@ -17,8 +17,7 @@ export default async function handler(
     const usersCount = await prisma.user.count();
     const skip = Math.floor(Math.random() * usersCount);
     const users = await prisma.user.findMany({
-      take: 3,
-      skip,
+      
       where: {
         id: {
           not: currentUser!.id,
