@@ -1,9 +1,7 @@
-import ColorUtils from "@/base/colors";
-import SpaceUtils from "@/base/spaces";
-import Button from "@/components/shared/Button";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { useCallback } from "react";
+import { useRouter } from "next/router";
+
+import Button from "@/components/shared/Button";
 
 const Custom404 = () => {
   const router = useRouter();
