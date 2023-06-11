@@ -21,8 +21,6 @@ const Header: FC<IHeaderProps> = ({
   const router = useRouter();
   const { data: activeUser } = useUser(userName as string);
 
-  console.log("activeUser", activeUser);
-
   const handleBackClick = useCallback(() => {
     if (Boolean(router.back())) {
       return router.back();
