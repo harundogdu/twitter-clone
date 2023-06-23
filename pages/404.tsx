@@ -20,6 +20,7 @@ const Custom404 = () => {
         size="custom"
         labelWeight="bold"
         labelSize="base"
+        marginVertical="mt-4"
         onClick={onClick}
       />
     </div>
