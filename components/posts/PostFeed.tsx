@@ -1,8 +1,13 @@
-import React, { FC, useCallback, useMemo } from "react";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
-import { RiChat3Line, RiHeart3Line } from "react-icons/ri";
+import {
+  RiChat3Line,
+  RiHeart3Line,
+  RiMoreFill,
+  RiDeleteBinLine,
+} from "react-icons/ri";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useLoginModal from "@/hooks/useLoginModal";
@@ -19,6 +24,8 @@ interface IPostFeedProps {
 const PostFeed: FC<IPostFeedProps> = ({ data }) => {
   const loginModal = useLoginModal();
 
+  const [editPost, setEditPost] = useState(false);
+
   const router = useRouter();
   const { data: isLoggedIn } = useCurrentUser();
 
@@ -34,6 +41,10 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
   const goToPost = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       event.stopPropagation();
+
+      if (editPost === false) {
+        return;
+      }
       /* @ts-ignore */
       if (isLoggedIn && event?.target?.id !== "external-url") {
         router.push(`/posts/${data?.id}`);
@@ -62,6 +73,17 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
     [isLoggedIn, loginModal]
   );
 
+  const postEdit = useCallback(
+    (event: React.MouseEvent<SVGElement, MouseEvent>) => {
+      event.stopPropagation();
+      if (!isLoggedIn) {
+        return loginModal.onOpen();
+      }
+      setEditPost((prevState) => !prevState);
+    },
+    [isLoggedIn, loginModal]
+  );
+
   const createdAt = useMemo(() => {
     if (!data?.createdAt) {
       return null;
@@ -75,10 +97,10 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
       className="border-neutral-800 p-4 border-b transition hover:bg-neutral-900 cursor-pointer "
       onClick={goToPost}
     >
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-4 relative">
         <Avatar username={data.user.username} size="small" />
         <div className="flex flex-col">
-          <div className="flex gap-2">
+          <div className="flex gap-2 ">
             <h5
               className="text-white font-semibold cursor-pointer hover:underline"
               onClick={goToUser}
@@ -116,6 +138,22 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
               <p>{data.Comment.length || 0}</p>
             </div>
           </div>
+        </div>
+        <RiMoreFill
+          className="absolute right-0 top-0"
+          onClick={(e) => {
+            postEdit(e);
+          }}
+        />
+        <div
+          className={`absolute right-4 top-3 py-3 px-2  bg-custom-black ${
+            editPost ? "block shadow-sm shadow-custom-white rounded" : "hidden"
+          }`}
+        >
+          <p className=" rounded hover:bg-custom-white hover:bg-opacity-20 w-full py-1 px-5 flex items-center gap-1 text-custom-externalRed font-bold">
+            <RiDeleteBinLine />
+            Delete
+          </p>
         </div>
       </div>
     </div>
