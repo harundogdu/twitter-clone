@@ -86,6 +86,15 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
     [isLoggedIn, loginModal]
   );
 
+  const postDelete = useCallback(
+    (id: any) => {
+      if (!isLoggedIn) {
+        return loginModal.onOpen();
+      }
+    },
+    [isLoggedIn, loginModal]
+  );
+
   const createdAt = useMemo(() => {
     if (!data?.createdAt) {
       return null;
@@ -148,11 +157,16 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
           }}
         />
         <div
-          className={`absolute w-72 right-4 top-3 bg-custom-black z-50 ${
+          className={`absolute w-72 right-0 top-0 bg-custom-black z-50 ${
             editPost ? "block shadow-customSecondary rounded-lg" : "hidden"
           }`}
         >
-          <p className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 text-custom-externalRed font-bold">
+          <p
+            className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 text-custom-externalRed font-bold"
+            onClick={(e) => {
+              postDelete(data.id);
+            }}
+          >
             <RiDeleteBinLine className="" />
             Delete
           </p>
