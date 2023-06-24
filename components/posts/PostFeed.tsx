@@ -7,6 +7,8 @@ import {
   RiHeart3Line,
   RiMoreFill,
   RiDeleteBinLine,
+  RiPushpin2Line,
+  RiUserUnfollowLine,
 } from "react-icons/ri";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
@@ -22,10 +24,10 @@ interface IPostFeedProps {
 }
 
 const PostFeed: FC<IPostFeedProps> = ({ data }) => {
-  const loginModal = useLoginModal();
-
   const [editPost, setEditPost] = useState(false);
+  const [pin, setPin] = useState(false);
 
+  const loginModal = useLoginModal();
   const router = useRouter();
   const { data: isLoggedIn } = useCurrentUser();
 
@@ -146,13 +148,37 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
           }}
         />
         <div
-          className={`absolute right-4 top-3 py-3 px-2  bg-custom-black ${
-            editPost ? "block shadow-sm shadow-custom-white rounded" : "hidden"
+          className={`absolute w-72 right-4 top-3 bg-custom-black z-50 ${
+            editPost ? "block shadow-customSecondary rounded-lg" : "hidden"
           }`}
         >
-          <p className=" rounded hover:bg-custom-white hover:bg-opacity-20 w-full py-1 px-5 flex items-center gap-1 text-custom-externalRed font-bold">
-            <RiDeleteBinLine />
+          <p className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 text-custom-externalRed font-bold">
+            <RiDeleteBinLine className="" />
             Delete
+          </p>
+          <p
+            className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
+            onClick={() => {
+              setPin((prevState) => !prevState);
+            }}
+          >
+            <RiPushpin2Line className="" />
+            {pin ? "Unpin" : "Pin"} from profile
+          </p>
+          <p
+            className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
+            onClick={() => {}}
+          >
+            <RiChat3Line className="" />
+            Change who can reply
+          </p>
+
+          <p
+            className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
+            onClick={() => {}}
+          >
+            <RiUserUnfollowLine className="" />
+            Unfollow
           </p>
         </div>
       </div>
