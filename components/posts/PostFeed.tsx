@@ -9,6 +9,7 @@ import {
   RiDeleteBinLine,
   RiPushpin2Line,
   RiUserUnfollowLine,
+  RiEditLine,
 } from "react-icons/ri";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
