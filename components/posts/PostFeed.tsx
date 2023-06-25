@@ -17,7 +17,6 @@ import useLoginModal from "@/hooks/useLoginModal";
 import { controlLink } from "@/utils/helpers";
 
 import Avatar from "../Avatar";
-import Portal from "@/components/shared/Portal";
 
 interface IPostFeedProps {
   username: string;
@@ -88,7 +87,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
   );
 
   const postDelete = useCallback(
-    (id: any) => {
+    async (id: any) => {
       if (!isLoggedIn) {
         return loginModal.onOpen();
       }
@@ -201,14 +200,15 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
               <RiChat3Line className="" />
               Change who can reply
             </p>
-
-            <p
-              className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
-              onClick={() => {}}
-            >
-              <RiUserUnfollowLine className="" />
-              Unfollow
-            </p>
+            {isLoggedIn && data?.user?.username !== isLoggedIn?.username && (
+              <p
+                className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
+                onClick={() => {}}
+              >
+                <RiUserUnfollowLine className="" />
+                Unfollow
+              </p>
+            )}
           </div>
         </div>
       </div>
