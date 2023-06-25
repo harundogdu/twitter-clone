@@ -175,15 +175,18 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
             }`}
             editPost-data="editPost"
           >
-            <p
-              className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 text-custom-externalRed font-bold"
-              onClick={(e) => {
-                postDelete(data.id);
-              }}
-            >
-              <RiDeleteBinLine className="" />
-              Delete
-            </p>
+            {isLoggedIn && data?.user?.username === isLoggedIn?.username && (
+              <p
+                className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 text-custom-externalRed font-bold"
+                onClick={(e) => {
+                  postDelete(data.id);
+                }}
+              >
+                <RiDeleteBinLine className="" />
+                Delete
+              </p>
+            )}
+
             <p
               className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
               onClick={() => {
@@ -191,15 +194,18 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
               }}
             >
               <RiPushpin2Line className="" />
-              {pin ? "Unpin" : "Pin"} from profile
+              {pin ? "Unpin from profile" : "Pin to profile"}
             </p>
-            <p
-              className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
-              onClick={() => {}}
-            >
-              <RiChat3Line className="" />
-              Change who can reply
-            </p>
+            {isLoggedIn && data?.user?.username === isLoggedIn?.username && (
+              <p
+                className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
+                onClick={() => {}}
+              >
+                <RiChat3Line className="" />
+                Change who can reply
+              </p>
+            )}
+
             {isLoggedIn && data?.user?.username !== isLoggedIn?.username && (
               <p
                 className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
