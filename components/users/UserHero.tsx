@@ -9,7 +9,6 @@ import useUser from "@/hooks/useUser";
 
 import Avatar from "../Avatar";
 import Portal from "@/components/shared/Portal";
-import image from "../../public/default_doge_coin.png";
 
 interface IUserHeroProps {
   username: string;

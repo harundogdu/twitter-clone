@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        custom: "rgba(255, 255, 255, 0.2) 0px 0px 15px",
+        customSecondary: "rgba(255, 255, 255, 0.30) 0px 0px 3px 1px",
+      },
       colors: {
         primary: {
           main: "#1f9bf0",
