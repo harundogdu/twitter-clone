@@ -38,7 +38,7 @@ const ActionSidebar = () => {
 
   return (
     <div className="p-2">
-      <div className="mt-8 ml-8 bg-neutral-800 rounded-2xl text-white w-[21rem] sticky top-4">
+      <div className="mt-8 ml-8 bg-custom-lightBlack rounded-2xl text-white w-[21rem] sticky top-4">
         <h2 className="text-xl text-neutral-100 font-black pt-4 pb-1 px-4">
           Who to follow
         </h2>
