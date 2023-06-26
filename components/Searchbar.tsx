@@ -24,8 +24,10 @@ const Searchbar = () => {
       }
 
       setSearchUsers(
-        allUsers.filter((user: IUser) =>
-          user.name.toLowerCase().includes(e.target.value.toLowerCase())
+        allUsers.filter(
+          (user: IUser) =>
+            user.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+            user.username.toLowerCase().includes(e.target.value.toLowerCase())
         )
       );
     },
