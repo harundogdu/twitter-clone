@@ -42,7 +42,7 @@ const Searchbar = () => {
 
   return (
     <div className="pl-2">
-      <div className=" relative w-[21rem] h-12 bg-custom-lightBlack mt-2 ml-8 rounded-full flex justify-start items-center z-50">
+      <div className=" relative w-[21rem] h-12 bg-custom-lightBlack mt-2 ml-8 rounded-full flex justify-start items-center z-30">
         <RiSearchLine className="ml-5 text-custom-lightGray" size={18} />
         <input
           type="text"
