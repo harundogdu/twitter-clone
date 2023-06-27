@@ -1,38 +1,39 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
+import { debounce } from "lodash";
 import { useRouter } from "next/router";
 import { RiSearchLine } from "react-icons/ri";
 
 import Avatar from "@/components/Avatar";
+
 import { IUser } from "@/types/user.type";
 
-import useCurrentUser from "@/hooks/useCurrentUser";
-import useUsers from "@/hooks/useUsers";
 import useSearch from "@/hooks/useSearch";
-import { set } from "date-fns";
 
-const Searchbar = () => {
+const SearchBar = () => {
   const [searchResults, setSearchResults] = useState<IUser[]>([]);
   const [searchMessage, setSearchMessage] = useState<string>("");
 
   const router = useRouter();
   const { searchUsers } = useSearch();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const searchOnChange = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const results = await searchUsers(e.target.value);
-      setTimeout(() => {
-        if (e.target.value.length < 0 || e.target.value.length === 0) {
-          setSearchResults([]);
-          setSearchMessage("Try searching for people");
-        } else {
-          setSearchResults(results);
-          setSearchMessage("");
-        }
-      }, 400);
-    },
+    debounce(async (event) => {
+      const searchText = event.target.value;
+      await getUsers(searchText);
+    }, 400),
     [searchUsers]
   );
+
+  const getUsers = async (searchText: string) => {
+    if (searchText.length > 0) {
+      const users = await searchUsers(searchText);
+      setSearchResults(users);
+    } else {
+      setSearchResults([]);
+    }
+  };
 
   const searchOnClick = useCallback(() => {
     if (searchResults.length < 0 || searchResults === null) {
@@ -87,4 +88,4 @@ const Searchbar = () => {
   );
 };
 
-export default Searchbar;
+export default SearchBar;

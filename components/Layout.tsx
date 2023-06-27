@@ -1,8 +1,7 @@
 import React, { FC } from "react";
-import Sidebar from "@/components/Sidebar";
-import ActionSidebar from "@/components/ActionSidebar";
-import Searchbar from "./Searchbar";
 
+import ActionSidebar from "@/components/ActionSidebar";
+import Sidebar from "@/components/Sidebar";
 interface ILayoutProps {
   children: React.ReactNode;
 }
@@ -20,7 +19,6 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
             {children}
           </div>
           <div>
-            <Searchbar />
             <ActionSidebar />
           </div>
         </div>
