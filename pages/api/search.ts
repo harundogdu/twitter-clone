@@ -10,14 +10,9 @@ export default async function handler(
     return res.status(405).end();
   }
   try {
-    const { username, name } = req.query;
+    const { username } = req.query;
 
-    if (
-      !username ||
-      typeof username !== "string" ||
-      !name ||
-      typeof name !== "string"
-    ) {
+    if (!username || typeof username !== "string") {
       throw new Error("Invalid username or name");
     }
 
@@ -25,9 +20,6 @@ export default async function handler(
       where: {
         username: {
           contains: username,
-        },
-        name: {
-          contains: name,
         },
       },
     });

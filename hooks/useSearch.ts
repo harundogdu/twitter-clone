@@ -9,8 +9,7 @@ const useSearch = () => {
     try {
       const { data } = await axios.get(`/api/search`, {
         params: {
-          username: username.toLowerCase(),
-          name: username.toLowerCase(),
+          username: username,
         },
       });
 
