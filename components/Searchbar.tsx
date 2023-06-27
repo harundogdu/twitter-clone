@@ -8,31 +8,37 @@ import { IUser } from "@/types/user.type";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useUsers from "@/hooks/useUsers";
+import useSearch from "@/hooks/useSearch";
 import { set } from "date-fns";
 
 const Searchbar = () => {
-  const [searchUsers, setSearchUsers] = useState<IUser[]>([]);
+  const [searchResults, setSearchResults] = useState<IUser[]>([]);
+  const [searchMessage, setSearchMessage] = useState<string>("");
 
   const router = useRouter();
-  const { data: allUsers = [] } = useUsers();
-  const { data: currentUser } = useCurrentUser();
+  const { searchUsers } = useSearch();
 
   const searchOnChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.value.length <= 0) {
-        return setSearchUsers([]);
-      }
-
-      setSearchUsers(
-        allUsers.filter(
-          (user: IUser) =>
-            user.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-            user.username.toLowerCase().includes(e.target.value.toLowerCase())
-        )
-      );
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const results = await searchUsers(e.target.value);
+      setTimeout(() => {
+        if (e.target.value.length < 0 || e.target.value.length === 0) {
+          setSearchResults([]);
+          setSearchMessage("Try searching for people");
+        } else {
+          setSearchResults(results);
+          setSearchMessage("");
+        }
+      }, 400);
     },
-    [allUsers, currentUser]
+    [searchUsers]
   );
+
+  const searchOnClick = useCallback(() => {
+    if (searchResults.length < 0 || searchResults === null) {
+      setSearchResults([]);
+    }
+  }, [searchResults]);
 
   return (
     <div className="pl-2">
@@ -43,16 +49,17 @@ const Searchbar = () => {
           placeholder="Search"
           className="bg-inherit rounded-full pl-3 focus:border-none focus:outline-none text-custom-white"
           onChange={searchOnChange}
+          onClick={searchOnClick}
         />
-        <div className="absolute bg-custom-black top-12 w-full z-10  ">
+        <div className="absolute bg-custom-black top-14 w-full z-10   ">
           {searchUsers.length > 0 && (
-            <div className=" shadow-customSecondary rounded-lg ">
-              {searchUsers.map((user: IUser) => {
+            <div className="shadow-customSecondary  rounded-lg ">
+              {searchResults.map((user: IUser) => {
                 return (
                   <div
                     onClick={() => {
                       router.push(`/users/${user.username}`);
-                      setSearchUsers([]);
+                      searchUsers("");
                     }}
                     key={user.id}
                     className="flex items-center gap-4 justify-between py-2 px-4 hover:bg-neutral-700 hover:bg-opacity-70 cursor-pointer duration-200"
