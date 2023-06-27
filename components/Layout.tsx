@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import Sidebar from "@/components/Sidebar";
-import ActionSidebar from "@/components/ActionSidebar";
 
+import ActionSidebar from "@/components/ActionSidebar";
+import Sidebar from "@/components/Sidebar";
 interface ILayoutProps {
   children: React.ReactNode;
 }
@@ -18,7 +18,9 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
           <div className="col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800">
             {children}
           </div>
-          <ActionSidebar />
+          <div>
+            <ActionSidebar />
+          </div>
         </div>
       </div>
     </div>
