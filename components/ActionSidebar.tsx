@@ -6,7 +6,7 @@ import { IUser } from "@/types/user.type";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useUsers from "@/hooks/useUsers";
 
-import SearchBar from "./SearchBar";
+import SearchBar from "./Searchbar";
 import WhoToFollow from "./WhoToFollow";
 
 const ActionSidebar = () => {
