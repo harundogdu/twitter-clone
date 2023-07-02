@@ -3,9 +3,9 @@ import { useCallback, useMemo } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-import useCurrentUser from "./useCurrentUser";
-import useLoginModal from "./useLoginModal";
-import useUser from "./useUser";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import useLoginModal from "@/hooks/useLoginModal";
+import useUser from "@/hooks/useUser";
 
 const useFollow = (userName: string) => {
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();

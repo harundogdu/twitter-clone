@@ -17,7 +17,7 @@ import useLoginModal from "@/hooks/useLoginModal";
 
 import { controlLink } from "@/utils/helpers";
 
-import Avatar from "../Avatar";
+import Avatar from "@/components/Avatar";
 
 interface IPostFeedProps {
   username: string;
@@ -198,7 +198,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
                 </p>
 
                 <p
-                  className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
+                  className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold text-custom-white"
                   onClick={() => {
                     setPin((prevState) => !prevState);
                   }}
@@ -208,7 +208,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
                 </p>
 
                 <p
-                  className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold"
+                  className=" rounded hover:bg-custom-white hover:bg-opacity-10 w-full py-3 px-3 flex items-center gap-1 font-bold text-custom-white"
                   onClick={() => {}}
                 >
                   <RiChat3Line className="" />

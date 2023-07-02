@@ -12,8 +12,6 @@ import Modal from "@/components/shared/Modal";
 import Input from "@/components/shared/Input";
 import Loading from "@/components/shared/Loading";
 
-import { validateEmail } from "@/utils/helpers";
-
 const LoginModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
