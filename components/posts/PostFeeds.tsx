@@ -1,9 +1,11 @@
 import React, { FC } from "react";
+import { RiLoader5Line } from "react-icons/ri";
+
+import ColorUtils from "@/base/colors";
 
 import usePosts from "@/hooks/usePosts";
 
-import PostFeed from "./PostFeed";
-import useUser from "@/hooks/useUser";
+import PostFeed from "@/components/posts/PostFeed";
 
 interface IPostFeedsProps {
   userId?: string;
@@ -11,7 +13,24 @@ interface IPostFeedsProps {
 }
 
 const PostFeeds: FC<IPostFeedsProps> = ({ userId, username }) => {
-  const { data: posts = [] } = usePosts(userId as string);
+  const { data: posts = [], isLoading } = usePosts(userId as string);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-full mt-8">
+        <span className="bg-gray-900 rounded-full bg-neutral-700 ">
+          <RiLoader5Line
+            className="
+            animate-spin
+            text-4xl
+            rounded-full
+            "
+            style={{ color: ColorUtils.colors.main }}
+          />
+        </span>
+      </div>
+    );
+  }
 
   return (
     <>
