@@ -1,25 +1,44 @@
 import { useRouter } from "next/router";
-import { useEffect, useState, useRef } from "react";
-import React from "react";
+import { useState, useRef, useEffect } from "react";
 
-import ColorUtils from "@/base/colors";
 import { IUser } from "@/types/user.type";
 
-import Avatar from "./Avatar";
-import Button from "./shared/Button";
+import ColorUtils from "@/base/colors";
 
+import useCurrentUser from "@/hooks/useCurrentUser";
+import useUsers from "@/hooks/useUsers";
+
+import Avatar from "@/components/Avatar";
+import Button from "@/components/shared/Button";
 interface WhoToFollowProps {
   suggestedUsers: IUser[];
 }
 
-const WhoToFollow: React.FC<WhoToFollowProps> = ({ suggestedUsers }) => {
+const WhoToFollow = ({ suggestedUsers }: WhoToFollowProps) => {
+  const { data: allUsers = [] } = useUsers();
+  const { data: currentUser } = useCurrentUser();
   const router = useRouter();
-
   const [isOpen, setIsOpen] = useState(false);
   const moreRef = useRef<HTMLSpanElement>(null);
+
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [allUsers, currentUser, moreRef]);
+
   return (
     <div className="p-2 ">
       <div className="sticky top-4">
