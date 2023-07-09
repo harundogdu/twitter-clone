@@ -9,7 +9,6 @@ import Avatar from "@/components/Avatar";
 import { IUser } from "@/types/user.type";
 
 import useSearch from "@/hooks/useSearch";
-import ts from "typescript";
 
 const SearchBar = () => {
   const [searchResults, setSearchResults] = useState<IUser[]>([]);
