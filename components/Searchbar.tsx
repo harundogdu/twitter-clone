@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 
 import { debounce } from "lodash";
 import { useRouter } from "next/router";
-import { RiSearchLine } from "react-icons/ri";
+import { RiSearchLine, RiCloseFill } from "react-icons/ri";
 
 import Avatar from "@/components/Avatar";
 
@@ -12,7 +12,7 @@ import useSearch from "@/hooks/useSearch";
 
 const SearchBar = () => {
   const [searchResults, setSearchResults] = useState<IUser[]>([]);
-  const [searchMessage, setSearchMessage] = useState<string>("");
+  const [searchValue, setSearchValue] = useState();
 
   const router = useRouter();
   const { searchUsers } = useSearch();
@@ -20,8 +20,10 @@ const SearchBar = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const searchOnChange = useCallback(
     debounce(async (event) => {
+      console.log(searchValue);
       const searchText = event.target.value;
       await getUsers(searchText);
+      console.log(searchText);
     }, 400),
     [searchUsers]
   );
@@ -48,12 +50,16 @@ const SearchBar = () => {
         <input
           type="text"
           placeholder="Search"
-          className="bg-inherit rounded-full pl-3 focus:border-none focus:outline-none text-custom-white"
+          className="bg-inherit rounded-full w-full pl-3 focus:border-none focus:outline-none text-custom-white"
           onChange={searchOnChange}
+          value={searchValue}
           onClick={searchOnClick}
         />
+        {searchResults.length > 0 && (
+          <RiCloseFill className="absolute right-5 rounded-full bg-custom-blue w-5 h-5 cursor-pointer" />
+        )}
         <div className="absolute bg-custom-black top-14 w-full z-10   ">
-          {searchUsers.length > 0 && (
+          {searchResults.length > 0 && (
             <div className="shadow-customSecondary  rounded-lg ">
               {searchResults.map((user: IUser) => {
                 return (
