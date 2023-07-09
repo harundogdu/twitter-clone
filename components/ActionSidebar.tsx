@@ -8,9 +8,6 @@ import WhoToFollow from "./WhoToFollow";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useUsers from "@/hooks/useUsers";
 
-import Avatar from "@/components/Avatar";
-import Button from "@/components/shared/Button";
-
 const ActionSidebar = () => {
   const { data: allUsers = [] } = useUsers();
   const { data: currentUser } = useCurrentUser();

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { debounce } from "lodash";
 import { useRouter } from "next/router";
@@ -9,19 +9,19 @@ import Avatar from "@/components/Avatar";
 import { IUser } from "@/types/user.type";
 
 import useSearch from "@/hooks/useSearch";
+import ts from "typescript";
 
 const SearchBar = () => {
   const [searchResults, setSearchResults] = useState<IUser[]>([]);
-  const [searchValue, setSearchValue] = useState();
+  const [searchValue, setSearchValue] = useState<string>();
 
   const router = useRouter();
   const { searchUsers } = useSearch();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const searchOnChange = useCallback(
-    debounce(async (event) => {
-      console.log(searchValue);
-      const searchText = event.target.value;
+    debounce(async (searchValue) => {
+      const searchText = searchValue.target.value;
       await getUsers(searchText);
       console.log(searchText);
     }, 400),
@@ -43,6 +43,10 @@ const SearchBar = () => {
     }
   }, [searchResults]);
 
+  useEffect(() => {
+    searchOnChange({ target: { value: searchValue } });
+  }, [searchValue]);
+
   return (
     <div className="pl-2">
       <div className=" relative w-[21rem] h-12 bg-custom-lightBlack mt-2 ml-8 rounded-full flex justify-start items-center z-30">
@@ -51,12 +55,20 @@ const SearchBar = () => {
           type="text"
           placeholder="Search"
           className="bg-inherit rounded-full w-full pl-3 focus:border-none focus:outline-none text-custom-white"
-          onChange={searchOnChange}
-          value={searchValue}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+          }}
           onClick={searchOnClick}
+          value={searchValue}
         />
         {searchResults.length > 0 && (
-          <RiCloseFill className="absolute right-5 rounded-full bg-custom-blue w-5 h-5 cursor-pointer" />
+          <RiCloseFill
+            className="absolute right-5 rounded-full bg-custom-blue w-5 h-5 cursor-pointer"
+            onClick={() => {
+              setSearchValue("");
+              setSearchResults([]);
+            }}
+          />
         )}
         <div className="absolute bg-custom-black top-14 w-full z-10   ">
           {searchResults.length > 0 && (
