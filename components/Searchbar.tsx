@@ -12,7 +12,7 @@ import useSearch from "@/hooks/useSearch";
 
 const SearchBar = () => {
   const [searchResults, setSearchResults] = useState<IUser[]>([]);
-  const [searchValue, setSearchValue] = useState<string>();
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const router = useRouter();
   const { searchUsers } = useSearch();
@@ -20,7 +20,7 @@ const SearchBar = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const searchOnChange = useCallback(
     debounce(async (searchValue) => {
-      const searchText = searchValue.target.value;
+      const searchText = searchValue!.target.value;
       await getUsers(searchText);
       console.log(searchText);
     }, 400),
