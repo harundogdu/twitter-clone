@@ -69,9 +69,9 @@ const SearchBar = () => {
             }}
           />
         )}
-        <div className="absolute bg-custom-black top-14 w-full z-10   ">
+        <div className="absolute bg-custom-black top-14 w-full z-10">
           {searchResults.length > 0 && (
-            <div className="shadow-customSecondary  rounded-lg ">
+            <div className="shadow-customSecondary rounded-lg max-h-96 overflow-y-scroll scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm ">
               {searchResults.map((user: IUser) => {
                 return (
                   <div
