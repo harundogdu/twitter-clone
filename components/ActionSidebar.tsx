@@ -79,7 +79,7 @@ const ActionSidebar = () => {
                     >
                       {user.name}
                     </h3>
-                    <h5 className="text-gray-500 text-sm text-left">
+                    <h5 className="text-ellipsis w-fit max-w-[6rem] whitespace-nowrap overflow-hidden text-gray-500 text-sm text-left">
                       @{user.username}
                     </h5>
                   </div>
