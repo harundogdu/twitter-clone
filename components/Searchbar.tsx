@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState,useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 
-import { debounce } from "lodash";
+import { debounce, set } from "lodash";
 import { useRouter } from "next/router";
 import { RiSearchLine, RiCloseFill } from "react-icons/ri";
 
@@ -13,10 +13,10 @@ import useSearch from "@/hooks/useSearch";
 const SearchBar = () => {
   const [searchResults, setSearchResults] = useState<IUser[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
-  const[searchbarOn,setSearchbarOn] = useState<boolean>(false);
-  
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [searchbarOn, setSearchbarOn] = useState<boolean>(false);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  const isBackspaceDown = useRef(false);
 
   const router = useRouter();
   const { searchUsers } = useSearch();
@@ -25,8 +25,9 @@ const SearchBar = () => {
   const searchOnChange = useCallback(
     debounce(async (searchValue) => {
       const searchText = searchValue!.target.value;
-      await getUsers(searchText);
-    
+      if (!isBackspaceDown.current) {
+        await getUsers(searchText);
+      }
     }, 400),
     [searchUsers]
   );
@@ -40,14 +41,35 @@ const SearchBar = () => {
     }
   };
 
+  const setSearchbarOnTrue = () => {
+    if (searchbarOn) {
+      return;
+    }
+    setSearchbarOn(true);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace") {
+      isBackspaceDown.current = true;
+    }
+  };
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace") {
+      isBackspaceDown.current = false;
+    }
+  };
 
   useEffect(() => {
     searchOnChange({ target: { value: searchValue } });
   }, [searchValue]);
-  
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node)
+      ) {
         setSearchbarOn(false);
       }
     };
@@ -57,7 +79,7 @@ const SearchBar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ inputRef]);
+  }, [inputRef]);
 
   return (
     <div className="pl-2">
@@ -70,20 +92,27 @@ const SearchBar = () => {
           onChange={(e) => {
             setSearchValue(e.target.value);
           }}
-          onClick={()=>setSearchbarOn(true)}
+          onClick={() => {
+            setSearchbarOnTrue();
+          }}
+          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
           value={searchValue}
           ref={inputRef}
-         
-        />{
-          searchResults.length === 0 && searchbarOn && (
-            <div className="absolute top-14 w-full z-10 bg-custom-black" ref={inputRef}>
-              <div className="shadow-customSecondary rounded-lg max-h-32 flex content-center items-start ">
-                <h3 className="text-custom-lightGray p-5 text-left ">Try searching for people, topics, or keywords</h3>
-                </div>
-           </div>
-          )
-        }
-     
+        />
+        {searchResults.length === 0 && searchbarOn && (
+          <div
+            className="absolute top-14 w-full z-10 bg-custom-black"
+            ref={inputRef}
+          >
+            <div className="shadow-customSecondary rounded-lg max-h-32 flex content-center items-start ">
+              <h3 className="text-custom-lightGray p-5 text-left ">
+                Try searching for people, topics, or keywords
+              </h3>
+            </div>
+          </div>
+        )}
+
         {searchResults.length > 0 && searchbarOn && (
           <RiCloseFill
             className="absolute right-5 rounded-full bg-custom-blue w-5 h-5 cursor-pointer"
@@ -91,12 +120,14 @@ const SearchBar = () => {
               setSearchValue("");
               setSearchResults([]);
             }}
-            
           />
         )}
-        <div className="absolute bg-custom-black top-14 w-full z-10" >
+        <div className="absolute bg-custom-black top-14 w-full z-10">
           {searchResults.length > 0 && searchbarOn && (
-            <div className="shadow-customSecondary rounded-lg max-h-96 overflow-y-scroll scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm " ref={inputRef}>
+            <div
+              className="shadow-customSecondary rounded-lg max-h-96 overflow-y-scroll scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm "
+              ref={inputRef}
+            >
               {searchResults.map((user: IUser) => {
                 return (
                   <div
