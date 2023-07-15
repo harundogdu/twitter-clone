@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from "react";
 
-import { debounce, set } from "lodash";
+import { debounce } from "lodash";
 import { useRouter } from "next/router";
 import { RiSearchLine, RiCloseFill } from "react-icons/ri";
 
@@ -41,21 +41,14 @@ const SearchBar = () => {
     }
   };
 
-  const setSearchbarOnTrue = () => {
-    if (searchbarOn) {
-      return;
-    }
-    setSearchbarOn(true);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace") {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Backspace") {
       isBackspaceDown.current = true;
     }
   };
 
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace") {
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Backspace") {
       isBackspaceDown.current = false;
     }
   };
@@ -92,13 +85,11 @@ const SearchBar = () => {
           onChange={(e) => {
             setSearchValue(e.target.value);
           }}
-          onClick={() => {
-            setSearchbarOnTrue();
-          }}
-          onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
+          onClick={() => setSearchbarOn(true)}
           value={searchValue}
           ref={inputRef}
+          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
         />
         {searchResults.length === 0 && searchbarOn && (
           <div
