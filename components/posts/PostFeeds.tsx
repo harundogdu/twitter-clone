@@ -38,7 +38,6 @@ const PostFeeds: FC<IPostFeedsProps> = ({ userId, username }) => {
         <div className="flex flex-col items-center justify-center w-full h-full mt-8">
           <p className="text-lg text-neutral-500">
             Please login to see the posts
-            {/* sorulacak */}
           </p>
         </div>
       </>

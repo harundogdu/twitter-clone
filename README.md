@@ -15,15 +15,54 @@ This is a [Twitter](https://twitter.com) Clone project built with [Next.js](http
 ![](https://img.shields.io/github/issues/harundogdu/twitter-clone)
 ![](https://img.shields.io/github/last-commit/harundogdu/twitter-clone)
 
+<h4>
+    <a href="https://twitter-clone-hd.vercel.app/">View Demo</a>
+  <span> · </span>
+    <a href="https://github.com/harundogdu/twitter-clone/blob/main/README.md">Documentation</a>
+  <span> · </span>
+    <a href="https://github.com/harundogdu/twitter-clone/issues">Report Bug</a>
+  <span> · </span>
+    <a href="https://github.com/harundogdu/twitter-clone/issues">Request Feature</a>
+  </h4>
+
 </div>
 
-You can see the demo of the project [here](https://twitter-clone-hd.vercel.app/).
+<br/>
 
-## Getting Started
+<!-- About the Project -->
+
+## :star2: About the Project
+
+<!-- Screenshots -->
+
+<div align="center">
+<a href="https://projects-seven-peach.vercel.app/" target="_blank"><img width="85%" height="auto"  src='https://github.com/harundogdu/twitter-clone/assets/101521433/dd793b35-858c-4c28-bbd5-6b781bbcad93' alt='image'/></a>
+</div>
+
+<br />
+
+## :toolbox: Getting Started
+
+### :bangbang: Prerequisites
+
+- Sign up for a MongoDB account <a href='https://www.mongodb.com/'>HERE</a>
+- Install Node JS in your computer <a href='https://nodejs.org/en/'>HERE</a>
+
+<!-- Env Variables -->
+
+### :key: Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`DATABASE_URL`
+
+`NEXTAUTH_JWT_SECRET`
+
+`NEXTAUTH_SECRET`
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-<h3>Installing</h3>
+## :gear: Installation
 
 A step by step series of examples that tell you how to get a development env running
 Clone the repository
@@ -61,19 +100,19 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 <li><code>npx prisma db seed</code> - Runs the seed file.</li>
 </ul>
 
-## Prisma
+## :notebook_with_decorative_cover: Prisma
 
 Prisma is an open-source database toolkit that makes it easy for developers to reason about their data and how they access it. It is used to query a database inside a Node.js or TypeScript application.
 
-## Prisma Schema
+## :notebook_with_decorative_cover: Prisma Schema
 
 The Prisma schema is the single source of truth for your database schema. It describes your database tables, columns, and relations. It also defines which operations are available on your data.
 
-## Prisma Client
+## :notebook_with_decorative_cover: Prisma Client
 
 Prisma Client is an auto-generated and type-safe query builder for Node.js & TypeScript. It's used as an alternative to writing plain SQL, or using another database access tool such as SQL query builders (e.g. SQLAlchemy) or ORMs (e.g. TypeORM).
 
-## Built With
+## :space_invader: Built With
 
 <ul>
 <li>
@@ -107,7 +146,7 @@ Prisma Client is an auto-generated and type-safe query builder for Node.js & Typ
 </li>
 </ul>
 
-## Authors
+## :handshake: Authors
 
 <ul>
 <li><a href="https://github.com/ahmetenesbahar">Ahmet Enes Bahar</a></li>
