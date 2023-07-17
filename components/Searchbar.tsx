@@ -86,7 +86,7 @@ const SearchBar = () => {
           onChange={(e) => {
             setSearchValue(e.target.value);
           }}
-          onFocus={() => setSearchbarOn(true)}
+          onClick={() => setSearchbarOn(true)}
           value={searchValue}
          searchbar-data="searchbar"
           onKeyDown={handleKeyDown}
@@ -116,10 +116,10 @@ const SearchBar = () => {
             
           />
         )}
-        <div className="absolute bg-custom-black top-14 w-full z-10">
+        <div className="absolute bg-custom-black top-14 w-full z-10 overflow-y-scroll scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm ">
           {searchResults.length > 0 && searchbarOn && (
             <div
-              className="shadow-customSecondary rounded-lg max-h-96 overflow-y-scroll scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm "
+              className="shadow-customSecondary rounded-lg max-h-96 "
             
             >
               {searchResults.map((user: IUser) => {
