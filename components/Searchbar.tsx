@@ -18,6 +18,7 @@ const SearchBar = () => {
 
   
   const isBackspaceDown = useRef(false);
+ 
 
   const router = useRouter();
   const { searchUsers } = useSearch();
@@ -116,10 +117,10 @@ const SearchBar = () => {
             
           />
         )}
-        <div className="absolute bg-custom-black top-14 w-full z-10 overflow-y-scroll scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm ">
+        <div className="absolute bg-custom-black top-14 w-full z-10 ">
           {searchResults.length > 0 && searchbarOn && (
             <div
-              className="shadow-customSecondary rounded-lg max-h-96 "
+              className={ searchResults.length>6 ?"shadow-customSecondary rounded-lg max-h-96  overflow-y-scroll scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm":"shadow-customSecondary rounded-lg max-h-96 " }
             
             >
               {searchResults.map((user: IUser) => {
