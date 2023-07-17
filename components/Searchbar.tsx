@@ -15,7 +15,8 @@ const SearchBar = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchbarOn, setSearchbarOn] = useState<boolean>(false);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+
+  
   const isBackspaceDown = useRef(false);
 
   const router = useRouter();
@@ -41,6 +42,14 @@ const SearchBar = () => {
     }
   };
 
+  const handleCloseSearchbar = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = e.target as HTMLElement;
+    const attributeValue = target.getAttribute("image-data");
+    if (attributeValue === "searchbar") return;
+    setSearchbarOn(false);
+   
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Backspace") {
       isBackspaceDown.current = true;
@@ -57,25 +66,17 @@ const SearchBar = () => {
     searchOnChange({ target: { value: searchValue } });
   }, [searchValue]);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        inputRef.current &&
-        !inputRef.current.contains(event.target as Node)
-      ) {
-        setSearchbarOn(false);
-      }
-    };
 
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [inputRef]);
 
   return (
+    
+    
     <div className="pl-2">
+      {
+        searchbarOn && (
+          <div className="fixed top-0 left-0 w-full h-full" onClick={(e) => {handleCloseSearchbar(e)}}/>
+        )
+      }
       <div className=" relative w-[21rem] h-12 bg-custom-lightBlack mt-2 ml-8 rounded-full flex justify-start items-center z-30">
         <RiSearchLine className="ml-5 text-custom-lightGray" size={18} />
         <input
@@ -85,16 +86,16 @@ const SearchBar = () => {
           onChange={(e) => {
             setSearchValue(e.target.value);
           }}
-          onClick={() => setSearchbarOn(true)}
+          onFocus={() => setSearchbarOn(true)}
           value={searchValue}
-          ref={inputRef}
+         searchbar-data="searchbar"
           onKeyDown={handleKeyDown}
           onKeyUp={handleKeyUp}
         />
         {searchResults.length === 0 && searchbarOn && (
           <div
             className="absolute top-14 w-full z-10 bg-custom-black"
-            ref={inputRef}
+            
           >
             <div className="shadow-customSecondary rounded-lg max-h-32 flex content-center items-start ">
               <h3 className="text-custom-lightGray p-5 text-left ">
@@ -106,18 +107,20 @@ const SearchBar = () => {
 
         {searchResults.length > 0 && searchbarOn && (
           <RiCloseFill
-            className="absolute right-5 rounded-full bg-custom-blue w-5 h-5 cursor-pointer"
-            onClick={() => {
+            className="absolute right-5 rounded-full bg-custom-blue w-5 h-5 cursor-pointer z-20"
+            onClick={(e) => {
+              e.preventDefault();
               setSearchValue("");
               setSearchResults([]);
             }}
+            
           />
         )}
         <div className="absolute bg-custom-black top-14 w-full z-10">
           {searchResults.length > 0 && searchbarOn && (
             <div
               className="shadow-customSecondary rounded-lg max-h-96 overflow-y-scroll scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm "
-              ref={inputRef}
+            
             >
               {searchResults.map((user: IUser) => {
                 return (
