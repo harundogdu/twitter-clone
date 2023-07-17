@@ -54,7 +54,7 @@ This is a [Twitter](https://twitter.com) Clone project built with [Next.js](http
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`DATABASE_UR`
+`DATABASE_URL`
 
 `NEXTAUTH_JWT_SECRET`
 
