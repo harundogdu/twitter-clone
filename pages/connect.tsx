@@ -53,7 +53,7 @@ const Connect: FC<IHeaderProps> = ({ showBackArrow = false, username }) => {
           return (
             <div
               key={user.id}
-              className="flex items-center gap-4 justify-between py-5 px-4 hover:bg-neutral-700 hover:bg-opacity-70 cursor-pointer duration-200"
+              className="flex items-start  gap-4 justify-between  py-5 px-4 hover:bg-neutral-700 hover:bg-opacity-70 cursor-pointer duration-200"
             >
               <Avatar username={user.username} size="small" />
               <div
@@ -63,7 +63,7 @@ const Connect: FC<IHeaderProps> = ({ showBackArrow = false, username }) => {
                 }}
               >
                 <h3
-                  className="text-white font-bold text-[0.950rem] text-ellipsis w-fit max-w-[10rem] whitespace-nowrap overflow-hidden hover:underline text-left"
+                  className="text-white font-bold  text-[0.950rem] text-ellipsis w-fit max-w-[10rem] whitespace-nowrap overflow-hidden hover:underline text-left"
                   title={user.name}
                 >
                   {user.name}
@@ -75,7 +75,7 @@ const Connect: FC<IHeaderProps> = ({ showBackArrow = false, username }) => {
                   {user.bio}
                 </h4>
               </div>
-              <div className="font-medium flex items-end justify-items-end right-0">
+              <div className="font-medium flex self-center  items-end justify-items-end right-0">
                 <Button
                   label={isFollowing ? "Following" : "Follow"}
                   btnBlack={isFollowing}

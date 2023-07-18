@@ -3,6 +3,7 @@ import { RiLoader5Line } from "react-icons/ri";
 
 import ColorUtils from "@/base/colors";
 
+import useCurrentUser from "@/hooks/useCurrentUser";
 import usePosts from "@/hooks/usePosts";
 
 import PostFeed from "@/components/posts/PostFeed";
@@ -14,21 +15,32 @@ interface IPostFeedsProps {
 
 const PostFeeds: FC<IPostFeedsProps> = ({ userId, username }) => {
   const { data: posts = [], isLoading } = usePosts(userId as string);
+  const { data: currentUser } = useCurrentUser();
 
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center w-full h-full mt-8">
-        <span className="bg-gray-900 rounded-full bg-neutral-700 ">
-          <RiLoader5Line
-            className="
+        <RiLoader5Line
+          className="
             animate-spin
             text-4xl
             rounded-full
             "
-            style={{ color: ColorUtils.colors.main }}
-          />
-        </span>
+          style={{ color: ColorUtils.colors.main }}
+        />
       </div>
+    );
+  }
+
+  if (!currentUser?.email) {
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center w-full h-full mt-8">
+          <p className="text-lg text-neutral-500">
+            Please login to see the posts
+          </p>
+        </div>
+      </>
     );
   }
 

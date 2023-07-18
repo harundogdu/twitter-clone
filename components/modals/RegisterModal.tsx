@@ -71,10 +71,12 @@ const RegisterModal = () => {
 
       clearInputs();
 
-      signIn("credentials", {
-        email,
-        password,
-      });
+      loginModal.onOpen();
+      registerModal.onClose();
+      // signIn("credentials", {
+      //   email,
+      //   password,
+      // });
 
       registerModal.onClose();
     } catch (err: any) {
@@ -84,7 +86,15 @@ const RegisterModal = () => {
     } finally {
       setLoading(false);
     }
-  }, [registerModal, email, username, name, password, passwordConfirmed]);
+  }, [
+    loginModal,
+    registerModal,
+    email,
+    username,
+    name,
+    password,
+    passwordConfirmed,
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
