@@ -26,17 +26,7 @@ const ActionSidebar = () => {
       setSuggestedUsers(selectedUsers);
     }
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (moreRef.current && !moreRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    
   }, [allUsers, currentUser, moreRef]);
 
   if (suggestedUsers.length <= 0 || !currentUser) {
@@ -47,9 +37,7 @@ const ActionSidebar = () => {
     return null;
   }
 
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  };
+
 
   return (
     <div className="p-2 sticky top-1 z-50">
