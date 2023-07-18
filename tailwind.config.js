@@ -28,6 +28,7 @@ module.exports = {
           redHover: "rgba(255, 0, 0, 0.2)",
           white: "#ffffff",
           black: "#000000",
+          lightBlack: "#16181c",
           grayMain: "#f2f2f2",
           darkGray: "#333333",
           lightGray: "#999999",
