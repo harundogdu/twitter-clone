@@ -40,8 +40,8 @@ const WhoToFollow = ({ suggestedUsers }: WhoToFollowProps) => {
   }, [allUsers, currentUser, moreRef]);
 
   return (
-    <div className="p-2">
-    <div className="sticky top-4">
+    <div className="p-2 sticky top-8">
+    <div className="">
       <div className="mt-8 ml-8 bg-custom-lightBlack rounded-2xl text-white w-[21rem]">
         <h2 className="text-xl text-neutral-100 font-black pt-4 pb-1 px-4">
           Who to follow
