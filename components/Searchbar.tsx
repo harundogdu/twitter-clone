@@ -72,7 +72,7 @@ const SearchBar = () => {
   return (
     
     
-    <div className="pl-2">
+    <div className="pl-2 sticky top-4 z-50 bg-custom-black  ">
       {
         searchbarOn && (
           <div className="fixed top-0 left-0 w-full h-full" onClick={(e) => {handleCloseSearchbar(e)}}/>
