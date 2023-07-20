@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { RiCloseFill } from "react-icons/ri";
 import Button from "@/components/shared/Button";
 
@@ -41,10 +41,8 @@ const Modal: FC<IModalProps> = ({
   }
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.code === "Enter") {
-      if (disabled === false) {
-        onSubmit();
-      }
+    if (event.code === "Enter" && disabled === false) {
+      onSubmit();
     }
   };
 

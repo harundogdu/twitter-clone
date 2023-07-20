@@ -24,13 +24,17 @@ const LoginModal = () => {
     try {
       setLoading(true);
 
-      await signIn("credentials", {
+      const result = await signIn("credentials", {
         loginInput,
         password,
       });
 
-      toast.success("Login successfully!");
-      loginModal.onClose();
+      if (result?.error === "CredentialsSignin") {
+        toast.error("Account not found or credentials are incorrect.");
+      } else {
+        toast.success("Login successfully!");
+        loginModal.onClose();
+      }
     } catch (error: any) {
       toast.error("Something went wrong!" + error.message);
     } finally {
