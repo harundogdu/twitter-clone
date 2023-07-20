@@ -42,7 +42,9 @@ const Modal: FC<IModalProps> = ({
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.code === "Enter") {
-      onSubmit();
+      if (disabled === false) {
+        onSubmit();
+      }
     }
   };
 
