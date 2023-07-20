@@ -40,7 +40,7 @@ const ActionSidebar = () => {
 
 
   return (
-    <div className="p-2 sticky top-1 z-50">
+    <div className="p-2  top-1 z-50 h-full">
       <SearchBar />
       <WhoToFollow suggestedUsers={suggestedUsers} />
     </div>
