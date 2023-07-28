@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { RiLoader5Line } from "react-icons/ri";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import ColorUtils from "@/base/colors";
 
@@ -16,6 +17,8 @@ interface IPostFeedsProps {
 const PostFeeds: FC<IPostFeedsProps> = ({ userId, username }) => {
   const { data: posts = [], isLoading } = usePosts(userId as string);
   const { data: currentUser } = useCurrentUser();
+
+  const [parent] = useAutoAnimate({ duration: 500 });
 
   if (isLoading) {
     return (
@@ -46,10 +49,13 @@ const PostFeeds: FC<IPostFeedsProps> = ({ userId, username }) => {
 
   return (
     <>
+    <div ref={parent}>
       {Array.isArray(posts) && posts.length > 0 ? (
+        
         posts.map((post: Record<string, any>) => (
           <PostFeed key={post.id} username={username!} data={post} />
         ))
+       
       ) : (
         <div className="flex flex-col items-center justify-center w-full h-full mt-8">
           <p className="text-lg text-neutral-500">
@@ -57,6 +63,7 @@ const PostFeeds: FC<IPostFeedsProps> = ({ userId, username }) => {
           </p>
         </div>
       )}
+       </div>
     </>
   );
 };
