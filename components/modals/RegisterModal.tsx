@@ -14,6 +14,7 @@ import Input from "@/components/shared/Input";
 import Loading from "@/components/shared/Loading";
 
 import { validateEmail } from "@/utils/helpers";
+import { Router } from "next/router";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -73,10 +74,6 @@ const RegisterModal = () => {
 
       loginModal.onOpen();
       registerModal.onClose();
-      // signIn("credentials", {
-      //   email,
-      //   password,
-      // });
 
       registerModal.onClose();
     } catch (err: any) {
@@ -113,9 +110,14 @@ const RegisterModal = () => {
       } catch (err: any) {
         console.error("Data fetch error", err);
       }
+      if (registerModal.isOpen) {
+        window.history.pushState(null, "", "/register");
+      } else {
+        window.history.pushState(null, "", "/");
+      }
     };
     fetchData();
-  }, [username]);
+  }, [username, registerModal.isOpen]);
 
   const handleFooterClick = () => {
     loginModal.onOpen();

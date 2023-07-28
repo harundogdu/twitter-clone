@@ -20,6 +20,7 @@ import EditModal from "@/components/modals/EditModal";
 import TweetModal from "@/components/modals/TweetModal";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
+import { title } from "process";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [animationParent] = useAutoAnimate();
@@ -30,8 +31,12 @@ export default function App({ Component, pageProps }: AppProps) {
   const name = user?.name;
 
   useEffect(() => {
-    const locationPath = window.location.pathname.substring(1).split("/")[0];
-    const usersPath = window.location.pathname.substring(1).split("/")[1];
+    const getLocationPath = () => {
+      return window.location.pathname.substring(1);
+    };
+
+    const locationPath = getLocationPath().split("/")[0];
+    const usersPath = getLocationPath().split("/")[1];
 
     let title =
       locationPath.charAt(0).toUpperCase() + locationPath.slice(1) || "Home";
@@ -42,7 +47,6 @@ export default function App({ Component, pageProps }: AppProps) {
     }
 
     setPageTitle(title);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
@@ -50,7 +54,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Head>
           <link
             rel="shortcut icon"
-            href="/twitter-favicon.ico"
+            href="https://abs.twimg.com/favicons/twitter.3.ico"
             type="image/x-icon"
           />
           <title>{pageTitle ? `${pageTitle} / Twitter ` : "Twitter"}</title>

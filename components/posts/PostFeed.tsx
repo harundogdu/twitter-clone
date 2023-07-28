@@ -144,6 +144,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
             <p
               className="text-white"
               dangerouslySetInnerHTML={{ __html: controlLink(data.body) }}
+              
             >
               {}
             </p>
