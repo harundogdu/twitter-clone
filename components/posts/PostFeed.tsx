@@ -171,7 +171,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
             }}
           />
           <div
-            className={`absolute w-72 right-0 top-0 bg-custom-black z-50 ${
+            className={`absolute w-72 right-0 top-0 text-custom-white bg-custom-black z-50 ${
               editPost ? "block shadow-customSecondary rounded-lg" : "hidden"
             }`}
             editPost-data="editPost"
