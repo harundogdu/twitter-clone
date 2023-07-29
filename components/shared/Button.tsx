@@ -40,6 +40,7 @@ interface IButtonProps {
   hoverText?: string;
   large?: boolean;
   btnBlack?: boolean;
+  customWidth?: string;
 }
 
 const Button: FC<IButtonProps> = ({
@@ -69,6 +70,7 @@ const Button: FC<IButtonProps> = ({
   hoverBorderColor = null,
   hoverTextColor = null,
   hoverOpacity = null,
+  customWidth = null,
 }) => {
   const { width } = useWindowSize();
   const [hover, setHover] = useState(false);
@@ -93,7 +95,7 @@ const Button: FC<IButtonProps> = ({
                   (size === "lg" && ButtonUtils.buttonSizes.lgStyle)
                 }
 
-
+                ${customWidth}
                 ${bgColor}
 
                 font-${labelWeight}
