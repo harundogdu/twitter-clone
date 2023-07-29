@@ -1,36 +1,41 @@
 import { useRouter } from "next/router";
-import { FC, useCallback } from "react";
+import React, { FC, useCallback } from "react";
 
 import { RiArrowLeftLine } from "react-icons/ri";
 
 import useUser from "@/hooks/useUser";
+import { fetchData } from "next-auth/client/_utils";
 
 interface IHeaderProps {
   showBackArrow?: boolean;
   label: string;
+  labelUsername?: string;
   isProfilePage?: boolean;
   userName?: string;
+  isFollowPage?: boolean;
 }
 
 const Header: FC<IHeaderProps> = ({
   label,
+  labelUsername,
   showBackArrow = false,
   isProfilePage = false,
   userName,
+  isFollowPage = false,
 }) => {
   const router = useRouter();
   const { data: activeUser } = useUser(userName as string);
 
   const handleBackClick = useCallback(() => {
-    if (Boolean(router.back())) {
-      return router.back();
-    }
-    router.push("/");
+    router.back();
   }, [router]);
 
   return (
     <div
-      className={`flex items-center z-10 border-b border-b-neutral-800 ${
+      className={`flex items-center z-10  ${
+        !isFollowPage ? "border-b border-b-neutral-800" : "border-none"
+      }
+      ${
         isProfilePage ? "p-2 py-0" : "p-4"
       } space-x-2 sticky top-0 backdrop-blur-xl`}
     >
@@ -47,6 +52,11 @@ const Header: FC<IHeaderProps> = ({
           <h3 className="text-sm text-neutral-500">
             {activeUser?.userTwitCount} Tweets
           </h3>
+        ) : null}
+        {isFollowPage ? (
+          <div>
+            <h3 className="text-sm text-neutral-500">@{labelUsername}</h3>
+          </div>
         ) : null}
       </div>
     </div>

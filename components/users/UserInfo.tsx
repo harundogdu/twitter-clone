@@ -1,10 +1,10 @@
 import { FC, useMemo } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { format } from "date-fns";
 import { BsBalloon } from "react-icons/bs";
 import { RiCalendar2Line, RiLink, RiMapPinLine } from "react-icons/ri";
-
-import ColorUtils from "@/base/colors";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useEditModal from "@/hooks/useEditModal";
@@ -12,7 +12,7 @@ import useFollow from "@/hooks/useFollow";
 import useUser from "@/hooks/useUser";
 
 import { controlLink } from "@/utils/helpers";
-import Button from "../shared/Button";
+import Button from "@/components/shared/Button";
 
 interface IUserInfoProps {
   username: string;
@@ -22,6 +22,7 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
   const { data: fetchedUser } = useUser(username);
   const { data: currentUser } = useCurrentUser();
   const { isFollowing, toggleFollow } = useFollow(username);
+  const router = useRouter();
 
   const bioLink = fetchedUser?.bio ? controlLink(fetchedUser.bio) : "";
   const websiteLink = useMemo(() => {
@@ -139,20 +140,24 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
           {fetchedUser?.birthday ? (
             <div className="text-neutral-500 mt-2 flex items-center gap-2 mr-2">
               <BsBalloon size={18} />
-              <p> {birthday}</p>
+              <p>{birthday}</p>
             </div>
           ) : null}
         </div>
 
         <div className="text-white flex gap-4 mt-6">
-          <p className="cursor-pointer">
-            {fetchedUser?.followingIds?.length}{" "}
-            <span className="text-neutral-500">following</span>
-          </p>
-          <p className="cursor-pointer">
-            {fetchedUser?.userFollowCount || 0}{" "}
-            <span className="text-neutral-500">followers</span>
-          </p>
+          <div onClick={() => router.push(`/users/${username}/following`)}>
+            <p className="cursor-pointer hover:underline sm:underline-offset-1 decoration-slate-300">
+              {fetchedUser?.followingIds?.length}{" "}
+              <span className="text-neutral-500">following</span>
+            </p>
+          </div>
+          <div onClick={() => router.push(`/users/${username}/followers`)}>
+            <p className="cursor-pointer hover:underline sm:underline-offset-1 decoration-slate-300">
+              {fetchedUser?.userFollowCount || 0}{" "}
+              <span className="text-neutral-500">followers</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
