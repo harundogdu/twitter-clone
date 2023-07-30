@@ -72,7 +72,7 @@ const SearchBar = () => {
   return (
     
     
-    <div className="pl-2 sticky top-4 z-50 bg-custom-black  ">
+    <div className="pl-2 sticky top-4 z-20 bg-custom-black  ">
       {
         searchbarOn && (
           <div className="fixed top-0 left-0 w-full h-full" onClick={(e) => {handleCloseSearchbar(e)}}/>
@@ -120,7 +120,7 @@ const SearchBar = () => {
         <div className="absolute bg-custom-black top-14 w-full z-10 ">
           {searchResults.length > 0 && searchbarOn && (
             <div
-              className={ searchResults.length>6 ?"shadow-customSecondary rounded-lg max-h-96  overflow-y-scroll scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm":"shadow-customSecondary rounded-lg max-h-96 " }
+              className={ searchResults.length>6 ?"shadow-customSecondary rounded-lg max-h-96  overflow-y-scroll overflow-x-hidden scrollbar-thin  scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded-md scrollbar-track-rounded-sm":"shadow-customSecondary rounded-lg max-h-96 " }
             
             >
               {searchResults.map((user: IUser) => {

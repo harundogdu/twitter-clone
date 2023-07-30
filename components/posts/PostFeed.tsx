@@ -166,13 +166,13 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
             </div>
           </div>
           <RiMoreFill
-            className="absolute right-0 top-0"
+            className="absolute right-0 top-0 text-custom-white"
             onClick={(e) => {
               postEdit(e);
             }}
           />
           <div
-            className={`absolute w-72 right-0 top-0 bg-custom-black z-50 ${
+            className={`absolute w-72 right-0 top-0 text-custom-white bg-custom-black z-50 ${
               editPost ? "block shadow-customSecondary rounded-lg" : "hidden"
             }`}
             editPost-data="editPost"
