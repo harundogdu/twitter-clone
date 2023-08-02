@@ -96,7 +96,7 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
             hoverBorderColor="hover:!border-custom-redHover"
             onClick={toggleFollow}
             size="md"
-            customWidth="w-36"
+            customWidth="!w-32"
           />
         )}
       </div>
