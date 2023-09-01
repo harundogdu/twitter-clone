@@ -68,7 +68,7 @@ const UserHero: FC<IUserHeroProps> = ({ username }) => {
         </Portal>
       )}
 
-      <div className="bg-neutral-700 h-52 relative w-full cursor-pointer">
+      <div className="bg-neutral-700 h-52 relative w-full cursor-pointer ">
         {fetchedUser?.coverImage && (
           <Image
             src={fetchedUser?.coverImage}
