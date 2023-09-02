@@ -101,19 +101,27 @@ const EditModal = () => {
 
   const bodyContent = useMemo(
     () => (
-      <div className="space-y-4">
-        <ImageUpload
-          label="Profile Image"
-          value={userInfo.profileImage}
-          onChange={(image) =>
-            setUserInfo({ ...userInfo, profileImage: image })
-          }
-        />
-        <ImageUpload
-          label="Cover Image"
-          value={userInfo.coverImage}
-          onChange={(image) => setUserInfo({ ...userInfo, coverImage: image })}
-        />
+      <div className="space-y-4 relative">
+        <div className=" mb-11">
+          <div>
+            <ImageUpload
+              label="Cover Image"
+              value={userInfo.coverImage}
+              onChange={(image) =>
+                setUserInfo({ ...userInfo, coverImage: image })
+              }
+            />
+          </div>
+          <div className=" rounded-full flex items-center justify-center absolute w-28 h-28  top-36 l-0">
+            <ImageUpload
+              label="Profile Image"
+              value={userInfo.profileImage}
+              onChange={(image) =>
+                setUserInfo({ ...userInfo, profileImage: image })
+              }
+            />
+          </div>
+        </div>
         <Input
           value={userInfo.name}
           onChange={(event) =>
