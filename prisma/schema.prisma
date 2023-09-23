@@ -27,8 +27,7 @@ model User {
   hasNotification Boolean?
   location        String?
   website         String?
-  birthday        DateTime?  
-
+  birthday        DateTime?
 
   posts         Post[]
   comments      Comment[]
@@ -41,6 +40,7 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    String   @db.ObjectId
+  likedIds  String[] @db.ObjectId
 
   user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   Comment Comment[]
