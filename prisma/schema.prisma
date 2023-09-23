@@ -32,6 +32,7 @@ model User {
 
   posts         Post[]
   comments      Comment[]
+  likes         Like[]
   notifications Notification[]
 }
 
@@ -41,9 +42,10 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    String   @db.ObjectId
-
+  
   user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   Comment Comment[]
+  Like    Like[]
 }
 
 model Comment {
@@ -51,6 +53,16 @@ model Comment {
   body      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userId    String   @db.ObjectId
+  postId    String   @db.ObjectId
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
   userId    String   @db.ObjectId
   postId    String   @db.ObjectId
 

@@ -18,7 +18,7 @@ export interface IUser {
   birthday: Date;
 
   posts: IPost[];
-
+  likes: ILike[];
   comments: IComment[];
   notifications: INotification[];
 }
@@ -32,12 +32,24 @@ export interface IPost {
   userId: string;
 
   comment: IComment[];
+  like: ILike[];
 }
 
 export interface IComment {
   id: string;
   username: string;
   body: string;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
+  postId: string;
+
+  like: ILike[];
+}
+
+export interface ILike {
+  id: string;
+  username: string;
   createdAt: Date;
   updatedAt: Date;
   userId: string;

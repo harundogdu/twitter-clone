@@ -18,6 +18,7 @@ const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
     },
     include: {
       posts: true,
+      likes: true,
       comments: true,
       notifications: true,
     },

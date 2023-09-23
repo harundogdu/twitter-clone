@@ -2,9 +2,6 @@ import { useCallback } from "react";
 
 import { RiMoreFill } from "react-icons/ri";
 
-import ColorUtils from "@/base/colors";
-import SpaceUtils from "@/base/spaces";
-
 import useLoginModal from "@/hooks/useLoginModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useTweetActionModal from "@/hooks/useTweetActionModal";

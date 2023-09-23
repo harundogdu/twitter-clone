@@ -49,21 +49,19 @@ const PostFeeds: FC<IPostFeedsProps> = ({ userId, username }) => {
 
   return (
     <>
-    <div ref={parent}>
-      {Array.isArray(posts) && posts.length > 0 ? (
-        
-        posts.map((post: Record<string, any>) => (
-          <PostFeed key={post.id} username={username!} data={post} />
-        ))
-       
-      ) : (
-        <div className="flex flex-col items-center justify-center w-full h-full mt-8">
-          <p className="text-lg text-neutral-500">
-            {username ? "No posts yet" : "Your followings have no posts yet"}
-          </p>
-        </div>
-      )}
-       </div>
+      <div ref={parent}>
+        {Array.isArray(posts) && posts.length > 0 ? (
+          posts.map((post: Record<string, any>) => (
+            <PostFeed key={post.id} username={username!} data={post} />
+          ))
+        ) : (
+          <div className="flex flex-col items-center justify-center w-full h-full mt-8">
+            <p className="text-lg text-neutral-500">
+              {username ? "No posts yet" : "Your followings have no posts yet"}
+            </p>
+          </div>
+        )}
+      </div>
     </>
   );
 };

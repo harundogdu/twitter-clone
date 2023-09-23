@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
@@ -7,6 +7,7 @@ import {
   RiHeart3Line,
   RiMoreFill,
   RiDeleteBinLine,
+  RiHeart3Fill,
   RiPushpin2Line,
   RiUserUnfollowLine,
   RiEditLine,
@@ -14,23 +15,27 @@ import {
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useLoginModal from "@/hooks/useLoginModal";
+import useLikes from "@/hooks/useLikes";
 
 import { controlLink } from "@/utils/helpers";
 
 import Avatar from "@/components/Avatar";
+import { is } from "date-fns/locale";
+import { set } from "lodash";
 
 interface IPostFeedProps {
   username: string;
   data: Record<string, any>;
 }
 
-const PostFeed: FC<IPostFeedProps> = ({ data }) => {
+const PostFeed: FC<IPostFeedProps> = ({ data, username }) => {
   const [editPost, setEditPost] = useState(false);
   const [pin, setPin] = useState(false);
 
   const loginModal = useLoginModal();
   const router = useRouter();
   const { data: isLoggedIn } = useCurrentUser();
+  const { tempIsLiked, onLike } = useLikes(username, data?.id);
 
   const goToUser = useCallback(
     (event: React.MouseEvent<HTMLHeadingElement>) => {
@@ -53,20 +58,10 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
         router.push(`/posts/${data?.id}`);
       }
     },
-    [data?.id, router, isLoggedIn]
+    [data?.id, router, isLoggedIn, editPost]
   );
 
   const onComment = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      event.stopPropagation();
-      if (!isLoggedIn) {
-        return loginModal.onOpen();
-      }
-    },
-    [isLoggedIn, loginModal]
-  );
-
-  const onLike = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       event.stopPropagation();
       if (!isLoggedIn) {
@@ -93,6 +88,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
         return loginModal.onOpen();
       }
     },
+
     [isLoggedIn, loginModal]
   );
   const closePostEdit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -144,7 +140,6 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
             <p
               className="text-white"
               dangerouslySetInnerHTML={{ __html: controlLink(data.body) }}
-              
             >
               {}
             </p>
@@ -158,10 +153,16 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
               </div>
               <div
                 className="mt-2 flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-red-500"
-                onClick={onLike}
+                onClick={(e) => {
+                  onLike();
+                }}
               >
-                <RiHeart3Line size={18} />
-                <p>{data.Comment.length || 0}</p>
+                {tempIsLiked ? (
+                  <RiHeart3Fill size={18} className="text-red-500" />
+                ) : (
+                  <RiHeart3Line size={18} />
+                )}
+                <p>{data?.Like.length}</p>
               </div>
             </div>
           </div>

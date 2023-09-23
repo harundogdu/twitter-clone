@@ -46,6 +46,7 @@ export default async function handler(
                 },
               },
               Comment: true,
+              Like: true,
             },
             orderBy: {
               createdAt: "desc",
@@ -68,6 +69,7 @@ export default async function handler(
                 },
               },
               Comment: true,
+              Like: true,
             },
             orderBy: {
               createdAt: "desc",
