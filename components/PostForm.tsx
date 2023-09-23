@@ -5,8 +5,6 @@ import { toast } from "react-hot-toast";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-import ColorUtils from "@/base/colors";
-
 import Avatar from "./Avatar";
 import Button from "./shared/Button";
 
@@ -14,22 +12,31 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import useLoginModal from "@/hooks/useLoginModal";
 import usePosts from "@/hooks/usePosts";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import usePost from "@/hooks/usePost";
 
 interface IPostFormProps {
   placeholder: string;
   isComment?: boolean;
   username?: string;
+  postId?: string;
 }
 
-const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
-  const { data: currentUser } = useCurrentUser();
-  const { mutate: mutatePost } = usePosts(username as string);
-
-  const { data: isLoggedIn } = useCurrentUser();
+const PostForm: FC<IPostFormProps> = ({
+  placeholder,
+  isComment,
+  username,
+  postId,
+}) => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+  const { data: currentUser } = useCurrentUser();
+  const { mutate: mutatePosts } = usePosts(username as string);
+  const { mutate: mutatePost } = usePost(postId as string);
+  const { data: isLoggedIn } = useCurrentUser();
 
   const [percentage, setPercentage] = useState(0);
+  const [body, setBody] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleLoginClick = useCallback(() => {
     loginModal.onOpen();
@@ -39,18 +46,18 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
     registerModal.onOpen();
   }, [registerModal]);
 
-  const [body, setBody] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-
   const handleSubmit = useCallback(async () => {
     try {
       setLoading(true);
 
-      await axios.post("/api/posts", { body });
+      const url = isComment ? `/api/comments?postId=${postId}` : `/api/posts`;
+
+      await axios.post(url, { body });
 
       toast.success("Post created!");
 
       setBody("");
+      mutatePosts();
       mutatePost();
     } catch (error: any) {
       console.log(error);
@@ -58,19 +65,7 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
     } finally {
       setLoading(false);
     }
-  }, [body, mutatePost]);
-
-  useEffect(() => {
-    const calculatePercentage = () => {
-      const currentLenght = body.length;
-      const maxLength = 100;
-      const calculatedPercentage = (currentLenght / maxLength) * 100;
-
-      setPercentage(calculatedPercentage);
-    };
-
-    calculatePercentage();
-  }, [body]);
+  }, [body, isComment, mutatePosts, mutatePost, postId]);
 
   const getProgressbarStyle = () => {
     if (body.length > 0 && body.length < 80) {
@@ -106,6 +101,18 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
     }
   };
 
+  useEffect(() => {
+    const calculatePercentage = () => {
+      const currentLength = body.length;
+      const maxLength = 100;
+      const calculatedPercentage = (currentLength / maxLength) * 100;
+
+      setPercentage(calculatedPercentage);
+    };
+
+    calculatePercentage();
+  }, [body]);
+
   return (
     <>
       {!isLoggedIn ? (
@@ -136,7 +143,7 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center p-4 gap-4 border-b border-neutral-800 ">
+        <div className="flex items-center px-4 py-2 gap-4 border-b border-neutral-800 ">
           <div className="self-start mt-2">
             <Avatar username={currentUser?.username} size="medium" />
           </div>
@@ -148,8 +155,18 @@ const PostForm: FC<IPostFormProps> = ({ placeholder, isComment, username }) => {
               onChange={(event) => setBody(event.target.value)}
               maxLength={150}
             ></textarea>
-            <hr className="opacity-0 peer-focus:opacity-100 h-[1px] transition-opacity border-neutral-800 w-full" />
-            <div className="w-full flex justify-end">
+            <hr
+              className="opacity-0 peer-focus:opacity-100 h-[1px] transition-opacity border-neutral-800 w-full"
+              style={{
+                marginTop: 0,
+              }}
+            />
+            <div
+              className="w-full flex justify-end"
+              style={{
+                marginTop: 0,
+              }}
+            >
               <div className="flex items-center px-5 cursor-pointer">
                 {body.length > 0 && body.length < 80 && body.trim() ? (
                   <CircularProgressbar

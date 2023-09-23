@@ -20,7 +20,7 @@ import { controlLink } from "@/utils/helpers";
 import Avatar from "@/components/Avatar";
 
 interface IPostFeedProps {
-  username: string;
+  username?: string;
   data: Record<string, any>;
 }
 
@@ -45,15 +45,12 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
     (event: React.MouseEvent<HTMLDivElement>) => {
       event.stopPropagation();
 
-      if (editPost === false) {
-        return;
-      }
       /* @ts-ignore */
       if (isLoggedIn && event?.target?.id !== "external-url") {
         router.push(`/posts/${data?.id}`);
       }
     },
-    [data?.id, router, isLoggedIn]
+    [isLoggedIn, router, data?.id]
   );
 
   const onComment = useCallback(
@@ -144,7 +141,6 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
             <p
               className="text-white"
               dangerouslySetInnerHTML={{ __html: controlLink(data.body) }}
-              
             >
               {}
             </p>
@@ -161,7 +157,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
                 onClick={onLike}
               >
                 <RiHeart3Line size={18} />
-                <p>{data.Comment.length || 0}</p>
+                <p>{0}</p>
               </div>
             </div>
           </div>
