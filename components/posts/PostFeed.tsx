@@ -5,6 +5,7 @@ import { formatDistanceToNowStrict } from "date-fns";
 import {
   RiChat3Line,
   RiHeart3Line,
+  RiHeart3Fill,
   RiMoreFill,
   RiDeleteBinLine,
   RiPushpin2Line,
@@ -18,6 +19,7 @@ import useLoginModal from "@/hooks/useLoginModal";
 import { controlLink } from "@/utils/helpers";
 
 import Avatar from "@/components/Avatar";
+import useLikes from "@/hooks/useLikes";
 
 interface IPostFeedProps {
   username?: string;
@@ -31,6 +33,10 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
   const loginModal = useLoginModal();
   const router = useRouter();
   const { data: isLoggedIn } = useCurrentUser();
+  const { hasLiked, toggleLike } = useLikes({
+    postId: data.id,
+    userId: isLoggedIn?.id,
+  });
 
   const goToUser = useCallback(
     (event: React.MouseEvent<HTMLHeadingElement>) => {
@@ -69,8 +75,10 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
       if (!isLoggedIn) {
         return loginModal.onOpen();
       }
+
+      toggleLike();
     },
-    [isLoggedIn, loginModal]
+    [isLoggedIn, loginModal, toggleLike]
   );
 
   const postEdit = useCallback(
@@ -106,6 +114,8 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
 
     return formatDistanceToNowStrict(new Date(data.createdAt));
   }, [data?.createdAt]);
+
+  const LikeIcon = hasLiked ? RiHeart3Fill : RiHeart3Line;
 
   return (
     <>
@@ -156,8 +166,12 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
                 className="mt-2 flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-red-500"
                 onClick={onLike}
               >
-                <RiHeart3Line size={18} />
-                <p>{0}</p>
+                <LikeIcon
+                  size={18}
+                  color={hasLiked ? "#EE1D52" : ""}
+                  opacity={0.8}
+                />
+                <p>{data.likedIds.length}</p>
               </div>
             </div>
           </div>
