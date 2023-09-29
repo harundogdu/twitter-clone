@@ -29,7 +29,7 @@ export default async function handler(
       throw new Error("Invalid request");
     }
 
-    let updatedLikes = [...(post.likedIds || [])];
+    let updatedLikes = [...(post?.likedIds || [])];
     if (updatedLikes.includes(currentUser.id)) {
       updatedLikes = updatedLikes.filter((id) => id !== currentUser.id);
     } else {
