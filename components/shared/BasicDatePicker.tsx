@@ -17,9 +17,6 @@ const BasicDatePicker: FC<IDatepickerProps> = ({
   onChange = () => {},
   defaultValue = null,
 }) => {
-  /*  
-  TODO:: @HD
-console.log("hd", defaultValue ? dayjs(defaultValue) : null); */
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
