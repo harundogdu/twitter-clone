@@ -18,6 +18,7 @@ const SidebarItems: ISidebarType[] = [
     href: "/",
     icon: RiHome7Fill,
     public: true,
+    active: true,
   },
   {
     label: "Explore",
@@ -25,30 +26,35 @@ const SidebarItems: ISidebarType[] = [
     icon: RiHashtag,
     secondaryIcon: RiSearchLine,
     public: true,
+    active: false,
   },
   {
     label: "Notifications",
     href: "/notifications",
     icon: RiNotification3Line,
     public: false,
+    active: true,
   },
   {
     label: "Messages",
     href: "/messages",
     icon: RiMailLine,
     public: false,
+    active: false,
   },
   {
     label: "Bookmarks",
     href: "/bookmarks",
     icon: RiBookmarkLine,
     public: false,
+    active: false,
   },
   {
     label: "Profile",
     href: "/users/",
     icon: RiUserLine,
     public: false,
+    active: true,
   },
   {
     label: "Logout",
@@ -56,12 +62,14 @@ const SidebarItems: ISidebarType[] = [
     icon: RiLogoutBoxLine,
     public: false,
     onClick: signOut,
+    active: true,
   },
   {
     label: "More",
     href: "/more",
     icon: CiCircleMore,
     public: true,
+    active: false,
   },
 ];
 

@@ -95,22 +95,22 @@ const RegisterModal = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const { data } = await axios.get(`/api/register/${username}`);
-
-        const isUsernameExist = data.some(
-          (user: { username: string }) => user.username === username
-        );
-
-        if (data && username === data) {
-          setUsernameError(true);
-        } else {
-          setUsernameError(false);
-        }
-      } catch (err: any) {
-        console.error("Data fetch error", err);
-      }
       if (registerModal.isOpen) {
+        try {
+          const { data } = await axios.get(`/api/register/${username}`);
+
+          const isUsernameExist = data.some(
+            (user: { username: string }) => user.username === username
+          );
+
+          if (data && username === data) {
+            setUsernameError(true);
+          } else {
+            setUsernameError(false);
+          }
+        } catch (err: any) {
+          console.error("Data fetch error", err);
+        }
         window.history.pushState(null, "", "/register");
       } else {
         window.history.pushState(null, "", "/");

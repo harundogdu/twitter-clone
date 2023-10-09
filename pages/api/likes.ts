@@ -29,11 +29,39 @@ export default async function handler(
       throw new Error("Invalid request");
     }
 
-    let updatedLikes = [...(post.likedIds || [])];
+    let updatedLikes = [...(post?.likedIds || [])];
     if (updatedLikes.includes(currentUser.id)) {
       updatedLikes = updatedLikes.filter((id) => id !== currentUser.id);
     } else {
       updatedLikes.push(currentUser.id);
+
+      try {
+        const post = await prisma.post.findUnique({
+          where: {
+            id: postId,
+          },
+        });
+
+        if (post?.userId) {
+          await prisma.notification.create({
+            data: {
+              body: "Someone liked your post",
+              userId: post.userId,
+            },
+          });
+
+          await prisma.user.update({
+            where: {
+              id: post.userId,
+            },
+            data: {
+              hasNotification: true,
+            },
+          });
+        }
+      } catch (error: any) {
+        console.log(error);
+      }
     }
 
     const updatedPost = await prisma.post.update({

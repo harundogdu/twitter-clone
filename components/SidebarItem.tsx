@@ -1,8 +1,11 @@
 import { FC, useCallback } from "react";
 import { useRouter } from "next/router";
 
-import useWindowSize from "@/hooks/useWindowSize";
+import { BsDot } from "react-icons/bs";
+
 import { ISidebarType } from "@/types/sidebar.type";
+
+import useWindowSize from "@/hooks/useWindowSize";
 import useLoginModal from "@/hooks/useLoginModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
 
@@ -13,6 +16,7 @@ const SidebarItem: FC<ISidebarType> = ({
   icon: Icon,
   secondaryIcon: SecondaryIcon,
   public: isPublic,
+  alert,
 }) => {
   const { width } = useWindowSize();
   const router = useRouter();
@@ -49,12 +53,22 @@ const SidebarItem: FC<ISidebarType> = ({
       SecondaryIcon ? (
         <SecondaryIcon size={28} color="#fff" />
       ) : (
-        <Icon size={28} color="#fff" />
+        <>
+          <Icon size={28} color="#fff" />
+          {alert ? (
+            <BsDot size={70} className="text-sky-500 absolute -top-4 left-0" />
+          ) : null}
+        </>
       )
     ) : (
-      <Icon size={28} color="#fff" />
+      <>
+        <Icon size={28} color="#fff" />
+        {alert ? (
+          <BsDot size={70} className="text-sky-500 absolute -top-4 left-0" />
+        ) : null}
+      </>
     );
-  }, [width, SecondaryIcon, Icon]);
+  }, [width, SecondaryIcon, Icon, alert]);
 
   return (
     <div
@@ -66,6 +80,9 @@ const SidebarItem: FC<ISidebarType> = ({
       </div>
       <div className="relative hidden lg:flex items-center rounded-full cursor-pointer hover:bg-neutral-800 hover:bg-opacity-70 gap-4 p-4">
         <Icon size={28} color="#fff" />
+        {alert ? (
+          <BsDot size={70} className="text-sky-500 absolute -top-4 left-0" />
+        ) : null}
         <span className="text-white text-lg hidden lg:block">{label}</span>
       </div>
     </div>

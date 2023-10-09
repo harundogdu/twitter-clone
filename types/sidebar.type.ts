@@ -7,4 +7,6 @@ export interface ISidebarType {
   secondaryIcon?: IconType;
   onClick?: () => void;
   public?: boolean;
+  alert?: boolean;
+  active?: boolean;
 }
