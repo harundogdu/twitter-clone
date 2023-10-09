@@ -102,7 +102,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
   );
   const closePostEdit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.target as HTMLElement;
-    const attributeValue = target.getAttribute("editPost-data");
+    const attributeValue = target.getAttribute("editpost-data");
     if (attributeValue === "editPost") return;
     setEditPost(false);
   };
@@ -185,7 +185,7 @@ const PostFeed: FC<IPostFeedProps> = ({ data }) => {
             className={`absolute w-72 right-0 top-0 text-custom-white bg-custom-black z-50 ${
               editPost ? "block shadow-customSecondary rounded-lg" : "hidden"
             }`}
-            editPost-data="editPost"
+            editpost-data="editPost"
           >
             {isLoggedIn && data?.user?.username === isLoggedIn?.username && (
               <>
