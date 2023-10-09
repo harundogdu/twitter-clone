@@ -1,13 +1,15 @@
 import { useCallback, useMemo } from "react";
-import useCurrentUser from "./useCurrentUser";
-import usePost from "./usePost";
-import useLoginModal from "./useLoginModal";
+
 import axios from "axios";
-import usePosts from "./usePosts";
 import toast from "react-hot-toast";
 
+import useCurrentUser from "./useCurrentUser";
+import useLoginModal from "./useLoginModal";
+import usePost from "./usePost";
+import usePosts from "./usePosts";
+
 const useLikes = ({ postId, userId }: { postId: string; userId: string }) => {
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser, mutate: mutateUser } = useCurrentUser();
   const { data: fetchedPost, mutate: mutatePost } = usePost(postId);
   const { mutate: mutatePosts } = usePosts();
   const loginModal = useLoginModal();
@@ -35,13 +37,22 @@ const useLikes = ({ postId, userId }: { postId: string; userId: string }) => {
       await request();
       mutatePost();
       mutatePosts();
+      mutateUser();
 
       toast.success("Success");
     } catch (error: any) {
       console.log(error);
       toast.error("Failed");
     }
-  }, [currentUser, hasLiked, loginModal, mutatePost, mutatePosts, postId]);
+  }, [
+    currentUser,
+    hasLiked,
+    loginModal,
+    mutatePost,
+    mutatePosts,
+    postId,
+    mutateUser,
+  ]);
 
   return {
     hasLiked,
