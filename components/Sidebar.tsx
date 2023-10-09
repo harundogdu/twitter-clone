@@ -1,9 +1,7 @@
 import { useCallback } from "react";
+import { useRouter } from "next/router";
 
 import { RiMoreFill } from "react-icons/ri";
-
-import ColorUtils from "@/base/colors";
-import SpaceUtils from "@/base/spaces";
 
 import useLoginModal from "@/hooks/useLoginModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
@@ -14,7 +12,6 @@ import SidebarItem from "@/components/SidebarItem";
 import Button from "@/components/shared/Button";
 
 import { SidebarItems } from "@/utils/@fake.db";
-import { useRouter } from "next/router";
 
 import Avatar from "./Avatar";
 
@@ -35,7 +32,17 @@ const Sidebar = () => {
   const RenderSidebarItems = useCallback(() => {
     const sideBarItems = currentUser?.email
       ? [...SidebarItems]
-      : [...SidebarItems].filter((item) => item.public);
+          .filter((item) => item.active)
+          .filter((item) => {
+            if (item.href === "/notifications") {
+              item.alert = currentUser?.hasNotification;
+            }
+            return item;
+          })
+      : [...SidebarItems]
+          .filter((item) => item.active)
+          .filter((item) => item.public);
+
     return (
       <div className="space-y-1">
         {sideBarItems.map((item, index) => (
@@ -46,11 +53,12 @@ const Sidebar = () => {
             href={item.href}
             onClick={item.onClick}
             key={index}
+            alert={item?.alert}
           />
         ))}
       </div>
     );
-  }, [currentUser?.email]);
+  }, [currentUser?.email, currentUser?.hasNotification]);
   return (
     <div className="mt-[0.875rem] px-1 h-full col-span-1 sm:px-4 md:px-6 flex items-start justify-center">
       <div className="absolute flex flex-col items-center md:items-start h-full">
