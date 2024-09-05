@@ -35,6 +35,7 @@ export default async function handler(
           },
         },
         select: {
+          id: true,
           name: true,
           username: true,
           bio: true,
@@ -49,6 +50,7 @@ export default async function handler(
           },
         },
         select: {
+          id: true,
           name: true,
           username: true,
           bio: true,
