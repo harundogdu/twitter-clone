@@ -21,7 +21,7 @@ interface IUserInfoProps {
 const UserInfo: FC<IUserInfoProps> = ({ username }) => {
   const { data: fetchedUser } = useUser(username);
   const { data: currentUser } = useCurrentUser();
-  const { isFollowing, toggleFollow } = useFollow(username);
+  const { userFollowingList, toggleFollow } = useFollow(username);
   const router = useRouter();
 
   const bioLink = fetchedUser?.bio ? controlLink(fetchedUser.bio) : "";
@@ -64,6 +64,10 @@ const UserInfo: FC<IUserInfoProps> = ({ username }) => {
 
     return format(new Date(fetchedUser?.birthday), "dd MMMM yyyy");
   }, [fetchedUser?.birthday]);
+
+  const isFollowing = useMemo(() => {
+    return userFollowingList.includes(fetchedUser.id);
+  }, [userFollowingList, fetchedUser]);
 
   return (
     <div className="border-neutral-800 border-b pb-4">

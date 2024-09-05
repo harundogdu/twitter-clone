@@ -144,13 +144,15 @@ const RegisterModal = () => {
         value={username}
         onChange={(e) => setUserName(e.target.value)}
       />
-      {username.length > 0 ? (
+      {/*
+       TODO: Api ile kontrol edilmeli
+       {username.length > 0 ? (
         <p style={{ color: ColorUtils.colors.red }}>
           Username has to be different
         </p>
       ) : (
         ""
-      )}
+      )} */}
       <Input
         type="password"
         placeholder="Enter ur password"
@@ -192,7 +194,7 @@ const RegisterModal = () => {
       title="Create an account"
       body={bodyContent}
       footer={footerContent}
-      disabled={inputControl()}
+      disabled
     />
   );
 };
