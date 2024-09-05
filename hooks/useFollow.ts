@@ -13,10 +13,9 @@ const useFollow = (userName: string) => {
 
   const loginModal = useLoginModal();
 
-  const isFollowing = useMemo(() => {
-    const list = currentUser?.followingIds || [];
-    return list.includes(fetchedUser?.id || "");
-  }, [currentUser, fetchedUser]);
+  const userFollowingList = useMemo(() => {
+    return currentUser?.followingIds || [];
+  }, [currentUser?.followingIds]);
 
   const toggleFollow = useCallback(async () => {
     if (!currentUser) {
@@ -27,7 +26,7 @@ const useFollow = (userName: string) => {
     try {
       let request;
 
-      if (isFollowing) {
+      if (userFollowingList) {
         request = () =>
           axios.delete(`/api/follow`, {
             data: {
@@ -52,14 +51,14 @@ const useFollow = (userName: string) => {
   }, [
     currentUser,
     fetchedUser?.username,
-    isFollowing,
+    userFollowingList,
     loginModal,
     mutateCurrentUser,
     mutateFetchedUser,
   ]);
 
   return {
-    isFollowing,
+    userFollowingList,
     toggleFollow,
   };
 };
