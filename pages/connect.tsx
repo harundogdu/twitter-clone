@@ -1,4 +1,4 @@
-import { FC, useCallback } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
 
 import { IUser } from "@/types/user.type";
@@ -20,8 +20,8 @@ interface IHeaderProps {
 
 const Connect: FC<IHeaderProps> = ({ showBackArrow = false, username }) => {
   const { data: allUsers = [] } = useUsers();
+  const { userFollowingList, toggleFollow } = useFollow(username);
   const router = useRouter();
-  const { isFollowing, toggleFollow } = useFollow(username);
 
   const handleBackClick = useCallback(() => {
     const referrer = document.referrer;
@@ -50,6 +50,8 @@ const Connect: FC<IHeaderProps> = ({ showBackArrow = false, username }) => {
           Su<span className="font-serif font-extrabold">gg</span>ested for you
         </h1>
         {allUsers.map((user: IUser) => {
+          const isFollowing = userFollowingList.includes(user.id);
+
           return (
             <div
               key={user.id}

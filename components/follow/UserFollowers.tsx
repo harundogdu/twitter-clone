@@ -21,13 +21,14 @@ const UserFollowers: FC<IFollowersUser> = ({ username }) => {
   const router = useRouter();
   const { data: userDetails } = useFollowingDetails(username);
   const { data: isLoggedIn } = useCurrentUser();
-  const { isFollowing, toggleFollow } = useFollow(username);
+  const { userFollowingList, toggleFollow } = useFollow(username);
 
   return (
     <>
       {userDetails?.followers.length > 0 ? (
         userDetails.followers.map((user: any) => {
           const isCurrentUser = isLoggedIn.username === user.username;
+          const isFollowing = userFollowingList.includes(user.id);
           return (
             <div
               key={user.id}
